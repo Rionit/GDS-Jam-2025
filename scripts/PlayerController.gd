@@ -3,8 +3,18 @@ extends Node2D
 ## Controls player movement and combat
 class_name PlayerController
 
-## Player movement dampening multiplier
-const DAMPENING_FACTOR = 0.995
+## Player movement dampening multiplier if the player is moving
+@export_range(0.90, 0.99)
+var dampeningFactorMoving = 0.99
+
+## Player movement dampening multiplier if the player is not moving
+@export_range(0.90,0.99)
+var dampeningFactorStationary = 0.96
+
+## Should the movement be damped more if the character moves in a
+## direction opposite to what the player is pressing ?
+@export
+var dampOppositeDirection = false
 
 ## Minimum squared velocity size for the player to animate walking
 const MIN_SPEED_SQUARED = 2500
@@ -20,10 +30,8 @@ var sprite : Sprite2D
 @export
 var walkingAnim : AnimationPlayer
 
-
 ## Whether the player walking animation is currently playing or not
 var playingWalk = false
-
 
 ## Enum for mapping movement keys
 enum KEY { LEFT, RIGHT, UP, DOWN}
@@ -38,7 +46,6 @@ var pressedMoveKeys : Array[KEY]
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pressedMoveKeys = []
-	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -73,33 +80,38 @@ func _process_movement(delta : float):
 	for key in pressedMoveKeys:
 		if !processedHorizontal && key <= KEY.RIGHT:
 			if key == KEY.LEFT:
-				velocity.x -= delta * 1000
+				velocity.x = -1
 			elif key == KEY.RIGHT:
-				velocity.x += delta * 1000
+				velocity.x = 1
 			
 			processedHorizontal = true
 			continue
 		if !processedVertical && key >= KEY.UP:
 			if key == KEY.UP:
-				velocity.y -= delta * 1000
+				velocity.y = -1
 			elif key == KEY.DOWN:
-				velocity.y += delta * 1000
+				velocity.y = 1
 			processedVertical = true
 			continue
 		if processedHorizontal && processedVertical:
 			break
+	velocity = velocity.normalized() * delta * 1300
 	body.velocity += velocity
-	body.velocity *= DAMPENING_FACTOR
 	
+	if velocity == Vector2.ZERO || \
+	 (dampOppositeDirection && velocity.dot(body.velocity) < 0) :
+		body.velocity *= dampeningFactorStationary
+	else:
+		body.velocity *= dampeningFactorMoving
 	
 	var speedSquared = body.velocity.length_squared()
 	
 	if playingWalk && speedSquared < MIN_SPEED_SQUARED:
 		playingWalk = false
 		walkingAnim.stop()
-			
+		
 	elif !playingWalk && speedSquared >= MIN_SPEED_SQUARED:
 		print("Playing anim")
 		playingWalk = true
 		walkingAnim.play("WalkingAnim")
-	sprite.flip_h = body.velocity.x >= 0
+	sprite.flip_h = velocity.x >= 0
