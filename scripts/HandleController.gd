@@ -16,7 +16,7 @@ var handles : Array[Texture] = [HANDLE_1, HANDLE_2, HANDLE_3, HANDLE_4]
 var current_handle := 0
 
 ## How far the user must drag down to reach the next texture
-var step_distance := 40.0
+var step_distance := 100.0
 
 func _ready() -> void:
 	handle_pulled.connect(PerkMachine.spin_machine)
