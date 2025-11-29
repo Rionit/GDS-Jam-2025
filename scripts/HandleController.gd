@@ -20,6 +20,7 @@ var step_distance := 100.0
 
 func _ready() -> void:
 	handle_pulled.connect(PerkMachine.spin_machine)
+	PerkMachine.manually_spinned.connect(animate_handle)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("shoot") and mouse_over:
@@ -59,3 +60,14 @@ func _on_mouse_entered() -> void:
 
 func _on_mouse_exited() -> void:
 	mouse_over = false
+
+func animate_handle():
+	for i in range(handles.size()):
+		handle.texture = handles[i]
+		await get_tree().create_timer(0.1).timeout
+	
+	for i in range(handles.size()):
+		handle.texture = handles[handles.size()-i-1]
+		await get_tree().create_timer(0.1).timeout
+	
+	
