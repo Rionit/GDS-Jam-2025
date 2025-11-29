@@ -37,7 +37,7 @@ var all_perks: Array[Perk] = [
 
 var is_hidden : bool = true
 
-@onready var icon_spinner_1: IconSpinner = %IconSpinner
+@onready var icon_spinner_1: IconSpinner = %IconSpinner1
 @onready var icon_spinner_2: IconSpinner = %IconSpinner2
 @onready var icon_spinner_3: IconSpinner = %IconSpinner3
 
@@ -46,12 +46,7 @@ func _ready() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_accept"):
-		icon_spinner_1.cycles = 9
-		icon_spinner_1.spin()
-		icon_spinner_2.cycles = 12
-		icon_spinner_2.spin()
-		icon_spinner_3.cycles = 15
-		icon_spinner_3.spin()
+		spin_machine()
 	
 	if event.is_action_pressed("debug"):
 		if is_hidden:
@@ -59,6 +54,14 @@ func _unhandled_input(event: InputEvent) -> void:
 		else:
 			hide()
 		is_hidden = !is_hidden
+
+func spin_machine():
+	icon_spinner_1.cycles = 9
+	icon_spinner_1.spin()
+	icon_spinner_2.cycles = 12
+	icon_spinner_2.spin()
+	icon_spinner_3.cycles = 15
+	icon_spinner_3.spin()
 
 func get_final_perk() -> Perk:
 	return all_perks.pick_random()

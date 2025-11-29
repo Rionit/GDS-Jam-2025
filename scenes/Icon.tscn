@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bowvk5pwsvc8i"]
+
+[ext_resource type="Texture2D" uid="uid://c7ive2fj6w8d7" path="res://icon.svg" id="1_wei4n"]
+[ext_resource type="Script" uid="uid://dq026oovgyr6t" path="res://scripts/Icon.gd" id="2_xm2bd"]
+
+[node name="Icon1" type="TextureRect"]
+custom_minimum_size = Vector2(150, 150)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -158.0
+offset_bottom = -158.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_wei4n")
+expand_mode = 1
+script = ExtResource("2_xm2bd")

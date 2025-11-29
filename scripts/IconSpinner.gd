@@ -5,10 +5,10 @@ class_name IconSpinner
 @onready var icon_2: Icon = $Icon2
 @onready var icon_3: Icon = $Icon3
 
-@onready var rich_text_label: RichTextLabel = $"../RichTextLabel"
+@export var rich_text_label: RichTextLabel
 
  ## vertical offset between the three icons
-@export var offset := 30
+@export var offset := 15
 @export var spin_speed := 2000.0
 ## How many full wraps before stopping, has to be 3,6,9,12,...
 @export var cycles := 9    
@@ -31,6 +31,9 @@ func _ready() -> void:
 	icon_1.position.y = -icon_height
 	icon_2.position.y = 0
 	icon_3.position.y = icon_height
+	
+	rich_text_label.modulate.a = 0.0
+	
 
 ## Starts spinning [param cycles] amount of times
 func spin():
