@@ -46,10 +46,11 @@ _data = {
 &"WalkingAnim": SubResource("Animation_dqkch")
 }
 
-[node name="Player" type="Node2D" node_paths=PackedStringArray("body", "sprite")]
+[node name="Player" type="Node2D" node_paths=PackedStringArray("body", "sprite", "walkingAnim")]
 script = ExtResource("1_3li8b")
 body = NodePath("PlayerBody")
 sprite = NodePath("PlayerBody/PlayerSprite")
+walkingAnim = NodePath("AnimationPlayer")
 
 [node name="PlayerBody" type="CharacterBody2D" parent="."]
 position = Vector2(-4, -8)

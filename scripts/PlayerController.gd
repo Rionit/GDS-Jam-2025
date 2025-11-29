@@ -3,23 +3,42 @@ extends Node2D
 ## Controls player movement and combat
 class_name PlayerController
 
+## Player movement dampening multiplier
+const DAMPENING_FACTOR = 0.995
+
+## Minimum squared velocity size for the player to animate walking
+const MIN_SPEED_SQUARED = 2500
+
+## Player's CharacterBody
 @export
 var body : CharacterBody2D
 
+## Player's sprite
 @export
 var sprite : Sprite2D
 
+@export
+var walkingAnim : AnimationPlayer
+
+
+## Whether the player walking animation is currently playing or not
+var playingWalk = false
+
+
+## Enum for mapping movement keys
 enum KEY { LEFT, RIGHT, UP, DOWN}
 
-var pressedMoveKeys : Array[KEY]
-
+## Names of the input actions, sorted corresponding to KEY enum
 var moveActions = ["left", "right", "up", "down"]
+
+## Array of currently pressed movement keys, sorted chronologically
+## (longest pushed buttons first)
+var pressedMoveKeys : Array[KEY]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pressedMoveKeys = []
 	pass # Replace with function body.
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -50,19 +69,37 @@ func _process_movement(delta : float):
 	var processedVertical = false
 	
 	var velocity = Vector2.ZERO
+	
 	for key in pressedMoveKeys:
-		if !processedHorizontal:
+		if !processedHorizontal && key <= KEY.RIGHT:
 			if key == KEY.LEFT:
-				velocity.x = -delta * 1000
+				velocity.x -= delta * 1000
 			elif key == KEY.RIGHT:
-				velocity.x = delta * 1000
+				velocity.x += delta * 1000
+			
 			processedHorizontal = true
-		if !processedVertical:
+			continue
+		if !processedVertical && key >= KEY.UP:
 			if key == KEY.UP:
 				velocity.y -= delta * 1000
 			elif key == KEY.DOWN:
 				velocity.y += delta * 1000
 			processedVertical = true
+			continue
+		if processedHorizontal && processedVertical:
+			break
 	body.velocity += velocity
+	body.velocity *= DAMPENING_FACTOR
 	
+	
+	var speedSquared = body.velocity.length_squared()
+	
+	if playingWalk && speedSquared < MIN_SPEED_SQUARED:
+		playingWalk = false
+		walkingAnim.stop()
+			
+	elif !playingWalk && speedSquared >= MIN_SPEED_SQUARED:
+		print("Playing anim")
+		playingWalk = true
+		walkingAnim.play("WalkingAnim")
 	sprite.flip_h = body.velocity.x >= 0
