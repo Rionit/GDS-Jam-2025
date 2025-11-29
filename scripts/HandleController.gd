@@ -23,11 +23,11 @@ func _ready() -> void:
 	PerkMachine.manually_spinned.connect(animate_handle)
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("shoot") and mouse_over:
+	if event.is_action_pressed("attack") and mouse_over:
 		mouse_down = true
 		mouse_start_position = get_global_mouse_position()
 
-	if event.is_action_released("shoot"):
+	if event.is_action_released("attack"):
 		mouse_down = false
 		for i in range(current_handle):
 			handle.texture = handles[current_handle - i - 1]
