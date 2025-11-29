@@ -206,6 +206,8 @@ func _dash(dir : Vector2):
 	dashAnim.length = dashDuration
 	dashAnim.track_set_key_time(0, 1, dashDuration)
 	playingWalk=false
+	
+	var currentVelocity = body.velocity
 	animPlayer.play("DashAnim")
 	body.velocity = dir * dashSpeed * dampeningFactorMoving
 	
@@ -299,7 +301,6 @@ func _punch():
 	playingWalk = false
 	playingPunch = true
 	
-	print("PUNGING")
 	punchSprite.visible = true
 	
 	var punchAnim = animPlayer.get_animation("PunchAnim")

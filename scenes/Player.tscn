@@ -184,7 +184,7 @@ punchTimer = NodePath("PunchTimer")
 [node name="PlayerBody" type="CharacterBody2D" parent="."]
 motion_mode = 1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerBody"]
+[node name="PhysicalHitbox" type="CollisionShape2D" parent="PlayerBody"]
 position = Vector2(4, 80)
 scale = Vector2(1.6207087, 1.0434494)
 shape = SubResource("CircleShape2D_3li8b")
@@ -218,6 +218,8 @@ shape = SubResource("RectangleShape2D_khinc")
 modulate = Color(1, 1, 1, 0)
 position = Vector2(-41, -4)
 texture = ExtResource("4_khinc")
+
+[node name="Area2D" type="Area2D" parent="PlayerBody"]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
