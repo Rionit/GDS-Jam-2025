@@ -3,6 +3,13 @@ extends Node2D
 ## Controls player movement and combat
 class_name PlayerController
 
+@export_group("COMMON")
+@export
+var animPlayer : AnimationPlayer
+
+### MOVEMENT
+@export_group("MOVEMENT")
+
 ## Player movement dampening multiplier if the player is moving
 @export_range(0.90, 0.99)
 var dampeningFactorMoving = 0.95
@@ -25,17 +32,18 @@ var dashDuration = 0.3
 
 ## Duration after dash during which the player can't move
 @export_range(0,2)
-var dashMoveCooldown = 0.6
+var dashMoveCooldown = 0.35
 
 ## Duration after dash during which the player can't use another dash
 @export_range(0,30)
-var dashCooldown = 10
+var dashCooldown = 2
 
 ## Should the movement be damped more if the character moves in a
 ## direction opposite to what the player is pressing ?
 @export
 var dampOppositeDirection = false
 
+## Default (local) X position of the dash VFX
 @onready
 var defaultDashSpriteX = dashVFX.position.x
 
@@ -43,7 +51,7 @@ var defaultDashSpriteX = dashVFX.position.x
 var dashVFXAnimDistance = 20
 
 ## Minimum squared velocity size for the player to animate walking
-const MIN_SPEED_SQUARED = 5
+const MIN_SPEED_SQUARED = 2
 
 ## Player's CharacterBody
 @export
@@ -54,14 +62,11 @@ var body : CharacterBody2D
 var sprite : Sprite2D
 
 @export
-var walkingAnim : AnimationPlayer
-
-@export
 var dashTimer : Timer
 
+## Dash VFX sprite
 @export
 var dashVFX : Sprite2D
-
 
 ## Whether the player walking animation is currently playing or not
 var playingWalk = false
@@ -85,6 +90,39 @@ var canMove = true
 ## Damping used after the player has dashed
 var afterDashDamp = false
 
+@export_group("COMBAT")
+signal OnBalding(baldness : int)
+
+## Player's maximum sanity
+@export
+var maxSanity = 100
+
+## Player's sanity loss
+@export
+var sanityLoss = 10
+
+@onready
+var currentSanity = maxSanity
+
+@export
+var playerDamage = 10
+
+var baldness = 0
+
+## Punch VFX sprite
+@export
+var punchSprite : Sprite2D
+
+## Fist punch hitbox
+@export
+var fistHitbox : StaticBody2D
+
+@export_range(0.1, 5)
+var punchCooldown = 0.5
+
+@export_range(0.1, 2)
+var punchDuration
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pressedMoveKeys = []
@@ -94,8 +132,9 @@ func _physics_process(delta: float) -> void:
 	if canMove:
 		_process_movement()
 	if afterDashDamp:
-		body.velocity *= dampeningFactorStationary
+		body.velocity *= dampeningFactorMoving
 	body.move_and_slide()
+
 ## Registers pressed keys
 func _register_keys():
 	_register_move_keys()
@@ -112,7 +151,7 @@ func _register_move_keys():
 		elif index != -1:
 			pressedMoveKeys.remove_at(index)
 
-
+## Tweens the dash VFX animation
 func _tweenDashVFX(dir : Vector2):
 	# Dash VFX is on the LEFT if the player 
 	# is moving to the RIGHT
@@ -134,16 +173,18 @@ func _tweenDashVFX(dir : Vector2):
 	VFXTween.parallel().tween_property(newDash,"modulate:a", 0, 0.4)
 	VFXTween.tween_callback(newDash.queue_free)
 
+## Dashes to the predefined direction
 func _dash(dir : Vector2):
 	canMove = false
 	canDash = false
 	
-	walkingAnim.stop()
+	animPlayer.stop()
 	_tweenDashVFX(dir)
-	var dashAnim = walkingAnim.get_animation("DashAnim")
+	var dashAnim = animPlayer.get_animation("DashAnim")
 	dashAnim.length = dashDuration
 	dashAnim.track_set_key_time(0, 1, dashDuration)
-	walkingAnim.play("DashAnim")
+	playingWalk=false
+	animPlayer.play("DashAnim")
 	body.velocity = dir * dashSpeed * dampeningFactorMoving
 	
 	dashTimer.wait_time = dashDuration
@@ -151,14 +192,17 @@ func _dash(dir : Vector2):
 	
 	await dashTimer.timeout
 	afterDashDamp = true
-	
 	dashTimer.wait_time = dashMoveCooldown - dashDuration
+	print("Dash move cooldown " + str(dashMoveCooldown) + "; Dash duration: " + str(dashDuration))
+	print("Second timer time: " + str(dashTimer.wait_time))
 	dashTimer.start()
 	
 	await dashTimer.timeout
 	afterDashDamp = false
 	canMove = true
 	dashTimer.wait_time = dashCooldown - dashMoveCooldown - dashDuration
+	
+	dashTimer.start()
 	await dashTimer.timeout
 	canDash = true
 	
@@ -188,7 +232,6 @@ func _process_movement():
 		if processedHorizontal && processedVertical:
 			break
 	velocity = velocity.normalized() * moveSpeed
-	
 
 	body.velocity += velocity
 	
@@ -202,14 +245,20 @@ func _process_movement():
 	
 	if playingWalk && speedSquared < MIN_SPEED_SQUARED:
 		playingWalk = false
-		walkingAnim.play("IdleAnim")
+		animPlayer.stop()
+		animPlayer.play("IdleAnim")
 	elif !playingWalk && speedSquared >= MIN_SPEED_SQUARED:
 		print("Playing anim")
 		playingWalk = true
-		walkingAnim.play("WalkingAnim")
+		animPlayer.stop()
+		animPlayer.play("animPlayer")
 	sprite.flip_h = velocity.x >= 0
 	
 	if canDash && Input.is_action_pressed("dash"):
 		_dash(velocity.normalized())
 		return
+
+func _punch():
+	var dir = 1 if sprite.flip_h else -1
+	
 	
