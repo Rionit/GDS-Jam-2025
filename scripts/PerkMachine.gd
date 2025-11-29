@@ -2,6 +2,12 @@ extends Control
 
 signal manually_spinned
 
+
+const HEAD_1 = preload("uid://cvgl2r36o4ouv")
+const HEAD_2 = preload("uid://d4iktmothva75")
+const HEAD_3 = preload("uid://b7fh3upa4leob")
+const HEAD_4 = preload("uid://c1y0dkkyjruig")
+
 const B_ENEMY_COOLDOWN : Perk = preload("uid://hehmmh3njgau")
 const B_ENEMY_HEALTH : Perk = preload("uid://dv07j32e8p6e1")
 const B_ENEMY_MOVEMENT : Perk = preload("uid://cgusafvcn5lhy")
@@ -38,6 +44,7 @@ var all_perks: Array[Perk] = [
 ]
 
 var is_hidden : bool = true
+var current_baldness := 4
 
 ## How long until first perk stops spinning
 @export_range(3, 120, 3) var spin_length: int = 12
@@ -45,10 +52,12 @@ var is_hidden : bool = true
 @onready var icon_spinner_1: IconSpinner = %IconSpinner1
 @onready var icon_spinner_2: IconSpinner = %IconSpinner2
 @onready var icon_spinner_3: IconSpinner = %IconSpinner3
+@onready var head: TextureRect = %Head
 
 func _ready() -> void:
 	hide()
-
+	PlayerController.OnBalding.connect(on_balding)
+	
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_accept"):
 		manually_spinned.emit()
@@ -71,3 +80,19 @@ func spin_machine():
 
 func get_final_perk() -> Perk:
 	return all_perks.pick_random()
+
+func change_head() -> void:
+	match(current_baldness):
+		0:
+			head.texture = HEAD_1
+		1: 
+			head.texture = HEAD_2
+		2: 
+			head.texture = HEAD_3
+		3: 
+			head.texture = HEAD_4
+		_: 
+			head.texture = HEAD_4
+
+func on_balding(new_baldness: int) -> void:
+	current_baldness = new_baldness

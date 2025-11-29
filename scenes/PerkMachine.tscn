@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cppoi0867qwub"]
+[gd_scene load_steps=8 format=3 uid="uid://cppoi0867qwub"]
 
 [ext_resource type="Script" uid="uid://buqpdtq2nnlcb" path="res://scripts/IconSpinner.gd" id="1_1cs1c"]
 [ext_resource type="Script" uid="uid://dgilkci7w60j" path="res://scripts/PerkMachine.gd" id="1_gpvhc"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cib7xfwegksj4" path="res://sprites/Slot_machine/handle_animation/handle1.png" id="5_5smd5"]
 [ext_resource type="Script" uid="uid://dpwutymrsj4p7" path="res://scripts/HandleController.gd" id="5_b6ogu"]
 [ext_resource type="Texture2D" uid="uid://dld3qn86qaia" path="res://sprites/Slot_machine/Slot_machine.png" id="5_l7i83"]
+[ext_resource type="Texture2D" uid="uid://cvgl2r36o4ouv" path="res://sprites/Slot_machine/head/head1.png" id="7_b6ogu"]
 
 [node name="PerkMachine" type="Control"]
 layout_mode = 3
@@ -17,6 +18,7 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_gpvhc")
+spin_length = null
 
 [node name="PerksUI" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -258,6 +260,21 @@ grow_vertical = 0
 size_flags_vertical = 8
 texture = ExtResource("5_5smd5")
 stretch_mode = 2
+
+[node name="Foreground" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -427.0
+offset_right = 1116.0
+grow_vertical = 0
+theme_override_constants/margin_left = 160
+
+[node name="Head" type="TextureRect" parent="Foreground"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("7_b6ogu")
 
 [connection signal="mouse_entered" from="MarginContainer/Background/Control" to="MarginContainer/Background/Control" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="MarginContainer/Background/Control" to="MarginContainer/Background/Control" method="_on_mouse_exited"]
