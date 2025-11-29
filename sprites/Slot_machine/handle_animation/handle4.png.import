@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://chgmlwbtys6b2"
-path="res://.godot/imported/handle4.png-6b3128d9e508e17d2abd98c68be3587e.ctex"
+path="res://.godot/imported/handle4.png-d2452f7dccd904f90f505151d36ef203.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/Slot_machine/handle4.png"
-dest_files=["res://.godot/imported/handle4.png-6b3128d9e508e17d2abd98c68be3587e.ctex"]
+source_file="res://sprites/Slot_machine/handle_animation/handle4.png"
+dest_files=["res://.godot/imported/handle4.png-d2452f7dccd904f90f505151d36ef203.ctex"]
 
 [params]
 
