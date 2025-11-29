@@ -74,6 +74,6 @@ func _align_and_stop():
 	tween.parallel().tween_property(icon_2, "position:y", 0, 0.5)
 	tween.parallel().tween_property(icon_3, "position:y", icon_height, 0.5)
 
-	tween.tween_property(rich_text_label, "position:y", text_position.y + 100, 0.0)
-	tween.tween_property(rich_text_label, "position:y", text_position.y, 0.5).set_delay(0.3)
+	tween.tween_property(rich_text_label, "position:y", -20, 0.01)
+	tween.tween_property(rich_text_label, "position:y", 20, 0.5).set_delay(0.3)
 	tween.parallel().tween_property(rich_text_label, "modulate:a", 1.0, 0.5).set_delay(0.3)
