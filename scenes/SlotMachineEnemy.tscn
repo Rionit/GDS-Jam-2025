@@ -15,43 +15,6 @@ radius = 34.418724
 radius = 34.552788
 height = 201.25557
 
-[sub_resource type="Animation" id="Animation_ear84"]
-resource_name = "attack"
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MotherFlipper/HandleSprite:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0.7330383, -0.055000003, 0, 0.111666664, 0, 0.7330383, -0.055000003, 0, 0.111666664, 0, 0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.2, 0.40033403, 1)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("MotherFlipper/VFXSprite:modulate:a")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(2, 0, 0),
-"points": PackedFloat32Array(0, 0, 0, 0.0009014408, 0.16666667, 1, -0.25, 0, 0.25, 0, 0, -0.16666667, 0.16666667, 0, 0),
-"times": PackedFloat32Array(0.19459136, 0.2, 0.53333336)
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("MotherFlipper/HandleHitbox:collision_mask")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.18606293, 0.20216453, 0.4, 0.4168525, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 0, 2, 2, 0, 0]
-}
-
 [sub_resource type="Animation" id="Animation_1fnvl"]
 length = 0.001
 tracks/0/type = "bezier"
@@ -89,6 +52,43 @@ tracks/2/keys = {
 "values": [0]
 }
 
+[sub_resource type="Animation" id="Animation_ear84"]
+resource_name = "attack"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MotherFlipper/HandleSprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0.7330383, -0.055000003, 0, 0.111666664, 0, 0.7330383, -0.055000003, 0, 0.111666664, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.2, 0.40033403, 1)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MotherFlipper/VFXSprite:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(2, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.0009014408, 0.16666667, 1, -0.25, 0, 0.25, 0, 0, -0.16666667, 0.16666667, 0, 0),
+"times": PackedFloat32Array(0.19459136, 0.2, 0.53333336)
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MotherFlipper/HandleHitbox:collision_mask")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.18606293, 0.25, 0.35, 0.4168525, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 0, 2, 2, 0, 0]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1fnvl"]
 _data = {
 &"RESET": SubResource("Animation_1fnvl"),
@@ -96,6 +96,9 @@ _data = {
 }
 
 [node name="SlotMachineEnemy" type="CharacterBody2D"]
+collision_mask = 32768
+motion_mode = 1
+platform_floor_layers = 4294901760
 script = ExtResource("1_4qv2l")
 
 [node name="MotherFlipper" type="Node2D" parent="."]

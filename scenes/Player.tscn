@@ -161,7 +161,10 @@ _data = {
 }
 
 [node name="PlayerBody" type="CharacterBody2D" node_paths=PackedStringArray("animPlayer", "sprite", "dashTimer", "dashVFX", "punchSprite", "fistHitbox", "punchTimer")]
+collision_mask = 32768
 motion_mode = 1
+wall_min_slide_angle = 3.1415927
+platform_floor_layers = 4294901760
 script = ExtResource("1_3li8b")
 animPlayer = NodePath("AnimationPlayer")
 sprite = NodePath("PlayerSprite")

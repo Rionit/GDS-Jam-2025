@@ -140,9 +140,7 @@ func _ready() -> void:
 	pressedMoveKeys = []
 	on_balding.connect(PerkMachine.on_balding)
 	defaultPunchAnimLen = animPlayer.get_animation("PunchAnim").length
-	
-
-
+	fistHitbox.area_entered.connect(_check_hit)
 
 func _check_hit(potentialTarget : Area2D):
 	var parent = potentialTarget.get_parent()
@@ -197,8 +195,6 @@ func _tweenDashVFX(dir : Vector2):
 	VFXTween.tween_property(newDash, "position:x", VFXDist, 0.4)
 	VFXTween.parallel().tween_property(newDash,"modulate:a", 0, 0.4)
 	VFXTween.tween_callback(newDash.queue_free)
-
-
 
 ## Dashes to the predefined direction
 func _dash(dir : Vector2):
@@ -338,8 +334,9 @@ func _punch():
 	
 	await animPlayer.animation_finished
 	animPlayer.speed_scale = 1
-	print("Is punch sprite visible ?" + str(punchSprite.visible))
 	playingPunch = false
 	
 	await punchTimer.timeout
 	canPunch = true
+	
+# TODO: Take damage

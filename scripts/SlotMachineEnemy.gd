@@ -1,4 +1,4 @@
-extends Node2D
+extends Hittable
 
 const SLOTMACHINE_BLUE = preload("uid://b2j8dvr25m2su")
 const SLOTMACHINE_GREEN = preload("uid://cj503a56ks7vp")
@@ -17,7 +17,7 @@ var stop_distance := 200.0
 var max_cooldown : float = 0.5
 var is_attacking := false
 
-var velocity: Vector2 = Vector2.ZERO
+var health : int = 30
 
 func _ready() -> void:
 	sprite_2d.texture = textures.pick_random()
@@ -27,22 +27,27 @@ func _process(delta: float) -> void:
 	
 	var dist_to_player = global_position.distance_to(Player.global_position)
 
+	# Move toward player using arrive
+	var steering := arrive(Player.global_position)
+
 	# stop when close
 	if dist_to_player <= stop_distance:
 		if !is_attacking:
 			is_attacking = true
 			get_tree().create_timer(max_cooldown).timeout.connect(attack)
-		velocity = Vector2.ZERO
+		var vectorFromPlayer = (global_position - Player.global_position).normalized()
+		steering = vectorFromPlayer * velocity.length()
 		return
 
-	# Move toward player using arrive
-	var steering := arrive(Player.global_position)
-	velocity += steering * delta
 
-	if velocity.length() > max_speed:
-		velocity = velocity.normalized() * max_speed
+	#velocity += steering * delta
+#
+	#if velocity.length() > max_speed:
+		#velocity = velocity.normalized() * max_speed
 
-	position += velocity * delta
+	self.velocity += steering * delta
+	#position += velocity * delta
+	move_and_slide()
 	
 	var isLeft = 1 if velocity.x >= 0 else -1
 	mother_flipper.scale.x = isLeft
@@ -75,9 +80,18 @@ func pursue(target_pos: Vector2, target_vel: Vector2) -> Vector2:
 	var predicted_pos = target_pos + target_vel * time_to_target
 	return seek(predicted_pos)
 
-
 func attack():
 	animation_player.speed_scale = max(1 / max_cooldown, 1.0)
 	animation_player.play("attack")
 	await animation_player.animation_finished
 	is_attacking = false
+
+func take_damage(damage : int, hitterPosition : Vector2):
+	var knockbackVector = (global_position - hitterPosition).normalized()
+	velocity += knockbackVector * hitForce * 20
+	health -= damage
+	print("Taking damage!")
+	if health <= 0:
+		on_death.emit((self as Hittable))
+		queue_free()
+	
