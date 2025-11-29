@@ -44,7 +44,7 @@ var all_perks: Array[Perk] = [
 ]
 
 var is_hidden : bool = true
-var current_baldness := 4
+var current_baldness := 0
 
 ## How long until first perk stops spinning
 @export_range(3, 120, 3) var spin_length: int = 12
@@ -56,7 +56,6 @@ var current_baldness := 4
 
 func _ready() -> void:
 	hide()
-	PlayerController.OnBalding.connect(on_balding)
 	
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_accept"):
@@ -96,3 +95,4 @@ func change_head() -> void:
 
 func on_balding(new_baldness: int) -> void:
 	current_baldness = new_baldness
+	change_head()
