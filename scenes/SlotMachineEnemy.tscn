@@ -5,11 +5,11 @@
 [ext_resource type="Texture2D" uid="uid://bxoad4lgoot12" path="res://sprites/Enemies/slot_machine_enemy/handle/handle1.png" id="3_ear84"]
 [ext_resource type="Texture2D" uid="uid://cbet36i3s58vi" path="res://sprites/Enemies/slot_machine_enemy/handle/handle_VFX.png" id="4_1fnvl"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_4qv2l"]
-radius = 34.418724
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ear84"]
 size = Vector2(30.8507, 98.71106)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4qv2l"]
+radius = 34.418724
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ear84"]
 radius = 34.552788
@@ -20,7 +20,7 @@ resource_name = "attack"
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("HandleSprite:rotation")
+tracks/0/path = NodePath("MotherFlipper/HandleSprite:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -31,7 +31,7 @@ tracks/0/keys = {
 tracks/1/type = "bezier"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("VFXSprite:modulate:a")
+tracks/1/path = NodePath("MotherFlipper/VFXSprite:modulate:a")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -42,7 +42,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("HandleHitbox:collision_mask")
+tracks/2/path = NodePath("MotherFlipper/HandleHitbox:collision_mask")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -57,7 +57,7 @@ length = 0.001
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("HandleSprite:rotation")
+tracks/0/path = NodePath("MotherFlipper/HandleSprite:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -68,7 +68,7 @@ tracks/0/keys = {
 tracks/1/type = "bezier"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("VFXSprite:modulate:a")
+tracks/1/path = NodePath("MotherFlipper/VFXSprite:modulate:a")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -79,7 +79,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("HandleHitbox:collision_mask")
+tracks/2/path = NodePath("MotherFlipper/HandleHitbox:collision_mask")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -98,31 +98,33 @@ _data = {
 [node name="SlotMachineEnemy" type="CharacterBody2D"]
 script = ExtResource("1_4qv2l")
 
-[node name="MachineSprite" type="Sprite2D" parent="."]
+[node name="MotherFlipper" type="Node2D" parent="."]
+
+[node name="MachineSprite" type="Sprite2D" parent="MotherFlipper"]
 texture = ExtResource("2_r7vsf")
 
-[node name="HandleSprite" type="Sprite2D" parent="."]
+[node name="HandleSprite" type="Sprite2D" parent="MotherFlipper"]
 position = Vector2(51, -29)
 texture = ExtResource("3_ear84")
 offset = Vector2(20, -20)
 
-[node name="VFXSprite" type="Sprite2D" parent="."]
+[node name="VFXSprite" type="Sprite2D" parent="MotherFlipper"]
 position = Vector2(90, -52)
 texture = ExtResource("4_1fnvl")
+
+[node name="HandleHitbox" type="Area2D" parent="MotherFlipper"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="MotherFlipper/HandleHitbox"]
+position = Vector2(88.99999, -40.500004)
+scale = Vector2(1.6207087, 1.0434494)
+shape = SubResource("RectangleShape2D_ear84")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 75)
 scale = Vector2(1.6207087, 1.0434494)
 shape = SubResource("CircleShape2D_4qv2l")
-
-[node name="HandleHitbox" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 0
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="HandleHitbox"]
-position = Vector2(88.99999, -40.500004)
-scale = Vector2(1.6207087, 1.0434494)
-shape = SubResource("RectangleShape2D_ear84")
 
 [node name="BodyHitbox" type="Area2D" parent="."]
 collision_layer = 4
