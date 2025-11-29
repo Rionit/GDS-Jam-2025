@@ -51,7 +51,7 @@ var defaultDashSpriteX = dashVFX.position.x
 var dashVFXAnimDistance = 20
 
 ## Minimum squared velocity size for the player to animate walking
-const MIN_SPEED_SQUARED = 2
+const MIN_SPEED_SQUARED = 4000
 
 ## Player's CharacterBody
 @export
@@ -132,12 +132,15 @@ var canPunch = true
 
 var defaultPunchAnimLen
 
+var playingPunch = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	punchSprite.visible = false
 	pressedMoveKeys = []
 	on_balding.connect(PerkMachine.on_balding)
 	defaultPunchAnimLen = animPlayer.get_animation("PunchAnim").length
-
+	
 func _physics_process(delta: float) -> void:
 	_register_keys()
 	if canMove:
@@ -149,8 +152,8 @@ func _physics_process(delta: float) -> void:
 ## Registers pressed keys
 func _register_keys():
 	_register_move_keys()
-	if Input.is_action_pressed("attack"):
-		pass
+	if canPunch && Input.is_action_pressed("attack"):
+		_punch()
 
 ## Registers inputs for player movement	
 func _register_move_keys():
@@ -176,11 +179,11 @@ func _tweenDashVFX(dir : Vector2):
 	newDash.global_position = body.global_position + Vector2(defaultDashSpriteX * isLeft,\
 	dashVFX.position.y)
 	
-	get_tree().current_scene.add_child(newDash)
+	add_child(newDash)
 	var VFXDist = newDash.position.x + (defaultDashSpriteX \
 	+ dashVFXAnimDistance) * isLeft
 	
-	var VFXTween = get_tree().create_tween().bind_node(self)\
+	var VFXTween = get_tree().create_tween().bind_node(newDash)\
 	.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	VFXTween.tween_property(newDash, "position:x", VFXDist, 0.4)
 	VFXTween.parallel().tween_property(newDash,"modulate:a", 0, 0.4)
@@ -190,7 +193,12 @@ func _tweenDashVFX(dir : Vector2):
 func _dash(dir : Vector2):
 	canMove = false
 	canDash = false
+	
+	var couldPunch = canPunch
+	
 	canPunch = false
+	
+	_stop_punch()
 	
 	animPlayer.stop()
 	_tweenDashVFX(dir)
@@ -214,6 +222,8 @@ func _dash(dir : Vector2):
 	await dashTimer.timeout
 	afterDashDamp = false
 	canMove = true
+	if couldPunch:
+		canPunch = true
 	dashTimer.wait_time = dashCooldown - dashMoveCooldown - dashDuration
 	
 	dashTimer.start()
@@ -257,33 +267,42 @@ func _process_movement():
 	
 	var speedSquared = body.velocity.length_squared()
 	
-	if playingWalk && speedSquared < MIN_SPEED_SQUARED:
-		playingWalk = false
-		animPlayer.stop()
-		animPlayer.play("IdleAnim")
-	elif !playingWalk && speedSquared >= MIN_SPEED_SQUARED:
-		print("Playing anim")
-		playingWalk = true
-		animPlayer.stop()
-		animPlayer.play("animPlayer")
-	sprite.flip_h = velocity.x >= 0
-	
+	if !playingPunch:
+		if playingWalk && speedSquared < MIN_SPEED_SQUARED:
+			playingWalk = false
+			animPlayer.stop()
+			animPlayer.play("IdleAnim")
+		elif !playingWalk && speedSquared >= MIN_SPEED_SQUARED:
+			print("Playing anim")
+			playingWalk = true
+			animPlayer.stop()
+			animPlayer.play("WalkingAnim")
+		
+	if velocity.x >= 0:
+		body.scale = Vector2(1,-1)
+		body.rotation_degrees = 180
+	else:
+		body.scale = Vector2(1,1)
+		body.rotation = 0
+
 	if canDash && Input.is_action_pressed("dash"):
 		_dash(velocity.normalized())
 		return
 
+func _stop_punch():
+	fistHitbox.collision_layer = 0
+	punchSprite.visible = false
+
 func _punch():
 	canPunch = false
-	canDash = false
-	
-	# Moves the hitbox and animation in the appropriate direction
-	var dir = -1 if sprite.flip_h else 1
-	fistHitbox.scale.x *= dir
-	
 	animPlayer.stop()
 	playingWalk = false
-	var punchAnim = animPlayer.get_animation("PunchAnim")
+	playingPunch = true
 	
+	print("PUNGING")
+	punchSprite.visible = true
+	
+	var punchAnim = animPlayer.get_animation("PunchAnim")
 	var animLen = min(punchCooldown - 0.05, defaultPunchAnimLen)
 	
 	#Sets texture change time
@@ -298,10 +317,14 @@ func _punch():
 	# Sets hitbox disablement time
 	punchAnim.track_set_key_time(2,1,animLen)
 	
+	animPlayer.play("PunchAnim")
 	# Starts the cooldown timer
 	punchTimer.wait_time = punchCooldown
 	punchTimer.start()
 	
-	await punchTimer.timeout
+	await animPlayer.animation_finished
+	print("Is punch sprite visible ?" + str(punchSprite.visible))
+	playingPunch = false
 	
+	await punchTimer.timeout
 	canPunch = true
