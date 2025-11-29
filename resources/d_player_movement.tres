@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Perk" load_steps=3 format=3 uid="uid://dy27shbo06qf3"]
+
+[ext_resource type="Script" uid="uid://bncjx83pyjxhm" path="res://scripts/Perk.gd" id="1_i5nuc"]
+[ext_resource type="Texture2D" uid="uid://qxm3vv4a7ob" path="res://sprites/icons/banan_icon.png" id="2_i5nuc"]
+
+[resource]
+script = ExtResource("1_i5nuc")
+texture = ExtResource("2_i5nuc")
+perk_name = "Slower Player Movement"
+value = -10.0
+description = "The players moving speed is decreased"
+metadata/_custom_type_script = "uid://bncjx83pyjxhm"

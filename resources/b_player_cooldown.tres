@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Perk" load_steps=3 format=3 uid="uid://pytgf6k7oovj"]
+
+[ext_resource type="Script" uid="uid://bncjx83pyjxhm" path="res://scripts/Perk.gd" id="1_xlq7q"]
+[ext_resource type="Texture2D" uid="uid://2lcvwxho8fsv" path="res://sprites/icons/meloun_icon.png" id="2_p3gci"]
+
+[resource]
+script = ExtResource("1_xlq7q")
+texture = ExtResource("2_p3gci")
+perk_name = "Player Attack Cooldown"
+value = 10.0
+description = "The player's attack cooldown is decreased"
+metadata/_custom_type_script = "uid://bncjx83pyjxhm"

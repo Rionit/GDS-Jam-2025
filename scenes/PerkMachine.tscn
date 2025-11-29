@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://buqpdtq2nnlcb" path="res://scripts/IconSpinner.gd" id="1_1cs1c"]
 [ext_resource type="Script" uid="uid://dgilkci7w60j" path="res://scripts/PerkMachine.gd" id="1_gpvhc"]
 [ext_resource type="Texture2D" uid="uid://c7ive2fj6w8d7" path="res://icon.svg" id="1_ji6xi"]
-[ext_resource type="Script" path="res://scripts/Icon.gd" id="4_cgmax"]
+[ext_resource type="Script" uid="uid://dq026oovgyr6t" path="res://scripts/Icon.gd" id="4_cgmax"]
 
 [node name="PerkMachine" type="Control"]
 layout_mode = 3
@@ -12,6 +12,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 script = ExtResource("1_gpvhc")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -31,6 +33,7 @@ alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
+alignment = 1
 
 [node name="IconSpinner" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -84,6 +87,7 @@ horizontal_alignment = 1
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
+alignment = 1
 
 [node name="IconSpinner2" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer2"]
 unique_name_in_owner = true
@@ -134,6 +138,7 @@ horizontal_alignment = 1
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
+alignment = 1
 
 [node name="IconSpinner3" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer3"]
 unique_name_in_owner = true
