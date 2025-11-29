@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_fcbgm")
 texture = ExtResource("2_fcbgm")
-perk_name = "Enemy Attack Cooldown"
+perk_name = "Lucky Clover"
 value = 10.0
 description = "The enemy attack cooldown is increased"
 metadata/_custom_type_script = "uid://bncjx83pyjxhm"

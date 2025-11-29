@@ -6,7 +6,8 @@
 [resource]
 script = ExtResource("1_masht")
 texture = ExtResource("2_masht")
-perk_name = "Enemy Attack Cooldown"
+perk_name = "Diamonds"
+is_buff = false
 value = 10.0
 description = "The enemy attack cooldown is decreased"
 metadata/_custom_type_script = "uid://bncjx83pyjxhm"

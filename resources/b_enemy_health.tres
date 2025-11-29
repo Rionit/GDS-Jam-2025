@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_nl80x")
 texture = ExtResource("2_nl80x")
-perk_name = "Enemy Health Decreased"
+perk_name = "Hearts"
 value = 10.0
 description = "The enemy health is decreased"
 metadata/_custom_type_script = "uid://bncjx83pyjxhm"

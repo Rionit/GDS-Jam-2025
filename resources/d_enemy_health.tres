@@ -6,7 +6,8 @@
 [resource]
 script = ExtResource("1_of3qb")
 texture = ExtResource("2_of3qb")
-perk_name = "Enemy Health Increased"
+perk_name = "Spades"
+is_buff = false
 value = 10.0
 description = "The enemy health is increased"
 metadata/_custom_type_script = "uid://bncjx83pyjxhm"

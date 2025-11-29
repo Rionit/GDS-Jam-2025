@@ -6,7 +6,8 @@
 [resource]
 script = ExtResource("1_i5nuc")
 texture = ExtResource("2_i5nuc")
-perk_name = "Slower Player Movement"
+perk_name = "Banana"
+is_buff = false
 value = -10.0
 description = "The players moving speed is decreased"
 metadata/_custom_type_script = "uid://bncjx83pyjxhm"

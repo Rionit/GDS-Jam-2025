@@ -6,7 +6,8 @@
 [resource]
 script = ExtResource("1_lkmrm")
 texture = ExtResource("2_lkmrm")
-perk_name = "Player Attack Cooldown"
+perk_name = "Unlucky Seven"
+is_buff = false
 value = 10.0
 description = "The player's attack cooldown is increased"
 metadata/_custom_type_script = "uid://bncjx83pyjxhm"

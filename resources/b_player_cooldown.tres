@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_xlq7q")
 texture = ExtResource("2_p3gci")
-perk_name = "Player Attack Cooldown"
+perk_name = "Melon"
 value = 10.0
 description = "The player's attack cooldown is decreased"
 metadata/_custom_type_script = "uid://bncjx83pyjxhm"

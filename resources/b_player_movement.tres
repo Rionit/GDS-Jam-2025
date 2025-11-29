@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_kyu6u")
 texture = ExtResource("2_dwyd0")
-perk_name = "Faster Player Movement"
+perk_name = "Cherries"
 value = 10.0
 description = "The players moving speed is increased"
 metadata/_custom_type_script = "uid://bncjx83pyjxhm"

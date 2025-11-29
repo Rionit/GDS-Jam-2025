@@ -6,7 +6,8 @@
 [resource]
 script = ExtResource("1_qnx1e")
 texture = ExtResource("2_qnx1e")
-perk_name = "Faster Enemy Movement"
+perk_name = "Clubs"
+is_buff = false
 value = 10.0
 description = "The enemy movement speed is increased"
 metadata/_custom_type_script = "uid://bncjx83pyjxhm"

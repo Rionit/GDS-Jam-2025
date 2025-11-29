@@ -59,3 +59,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		else:
 			hide()
 		is_hidden = !is_hidden
+
+func get_final_perk() -> Perk:
+	return all_perks.pick_random()

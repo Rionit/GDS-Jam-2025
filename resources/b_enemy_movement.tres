@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_q3yp1")
 texture = ExtResource("2_q3yp1")
-perk_name = "Slower Enemy Movement"
+perk_name = "Diamonds"
 value = 10.0
 description = "The enemy movement speed is decreased"
 metadata/_custom_type_script = "uid://bncjx83pyjxhm"
