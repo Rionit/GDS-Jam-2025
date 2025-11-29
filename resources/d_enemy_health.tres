@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Perk" load_steps=3 format=3 uid="uid://dqnm8i764sdfh"]
+
+[ext_resource type="Script" uid="uid://bncjx83pyjxhm" path="res://scripts/Perk.gd" id="1_of3qb"]
+[ext_resource type="Texture2D" uid="uid://vp5a5tg86pnk" path="res://sprites/icons/card_spades_icon.png" id="2_of3qb"]
+
+[resource]
+script = ExtResource("1_of3qb")
+texture = ExtResource("2_of3qb")
+perk_name = "Enemy Health Increased"
+value = 10.0
+description = "The enemy health is increased"
+metadata/_custom_type_script = "uid://bncjx83pyjxhm"

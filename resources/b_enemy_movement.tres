@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Perk" load_steps=3 format=3 uid="uid://cgusafvcn5lhy"]
+
+[ext_resource type="Script" uid="uid://bncjx83pyjxhm" path="res://scripts/Perk.gd" id="1_q3yp1"]
+[ext_resource type="Texture2D" uid="uid://cr5fvdcs5mkh2" path="res://sprites/icons/card_diamonds_icon.png" id="2_q3yp1"]
+
+[resource]
+script = ExtResource("1_q3yp1")
+texture = ExtResource("2_q3yp1")
+perk_name = "Slower Enemy Movement"
+value = 10.0
+description = "The enemy movement speed is decreased"
+metadata/_custom_type_script = "uid://bncjx83pyjxhm"

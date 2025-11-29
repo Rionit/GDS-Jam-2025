@@ -57,7 +57,7 @@ func _move_and_wrap(icon: Icon, delta: float) -> void:
 
 	# If it crossed below bottom threshold, wrap to top
 	if icon.position.y >= icon_height:
-		icon.position.y = -icon_height*2 - offset
+		icon.position.y = -icon_height*2
 		icon.randomize_icon()
 		wraps_done += 1
 

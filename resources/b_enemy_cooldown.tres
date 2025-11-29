@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Perk" load_steps=3 format=3 uid="uid://hehmmh3njgau"]
+
+[ext_resource type="Script" uid="uid://bncjx83pyjxhm" path="res://scripts/Perk.gd" id="1_fcbgm"]
+[ext_resource type="Texture2D" uid="uid://ddi2dnagmltx0" path="res://sprites/icons/clover_icon.png" id="2_fcbgm"]
+
+[resource]
+script = ExtResource("1_fcbgm")
+texture = ExtResource("2_fcbgm")
+perk_name = "Enemy Attack Cooldown"
+value = 10.0
+description = "The enemy attack cooldown is increased"
+metadata/_custom_type_script = "uid://bncjx83pyjxhm"
