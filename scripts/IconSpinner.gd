@@ -56,6 +56,7 @@ func _process(delta: float) -> void:
 	# Stop when enough wraps have completed
 	if wraps_done >= cycles:
 		_align_and_stop()
+		
 
 ## Moves [param icon] down and wraps if threshold crossed
 func _move_and_wrap(icon: Icon, delta: float) -> void:
