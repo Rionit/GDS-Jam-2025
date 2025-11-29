@@ -1,4 +1,4 @@
-extends CharacterBody2D
+extends Hittable
 
 ## Controls player movement and combat
 class_name PlayerController
@@ -128,11 +128,15 @@ var punchDuration = 0.6
 @export
 var punchTimer : Timer
 
+
+
 var canPunch = true
 
 var defaultPunchAnimLen
 
 var playingPunch = false
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -192,6 +196,8 @@ func _tweenDashVFX(dir : Vector2):
 	VFXTween.tween_property(newDash, "position:x", VFXDist, 0.4)
 	VFXTween.parallel().tween_property(newDash,"modulate:a", 0, 0.4)
 	VFXTween.tween_callback(newDash.queue_free)
+
+
 
 ## Dashes to the predefined direction
 func _dash(dir : Vector2):
