@@ -1,4 +1,4 @@
-extends Node2D
+extends CharacterBody2D
 
 ## Controls player movement and combat
 class_name PlayerController
@@ -54,8 +54,8 @@ var dashVFXAnimDistance = 20
 const MIN_SPEED_SQUARED = 4000
 
 ## Player's CharacterBody
-@export
-var body : CharacterBody2D
+#@export
+#var body : CharacterBody2D
 
 ## Player's sprite
 @export
@@ -140,14 +140,17 @@ func _ready() -> void:
 	pressedMoveKeys = []
 	on_balding.connect(PerkMachine.on_balding)
 	defaultPunchAnimLen = animPlayer.get_animation("PunchAnim").length
+	punchSprite.visibility_changed.connect(func(): 
+		if(punchSprite.visible):
+			print("punchSprite became visible!")) 
 	
 func _physics_process(delta: float) -> void:
 	_register_keys()
 	if canMove:
 		_process_movement()
 	if afterDashDamp:
-		body.velocity *= dampeningFactorMoving
-	body.move_and_slide()
+		velocity *= dampeningFactorMoving
+	move_and_slide()
 
 ## Registers pressed keys
 func _register_keys():
@@ -176,10 +179,11 @@ func _tweenDashVFX(dir : Vector2):
 	var newDash = dashVFX.duplicate()
 	newDash.visible = true
 	newDash.flip_h = isLeft == -1
-	newDash.global_position = body.global_position + Vector2(defaultDashSpriteX * isLeft,\
-	dashVFX.position.y)
 	
-	add_child(newDash)
+	get_tree().current_scene.add_child(newDash)
+	
+	newDash.global_position = global_position + Vector2(defaultDashSpriteX * isLeft,\
+	dashVFX.position.y)
 	var VFXDist = newDash.position.x + (defaultDashSpriteX \
 	+ dashVFXAnimDistance) * isLeft
 	
@@ -198,18 +202,17 @@ func _dash(dir : Vector2):
 	
 	canPunch = false
 	
+	animPlayer.stop()
 	_stop_punch()
 	
-	animPlayer.stop()
 	_tweenDashVFX(dir)
 	var dashAnim = animPlayer.get_animation("DashAnim")
 	dashAnim.length = dashDuration
 	dashAnim.track_set_key_time(0, 1, dashDuration)
 	playingWalk=false
 	
-	var currentVelocity = body.velocity
 	animPlayer.play("DashAnim")
-	body.velocity = dir * dashSpeed * dampeningFactorMoving
+	velocity = dir * dashSpeed * dampeningFactorMoving
 	
 	dashTimer.wait_time = dashDuration
 	dashTimer.start()
@@ -259,33 +262,35 @@ func _process_movement():
 			break
 	velocity = velocity.normalized() * moveSpeed
 
-	body.velocity += velocity
+	self.velocity += velocity
 	
 	if velocity == Vector2.ZERO || \
-	 (dampOppositeDirection && velocity.dot(body.velocity) < 0) :
-		body.velocity *= dampeningFactorStationary
+	 (dampOppositeDirection && velocity.dot(self.velocity) < 0) :
+		self.velocity *= dampeningFactorStationary
 	else:
-		body.velocity *= dampeningFactorMoving
+		self.velocity *= dampeningFactorMoving
 	
-	var speedSquared = body.velocity.length_squared()
+	var speedSquared = self.velocity.length_squared()
 	
 	if !playingPunch:
 		if playingWalk && speedSquared < MIN_SPEED_SQUARED:
 			playingWalk = false
 			animPlayer.stop()
+			_stop_punch()
 			animPlayer.play("IdleAnim")
 		elif !playingWalk && speedSquared >= MIN_SPEED_SQUARED:
 			print("Playing anim")
 			playingWalk = true
 			animPlayer.stop()
+			_stop_punch()
 			animPlayer.play("WalkingAnim")
 		
 	if velocity.x >= 0:
-		body.scale = Vector2(1,-1)
-		body.rotation_degrees = 180
+		scale = Vector2(1,-1)
+		rotation_degrees = 180
 	else:
-		body.scale = Vector2(1,1)
-		body.rotation = 0
+		scale = Vector2(1,1)
+		rotation = 0
 
 	if canDash && Input.is_action_pressed("dash"):
 		_dash(velocity.normalized())
@@ -301,8 +306,6 @@ func _punch():
 	playingWalk = false
 	playingPunch = true
 	
-	punchSprite.visible = true
-	
 	var punchAnim = animPlayer.get_animation("PunchAnim")
 	var animLen = min(punchCooldown - 0.05, defaultPunchAnimLen)
 	
@@ -317,8 +320,8 @@ func _punch():
 	
 	# Sets hitbox disablement time
 	punchAnim.track_set_key_time(2,1,animLen)
-	
 	animPlayer.play("PunchAnim")
+	
 	# Starts the cooldown timer
 	punchTimer.wait_time = punchCooldown
 	punchTimer.start()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bte3wxufl3bcx"]
+[gd_scene load_steps=20 format=3 uid="uid://bte3wxufl3bcx"]
 
 [ext_resource type="Script" uid="uid://c36mp8nstsfe6" path="res://scripts/PlayerController.gd" id="1_3li8b"]
 [ext_resource type="Texture2D" uid="uid://clr8t4qgvdppx" path="res://sprites/player/animations/walking/player_idle.png" id="2_mdl7e"]
@@ -13,7 +13,7 @@
 radius = 24.063549
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_70d11"]
-size = Vector2(60, 100)
+size = Vector2(60, 175)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cw2d6"]
 size = Vector2(100, 20)
@@ -21,18 +21,20 @@ size = Vector2(100, 20)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_khinc"]
 size = Vector2(100, 20)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bruh7"]
+
 [sub_resource type="Animation" id="Animation_qu4a1"]
 resource_name = "DashAnim"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerBody/PlayerSprite:texture")
+tracks/0/path = NodePath("PlayerSprite:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.03333333, 0.96666664),
+"times": PackedFloat32Array(0, 0.96666664),
 "transitions": PackedFloat32Array(1, 1),
-"update": 0,
+"update": 1,
 "values": [ExtResource("4_mdl7e"), ExtResource("2_mdl7e")]
 }
 
@@ -43,13 +45,13 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerBody/PlayerSprite:texture")
+tracks/0/path = NodePath("PlayerSprite:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.6),
+"times": PackedFloat32Array(0, 0.3, 0.5916667),
 "transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
+"update": 1,
 "values": [ExtResource("2_mdl7e"), ExtResource("5_qu4a1"), ExtResource("2_mdl7e")]
 }
 
@@ -60,11 +62,11 @@ step = 0.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerBody/PlayerSprite:texture")
+tracks/0/path = NodePath("PlayerSprite:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.6013878),
+"times": PackedFloat32Array(0, 0.6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [ExtResource("8_bruh7"), ExtResource("2_mdl7e")]
@@ -72,7 +74,7 @@ tracks/0/keys = {
 tracks/1/type = "bezier"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerBody/FistHitbox/PunchSprite:modulate:a")
+tracks/1/path = NodePath("FistHitbox/PunchSprite:modulate:a")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -83,26 +85,26 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerBody/FistHitbox:collision_layer")
+tracks/2/path = NodePath("FistHitbox/PunchSprite:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1),
+"times": PackedFloat32Array(0, 0.6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [1, 0]
+"values": [true, false]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("PlayerBody/FistHitbox/PunchSprite:visible")
+tracks/3/path = NodePath("FistHitbox:collision_mask")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0.001387779, 0.6),
+"times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [true, false]
+"values": [4, 0]
 }
 
 [sub_resource type="Animation" id="Animation_qlg0r"]
@@ -110,38 +112,26 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerBody/PlayerSprite:texture")
+tracks/0/path = NodePath("FistHitbox:collision_mask")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [ExtResource("2_mdl7e")]
+"update": 1,
+"values": [0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerBody/FistHitbox:collision_layer")
+tracks/1/path = NodePath("FistHitbox/PunchSprite:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [1]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerBody/FistHitbox/PunchSprite:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_dqkch"]
@@ -151,13 +141,13 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerBody/PlayerSprite:texture")
+tracks/0/path = NodePath("PlayerSprite:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.333, 0.666),
 "transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
+"update": 1,
 "values": [ExtResource("2_mdl7e"), ExtResource("3_qu4a1"), ExtResource("2_mdl7e")]
 }
 
@@ -170,62 +160,68 @@ _data = {
 &"WalkingAnim": SubResource("Animation_dqkch")
 }
 
-[node name="Player" type="Node2D" node_paths=PackedStringArray("animPlayer", "body", "sprite", "dashTimer", "dashVFX", "punchSprite", "fistHitbox", "punchTimer")]
+[node name="PlayerBody" type="CharacterBody2D" node_paths=PackedStringArray("animPlayer", "sprite", "dashTimer", "dashVFX", "punchSprite", "fistHitbox", "punchTimer")]
+motion_mode = 1
 script = ExtResource("1_3li8b")
 animPlayer = NodePath("AnimationPlayer")
-body = NodePath("PlayerBody")
-sprite = NodePath("PlayerBody/PlayerSprite")
+sprite = NodePath("PlayerSprite")
 dashTimer = NodePath("DashTimer")
-dashVFX = NodePath("PlayerBody/DashSprite")
-punchSprite = NodePath("PlayerBody/FistHitbox/PunchSprite")
-fistHitbox = NodePath("PlayerBody/FistHitbox")
+dashVFX = NodePath("DashSprite")
+punchSprite = NodePath("FistHitbox/PunchSprite")
+fistHitbox = NodePath("FistHitbox")
 punchTimer = NodePath("PunchTimer")
 
-[node name="PlayerBody" type="CharacterBody2D" parent="."]
-motion_mode = 1
-
-[node name="PhysicalHitbox" type="CollisionShape2D" parent="PlayerBody"]
+[node name="PhysicalHitbox" type="CollisionShape2D" parent="."]
 position = Vector2(4, 80)
 scale = Vector2(1.6207087, 1.0434494)
 shape = SubResource("CircleShape2D_3li8b")
 
-[node name="DashSprite" type="Sprite2D" parent="PlayerBody"]
+[node name="DashSprite" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(69, 0)
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("3_70d11")
 
-[node name="PlayerSprite" type="Sprite2D" parent="PlayerBody"]
+[node name="PlayerSprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_mdl7e")
 
-[node name="FistHitbox" type="Area2D" parent="PlayerBody"]
+[node name="FistHitbox" type="Area2D" parent="."]
 position = Vector2(0, -50)
-collision_mask = 4
+collision_layer = 0
+collision_mask = 0
 
-[node name="MidShape" type="CollisionShape2D" parent="PlayerBody/FistHitbox"]
-position = Vector2(-83, 0)
+[node name="MidShape" type="CollisionShape2D" parent="FistHitbox"]
+position = Vector2(-83, 36)
 shape = SubResource("RectangleShape2D_70d11")
 
-[node name="TopShape" type="CollisionShape2D" parent="PlayerBody/FistHitbox"]
+[node name="TopShape" type="CollisionShape2D" parent="FistHitbox"]
 position = Vector2(-63, -65)
 shape = SubResource("RectangleShape2D_cw2d6")
 
-[node name="BotShape" type="CollisionShape2D" parent="PlayerBody/FistHitbox"]
-position = Vector2(-63, 64)
+[node name="BotShape" type="CollisionShape2D" parent="FistHitbox"]
+position = Vector2(-63, 137)
 shape = SubResource("RectangleShape2D_khinc")
 
-[node name="PunchSprite" type="Sprite2D" parent="PlayerBody/FistHitbox"]
-modulate = Color(1, 1, 1, 0)
+[node name="PunchSprite" type="Sprite2D" parent="FistHitbox"]
+visible = false
+modulate = Color(1, 1, 1, 0.98338425)
 position = Vector2(-41, -4)
 texture = ExtResource("4_khinc")
 
-[node name="Area2D" type="Area2D" parent="PlayerBody"]
+[node name="CombatHitbox" type="Area2D" parent="."]
+position = Vector2(0.9999999, -21)
+scale = Vector2(1.9933833, 6.3263493)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CombatHitbox"]
+shape = SubResource("RectangleShape2D_bruh7")
+
+[node name="DashTimer" type="Timer" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_tuyoq")
 }
-
-[node name="DashTimer" type="Timer" parent="."]
 
 [node name="PunchTimer" type="Timer" parent="."]
