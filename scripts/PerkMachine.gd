@@ -35,9 +35,14 @@ var all_perks: Array[Perk] = [
 	D_PLAYER_MOVEMENT
 ]
 
+var is_hidden : bool = true
+
 @onready var icon_spinner_1: IconSpinner = %IconSpinner
 @onready var icon_spinner_2: IconSpinner = %IconSpinner2
 @onready var icon_spinner_3: IconSpinner = %IconSpinner3
+
+func _ready() -> void:
+	hide()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_accept"):
@@ -47,3 +52,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		icon_spinner_2.spin()
 		icon_spinner_3.cycles = 15
 		icon_spinner_3.spin()
+	
+	if event.is_action_pressed("debug"):
+		if is_hidden:
+			show()
+		else:
+			hide()
+		is_hidden = !is_hidden
