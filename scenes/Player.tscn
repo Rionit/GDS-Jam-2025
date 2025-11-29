@@ -1,8 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://bte3wxufl3bcx"]
+[gd_scene load_steps=13 format=3 uid="uid://bte3wxufl3bcx"]
 
 [ext_resource type="Script" uid="uid://c36mp8nstsfe6" path="res://scripts/PlayerController.gd" id="1_3li8b"]
 [ext_resource type="Texture2D" uid="uid://clr8t4qgvdppx" path="res://sprites/player/animations/walking/player_idle.png" id="2_mdl7e"]
+[ext_resource type="Texture2D" uid="uid://bfnnsbty00e4" path="res://sprites/player/animations/dash/dash_VFX.png" id="3_70d11"]
 [ext_resource type="Texture2D" uid="uid://6lyhpyqot7wu" path="res://sprites/player/animations/walking/player_walk.png" id="3_qu4a1"]
+[ext_resource type="Texture2D" uid="uid://dkny24ay5en4n" path="res://sprites/player/animations/dash/player_dash.png" id="4_mdl7e"]
+[ext_resource type="Texture2D" uid="uid://dbgurxir4l6pb" path="res://sprites/player/animations/walking/player_idle1.png" id="5_qu4a1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3li8b"]
 radius = 24.063549
@@ -39,32 +42,75 @@ tracks/0/keys = {
 "values": [ExtResource("2_mdl7e"), ExtResource("3_qu4a1"), ExtResource("2_mdl7e")]
 }
 
+[sub_resource type="Animation" id="Animation_qu4a1"]
+resource_name = "DashAnim"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerBody/PlayerSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.03333333, 0.96666664),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("4_mdl7e"), ExtResource("2_mdl7e")]
+}
+
+[sub_resource type="Animation" id="Animation_70d11"]
+resource_name = "IdleAnim"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerBody/PlayerSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("2_mdl7e"), ExtResource("5_qu4a1"), ExtResource("2_mdl7e")]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tuyoq"]
 _data = {
+&"DashAnim": SubResource("Animation_qu4a1"),
+&"IdleAnim": SubResource("Animation_70d11"),
 &"RESET": SubResource("Animation_qlg0r"),
 &"WalkingAnim": SubResource("Animation_dqkch")
 }
 
-[node name="Player" type="Node2D" node_paths=PackedStringArray("body", "sprite", "walkingAnim")]
+[node name="Player" type="Node2D" node_paths=PackedStringArray("body", "sprite", "walkingAnim", "dashTimer", "dashVFX")]
 script = ExtResource("1_3li8b")
+dashMoveCooldown = 0.4
 body = NodePath("PlayerBody")
 sprite = NodePath("PlayerBody/PlayerSprite")
 walkingAnim = NodePath("AnimationPlayer")
+dashTimer = NodePath("DashTimer")
+dashVFX = NodePath("PlayerBody/DashSprite")
 
 [node name="PlayerBody" type="CharacterBody2D" parent="."]
-position = Vector2(-4, -8)
 motion_mode = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerBody"]
-position = Vector2(8, 92)
+position = Vector2(4, 80)
 scale = Vector2(1.6207087, 1.0434494)
 shape = SubResource("CircleShape2D_3li8b")
 
+[node name="DashSprite" type="Sprite2D" parent="PlayerBody"]
+visible = false
+position = Vector2(69, 0)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("3_70d11")
+
 [node name="PlayerSprite" type="Sprite2D" parent="PlayerBody"]
-position = Vector2(4, 8)
 texture = ExtResource("2_mdl7e")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_tuyoq")
 }
+
+[node name="DashTimer" type="Timer" parent="."]
