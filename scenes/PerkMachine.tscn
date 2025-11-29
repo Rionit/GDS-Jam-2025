@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://buqpdtq2nnlcb" path="res://scripts/IconSpinner.gd" id="1_1cs1c"]
 [ext_resource type="Script" uid="uid://dgilkci7w60j" path="res://scripts/PerkMachine.gd" id="1_gpvhc"]
 [ext_resource type="Texture2D" uid="uid://c7ive2fj6w8d7" path="res://icon.svg" id="1_ji6xi"]
-[ext_resource type="Script" uid="uid://dq026oovgyr6t" path="res://scripts/Icon.gd" id="4_cgmax"]
+[ext_resource type="Script" path="res://scripts/Icon.gd" id="4_cgmax"]
 
 [node name="PerkMachine" type="Control"]
 layout_mode = 3
