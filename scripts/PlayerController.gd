@@ -117,13 +117,19 @@ var punchSprite : Sprite2D
 @export
 var fistHitbox : Area2D
 
+## Cooldown between 
 @export_range(0.1, 5)
-var punchCooldown = 0.5
+var punchCooldown = 1
 
+## Duration of the punch animation
 @export_range(0.1, 2)
-var punchDuration
+var punchDuration = 0.6
 
-@onready
+@export
+var punchTimer : Timer
+
+var canPunch = true
+
 var defaultPunchAnimLen
 
 # Called when the node enters the scene tree for the first time.
@@ -143,6 +149,8 @@ func _physics_process(delta: float) -> void:
 ## Registers pressed keys
 func _register_keys():
 	_register_move_keys()
+	if Input.is_action_pressed("attack"):
+		pass
 
 ## Registers inputs for player movement	
 func _register_move_keys():
@@ -182,6 +190,7 @@ func _tweenDashVFX(dir : Vector2):
 func _dash(dir : Vector2):
 	canMove = false
 	canDash = false
+	canPunch = false
 	
 	animPlayer.stop()
 	_tweenDashVFX(dir)
@@ -264,6 +273,9 @@ func _process_movement():
 		return
 
 func _punch():
+	canPunch = false
+	canDash = false
+	
 	# Moves the hitbox and animation in the appropriate direction
 	var dir = -1 if sprite.flip_h else 1
 	fistHitbox.scale.x *= dir
@@ -274,12 +286,22 @@ func _punch():
 	
 	var animLen = min(punchCooldown - 0.05, defaultPunchAnimLen)
 	
-	#Sets texture change times
+	#Sets texture change time
 	punchAnim.length = animLen
 	punchAnim.track_set_key_time(0,1, animLen)
 	
 	#Sets alpha reduction time and easing
 	punchAnim.track_set_key_time(1,1,animLen)
 	punchAnim.bezier_track_set_key_out_handle(1,0, Vector2(2*animLen/3,-1))
-	punchAnim.bezier_track_set_key_in_handle(1,1, Vector2(1))
+	punchAnim.bezier_track_set_key_in_handle(1,1, Vector2(-animLen/3, 0))
 	
+	# Sets hitbox disablement time
+	punchAnim.track_set_key_time(2,1,animLen)
+	
+	# Starts the cooldown timer
+	punchTimer.wait_time = punchCooldown
+	punchTimer.start()
+	
+	await punchTimer.timeout
+	
+	canPunch = true

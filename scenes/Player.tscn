@@ -149,23 +149,10 @@ _data = {
 [node name="Player" type="Node2D" node_paths=PackedStringArray("animPlayer", "body", "sprite", "dashTimer", "dashVFX")]
 script = ExtResource("1_3li8b")
 animPlayer = NodePath("AnimationPlayer")
-dampeningFactorMoving = null
-dampeningFactorStationary = null
-moveSpeed = null
-dashSpeed = null
-dashDuration = null
-dashMoveCooldown = null
-dashCooldown = null
-dampOppositeDirection = null
-dashVFXAnimDistance = null
 body = NodePath("PlayerBody")
 sprite = NodePath("PlayerBody/PlayerSprite")
 dashTimer = NodePath("DashTimer")
 dashVFX = NodePath("PlayerBody/DashSprite")
-maxSanity = null
-sanityLoss = null
-playerDamage = null
-punchCooldown = null
 
 [node name="PlayerBody" type="CharacterBody2D" parent="."]
 motion_mode = 1
