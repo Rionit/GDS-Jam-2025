@@ -119,7 +119,7 @@ var fistHitbox : Area2D
 
 ## Cooldown between 
 @export_range(0.1, 5)
-var punchCooldown = 1
+var punchCooldown = 1.0
 
 ## Duration of the punch animation
 @export_range(0.1, 2)
@@ -128,15 +128,11 @@ var punchDuration = 0.6
 @export
 var punchTimer : Timer
 
-
-
 var canPunch = true
 
 var defaultPunchAnimLen
 
 var playingPunch = false
-
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -144,10 +140,15 @@ func _ready() -> void:
 	pressedMoveKeys = []
 	on_balding.connect(PerkMachine.on_balding)
 	defaultPunchAnimLen = animPlayer.get_animation("PunchAnim").length
-	punchSprite.visibility_changed.connect(func(): 
-		if(punchSprite.visible):
-			print("punchSprite became visible!")) 
 	
+
+
+
+func _check_hit(potentialTarget : Area2D):
+	var parent = potentialTarget.get_parent()
+	if potentialTarget.get_parent() is Hittable:
+		(parent as Hittable).take_damage(playerDamage, global_position)
+
 func _physics_process(delta: float) -> void:
 	_register_keys()
 	if canMove:
@@ -303,6 +304,7 @@ func _process_movement():
 		return
 
 func _stop_punch():
+	animPlayer.speed_scale = 1
 	fistHitbox.collision_layer = 0
 	punchSprite.visible = false
 
@@ -315,17 +317,19 @@ func _punch():
 	var punchAnim = animPlayer.get_animation("PunchAnim")
 	var animLen = min(punchCooldown - 0.05, defaultPunchAnimLen)
 	
-	#Sets texture change time
-	punchAnim.length = animLen
-	punchAnim.track_set_key_time(0,1, animLen)
+	animPlayer.speed_scale = defaultPunchAnimLen / animLen
 	
-	#Sets alpha reduction time and easing
-	punchAnim.track_set_key_time(1,1,animLen)
-	punchAnim.bezier_track_set_key_out_handle(1,0, Vector2(2*animLen/3,-1))
-	punchAnim.bezier_track_set_key_in_handle(1,1, Vector2(-animLen/3, 0))
+	##Sets texture change time
+	#punchAnim.length = animLen
+	#punchAnim.track_set_key_time(0,1, animLen)
+	#
+	##Sets alpha reduction time and easing
+	#punchAnim.track_set_key_time(1,1,animLen)
+	#punchAnim.bezier_track_set_key_out_handle(1,0, Vector2(2*animLen/3,-1))
+	#punchAnim.bezier_track_set_key_in_handle(1,1, Vector2(-animLen/3, 0))
 	
 	# Sets hitbox disablement time
-	punchAnim.track_set_key_time(2,1,animLen)
+	#punchAnim.track_set_key_time(2,1,animLen)
 	animPlayer.play("PunchAnim")
 	
 	# Starts the cooldown timer
@@ -333,6 +337,7 @@ func _punch():
 	punchTimer.start()
 	
 	await animPlayer.animation_finished
+	animPlayer.speed_scale = 1
 	print("Is punch sprite visible ?" + str(punchSprite.visible))
 	playingPunch = false
 	

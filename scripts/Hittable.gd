@@ -10,8 +10,8 @@ var hitForce = 10
 @export
 var invulnerabilityDuration = 1
 
-## Invoked by a hitter when damage should be taken
-signal on_damage_taken(damage : int, hitterPosition : Vector2)
+func take_damage(damage : int, hitterPosition : Vector2):
+	pass
 
 ## Invoked by the dying entity
 signal on_death(dyingEntity : Hittable)

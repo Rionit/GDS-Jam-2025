@@ -169,6 +169,7 @@ dashTimer = NodePath("DashTimer")
 dashVFX = NodePath("DashSprite")
 punchSprite = NodePath("FistHitbox/PunchSprite")
 fistHitbox = NodePath("FistHitbox")
+punchCooldown = 0.2
 punchTimer = NodePath("PunchTimer")
 
 [node name="PhysicalHitbox" type="CollisionShape2D" parent="."]
