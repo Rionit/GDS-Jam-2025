@@ -123,10 +123,14 @@ var punchCooldown = 0.5
 @export_range(0.1, 2)
 var punchDuration
 
+@onready
+var defaultPunchAnimLen
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pressedMoveKeys = []
 	on_balding.connect(PerkMachine.on_balding)
+	defaultPunchAnimLen = animPlayer.get_animation("PunchAnim").length
 
 func _physics_process(delta: float) -> void:
 	_register_keys()
@@ -260,12 +264,22 @@ func _process_movement():
 		return
 
 func _punch():
+	# Moves the hitbox and animation in the appropriate direction
 	var dir = -1 if sprite.flip_h else 1
 	fistHitbox.scale.x *= dir
 	
 	animPlayer.stop()
 	playingWalk = false
-	
-	
 	var punchAnim = animPlayer.get_animation("PunchAnim")
+	
+	var animLen = min(punchCooldown - 0.05, defaultPunchAnimLen)
+	
+	#Sets texture change times
+	punchAnim.length = animLen
+	punchAnim.track_set_key_time(0,1, animLen)
+	
+	#Sets alpha reduction time and easing
+	punchAnim.track_set_key_time(1,1,animLen)
+	punchAnim.bezier_track_set_key_out_handle(1,0, Vector2(2*animLen/3,-1))
+	punchAnim.bezier_track_set_key_in_handle(1,1, Vector2(1))
 	
