@@ -91,7 +91,7 @@ var canMove = true
 var afterDashDamp = false
 
 @export_group("COMBAT")
-signal OnBalding(baldness : int)
+signal on_balding(baldness : int)
 
 ## Player's maximum sanity
 @export
@@ -115,7 +115,7 @@ var punchSprite : Sprite2D
 
 ## Fist punch hitbox
 @export
-var fistHitbox : StaticBody2D
+var fistHitbox : Area2D
 
 @export_range(0.1, 5)
 var punchCooldown = 0.5
@@ -126,6 +126,7 @@ var punchDuration
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pressedMoveKeys = []
+	on_balding.connect(PerkMachine.on_balding)
 
 func _physics_process(delta: float) -> void:
 	_register_keys()
@@ -259,6 +260,12 @@ func _process_movement():
 		return
 
 func _punch():
-	var dir = 1 if sprite.flip_h else -1
+	var dir = -1 if sprite.flip_h else 1
+	fistHitbox.scale.x *= dir
 	
+	animPlayer.stop()
+	playingWalk = false
+	
+	
+	var punchAnim = animPlayer.get_animation("PunchAnim")
 	
