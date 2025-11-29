@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c7bwmsj7rtu8t"]
+[gd_scene load_steps=12 format=3 uid="uid://c7bwmsj7rtu8t"]
 
 [ext_resource type="Script" uid="uid://c2ur6n2cl28rx" path="res://scripts/SlotMachineEnemy.gd" id="1_4qv2l"]
 [ext_resource type="Texture2D" uid="uid://b2j8dvr25m2su" path="res://sprites/Enemies/slot_machine_enemy/slotmachine_blue.png" id="2_r7vsf"]
@@ -89,10 +89,48 @@ tracks/2/keys = {
 "values": [0, 0, 2, 2, 0, 0]
 }
 
+[sub_resource type="Animation" id="Animation_mx6fh"]
+resource_name = "damage"
+length = 0.6
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MotherFlipper/MachineSprite:modulate:g")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(2, 0, 0),
+"points": PackedFloat32Array(1, 0, 0, 0.005, 0, 0, -0.25, 0, 0.23333333, 0.94836414, 1, -0.36666667, -0.05163586, 0, 0),
+"times": PackedFloat32Array(0, 0.03, 0.6)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MotherFlipper/MachineSprite:modulate:b")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(2, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0, 0, 0, -0.25, 0, 0.23333333, 0.92568773, 1, -0.36666667, -0.07431227, 0, 0),
+"times": PackedFloat32Array(0, 0.03, 0.6)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MotherFlipper/MachineSprite:modulate:a")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(1, 0, 0, 0, -0.46547967, 0.5, -0.25, 0, 0.2, 0.4370259, 1, -0.40000004, -0.062974095, 0, 0),
+"times": PackedFloat32Array(0, 0.03, 0.6)
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1fnvl"]
 _data = {
 &"RESET": SubResource("Animation_1fnvl"),
-&"attack": SubResource("Animation_ear84")
+&"attack": SubResource("Animation_ear84"),
+&"damage": SubResource("Animation_mx6fh")
 }
 
 [node name="SlotMachineEnemy" type="CharacterBody2D"]
