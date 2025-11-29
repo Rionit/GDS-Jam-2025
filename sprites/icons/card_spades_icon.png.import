@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://vp5a5tg86pnk"
-path="res://.godot/imported/card_sprades_icon.png-f8463c4af1a916e418c9569ad13001d4.ctex"
+path="res://.godot/imported/card_spades_icon.png-097358d293ffe6ba0756575db9cb16fb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/icons/card_sprades_icon.png"
-dest_files=["res://.godot/imported/card_sprades_icon.png-f8463c4af1a916e418c9569ad13001d4.ctex"]
+source_file="res://sprites/icons/card_spades_icon.png"
+dest_files=["res://.godot/imported/card_spades_icon.png-097358d293ffe6ba0756575db9cb16fb.ctex"]
 
 [params]
 

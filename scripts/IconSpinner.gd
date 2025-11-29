@@ -1,9 +1,9 @@
 extends Control
 class_name IconSpinner
 
-@onready var icon_1: TextureRect = $Icon1
-@onready var icon_2: TextureRect = $Icon2
-@onready var icon_3: TextureRect = $Icon3
+@onready var icon_1: Icon = $Icon1
+@onready var icon_2: Icon = $Icon2
+@onready var icon_3: Icon = $Icon3
 
  ## offset between the three icons
 @export var offset := 30
@@ -16,9 +16,14 @@ var wraps_done := 0
 var icon_height := 0
 var trans_type := Tween.TRANS_SPRING
 var bounce_time := 1
+var icons : Array[Icon]
 
 func _ready() -> void:
 	icon_height = icon_1.size.y + offset
+
+	icons.append(icon_1)
+	icons.append(icon_2)
+	icons.append(icon_3)
 
 	icon_1.position.y = -icon_height
 	icon_2.position.y = 0
@@ -39,27 +44,27 @@ func _process(delta: float) -> void:
 	if not spinning:
 		return
 
-	_move_and_wrap(icon_1, delta)
-	_move_and_wrap(icon_2, delta)
-	_move_and_wrap(icon_3, delta)
+	for icon in icons:
+		_move_and_wrap(icon, delta)
 
 	# Stop when enough wraps have completed
 	if wraps_done >= cycles:
 		_align_and_stop()
 
-## Moves icon down and wraps if threshold crossed
-func _move_and_wrap(icon: TextureRect, delta: float) -> void:
+## Moves [param icon] down and wraps if threshold crossed
+func _move_and_wrap(icon: Icon, delta: float) -> void:
 	icon.position.y += spin_speed * delta
 
 	# If it crossed below bottom threshold, wrap to top
 	if icon.position.y >= icon_height:
 		icon.position.y = -icon_height*2 - offset
+		icon.randomize_icon()
 		wraps_done += 1
-		
-		# TODO: Change icon sprite!!
 
 ## Transition back to default positions with "bounce"
 func _align_and_stop():
+	# TODO: Change to final perk!!
+	
 	spinning = false
 
 	var tween = create_tween()
