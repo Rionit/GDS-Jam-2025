@@ -35,7 +35,7 @@ const SOUND_BG = preload("uid://bxyy0ae8omrax")
 
 var currentNumRolls = 0
 
-var current_perk_modifier = 1
+var current_perk_modifier : float = 1
 
 var is_hidden : bool = true
 var current_baldness := 0
@@ -84,20 +84,21 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	
 	if spinning_columns == 0:
-		if  event.is_action_pressed("attack"):
+		if Player.has_money(currentPrice) && event.is_action_pressed("attack"):
 			#AudioManager.play_music(load("res://sound/levels/music_bg.wav"))
 			#AudioManager.fade_in_music()
 			spin_machine()
 			#Player.money += 100
 			#GUI.update_money(Player.money)
-		elif currentNumRolls > 0 &&  event.is_action_pressed("dash"):
+		elif currentNumRolls > 0 && event.is_action_pressed("dash"):
 			SceneManager.deactivate_perk_machine()
 			
 
 func stop_spinning_callback():
 	spinning_columns -= 1
 	if spinning_columns == 0:
-		play_button.show()
+		if currentNumRolls > 0:
+			play_button.show()
 		if Player.has_money(currentPrice):
 			roll_again_button.show()
 			roll_button_cost.text = "COSTS " + str(currentPrice) + " "
