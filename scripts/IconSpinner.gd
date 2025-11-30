@@ -7,7 +7,7 @@ class_name IconSpinner
 
 @export var rich_text_label: RichTextLabel
 
-@export var offset := 15
+@export var offset := 5
 @export var spin_speed := 2000.0
 @export var cycles := 9    
 
