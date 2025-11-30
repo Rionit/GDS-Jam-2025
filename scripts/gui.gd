@@ -1,7 +1,8 @@
 extends Control
 
-@onready var money_label: Label = $MarginContainer/HBoxContainer/Label
+@onready var money_label: Label = %MoneyLabel
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var hider: Control = $Hider
 
 var current_value: int = 0
 var tween: Tween

@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://dsge0b7qbpte0" path="res://menu/menu_ui/text/quit_game.png" id="6_ucygd"]
 
 [node name="MainMenu" type="Control" node_paths=PackedStringArray("positions")]
+z_index = 3000
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

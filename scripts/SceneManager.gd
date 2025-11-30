@@ -30,9 +30,13 @@ func next_level():
 	if current_level >= levels.size():
 		current_level = 0
 	
-	transition_to_scene(levels[current_level])
-	if levels[current_level] != TURKISH_ROOM:
+	Player.position = Vector2(180, 620)
+	
+	await transition_to_scene(levels[current_level])
+	if levels[current_level] != TURKISH_ROOM and levels[current_level] != TURKISH_GUY:
 		activate_perk_machine()
+	else:
+		GUI.hider.hide()
 	
 	current_level += 1
 
@@ -44,6 +48,7 @@ func _input(event: InputEvent) -> void:
 		activate_perk_machine()
 
 func activate_perk_machine():
+	GUI.hider.hide()
 	PerkMachine.show()
 	PerkMachine.roll_button_cost.text = "COSTS 0 "
 	
@@ -51,6 +56,7 @@ func activate_perk_machine():
 	PerkMachine.is_hidden = false
 	
 func deactivate_perk_machine():
+	GUI.hider.show()
 	PerkMachine.currentNumRolls = 0
 	PerkMachine.currentPrice = 0
 	PerkMachine.current_perk_modifier = 1
