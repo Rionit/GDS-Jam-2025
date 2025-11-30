@@ -1,6 +1,7 @@
 extends Control
 
 @onready var money_label: Label = $MarginContainer/HBoxContainer/Label
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 var current_value: int = 0
 var tween: Tween
@@ -16,3 +17,11 @@ func update_money(target_value: int) -> void:
 
 func _update_money_text(value: float) -> void:
 	money_label.text = str(int(value))
+
+func fade_in():
+	animation_player.play("fade_in")
+	await animation_player.animation_finished
+
+func fade_out():
+	animation_player.play_backwards("fade_in")
+	await animation_player.animation_finished

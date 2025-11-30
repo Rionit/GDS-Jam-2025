@@ -25,6 +25,7 @@ func _process(delta: float) -> void:
 	move_and_slide()
 
 func throw():
+	AudioManager.play_sfx(load ("res://sound/enemies/cards/flying-fast.wav"), -15.0)
 	$Hitbox.collision_mask = 2
 	animation_player.play("rotate")
 	var dir_to_player = (Player.global_position - global_position).normalized()
@@ -33,11 +34,13 @@ func throw():
 	is_cooling_down = false
 
 func _on_hitbox_body_entered(body: Node2D) -> void:
+	AudioManager.play_sfx(load("res://sound/enemies/cards/hit_wall.wav"), -15.0)
 	print("BODY ENTERED")
 	velocity = Vector2.ZERO
 	animation_player.pause()
 	
 func take_damage(damage : int, hitterPosition : Vector2):
+	AudioManager.play_sfx(load("res://sound/enemies/cards/get_hit.wav"), -10.0)
 	health -= damage
 	if health <= 0:
 		die()
@@ -46,6 +49,7 @@ func take_damage(damage : int, hitterPosition : Vector2):
 		damage_anim_player.play("DamageAnimation")
 		
 func die():
+	AudioManager.play_sfx(load("res://sound/enemies/cards/death.wav"), -10.0)
 	isDying = true
 	on_death.emit(self)
 	$Hitbox.collision_mask = 0
