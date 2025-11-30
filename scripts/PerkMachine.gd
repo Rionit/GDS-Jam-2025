@@ -55,6 +55,10 @@ func _ready() -> void:
 	hide()
 	
 func _unhandled_input(event: InputEvent) -> void:
+	#if event.is_action_pressed("attack"):
+		#Player.money += 100
+		#GUI.update_money(Player.money)
+	
 	if event.is_action_pressed("debug"):
 		if is_hidden:
 			show()
