@@ -16,6 +16,7 @@ var levels : Array[PackedScene] = [
 	#ROULETTE_ROOM,
 	TURKISH_ROOM,
 	TURKISH_GUY,
+	CRANE_ROOM,
 	END
 ]
 
