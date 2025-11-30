@@ -348,6 +348,11 @@ func take_damage(damage : int, hitterPosition : Vector2):
 	if currentSanity <= 0:
 		animPlayer.stop()
 		animPlayer.play("HairLossAnim")
+		hairlossKnockback.force_shapecast_update()
+		for i in range(hairlossKnockback.get_collision_count()):
+			var collision : Area2D = hairlossKnockback.get_collider(i)
+			var collisionParent = collision.get_parent()
+			
 		
 		# TODO: Add knockback for enemy entities
 	
