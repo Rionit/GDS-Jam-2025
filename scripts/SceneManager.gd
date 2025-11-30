@@ -45,6 +45,10 @@ func activate_perk_machine():
 	PerkMachine.is_hidden = false
 	
 func deactivate_perk_machine():
+	PerkMachine.currentNumRolls = 0
+	PerkMachine.currentPrice = 0
+	PerkMachine.current_perk_modifier = 1
+	
 	PerkMachine.hide()
 	PerkMachine.is_hidden = true
 		
