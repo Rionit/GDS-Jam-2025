@@ -53,6 +53,8 @@ var defaultDashSpriteX = dashVFX.position.x
 @export
 var dashVFXAnimDistance = 20
 
+var playingHairloss = false
+
 @onready var hairlossKnockback: ShapeCast2D = $HairlossKnockback
 
 ## Minimum squared velocity size for the player to animate walking
@@ -117,6 +119,9 @@ var currentSanity = maxSanity
 
 var baldness = 0
 
+@export
+var damageAnimPlayer : AnimationPlayer
+
 ## Punch VFX sprite
 @export
 var punchSprite : Sprite2D
@@ -179,11 +184,10 @@ func _register_move_keys():
 			pressedMoveKeys.remove_at(index)
 
 ## Tweens the dash VFX animation
-func _tweenDashVFX(dir : Vector2):
+func _tween_dash_vfx(dir : Vector2):
 	# Dash VFX is on the LEFT if the player 
 	# is moving to the RIGHT
-	## TODO: Add multi-dimensional dash
-	var isLeft = -1 if dir.x >= 0 else 1
+	var isLeft = -1 if scale.x < 0 else 1
 	var newDash = dashVFX.duplicate()
 	newDash.visible = true
 	newDash.flip_h = isLeft == -1
@@ -211,15 +215,16 @@ func _dash(dir : Vector2):
 	canPunch = false
 	
 	animPlayer.stop()
+	animPlayer.play("RESET")
 	_stop_punch()
 	
-	_tweenDashVFX(dir)
+	_tween_dash_vfx(dir)
 	var dashAnim = animPlayer.get_animation("DashAnim")
 	dashAnim.length = dashDuration
 	dashAnim.track_set_key_time(0, 1, dashDuration)
 	playingWalk=false
 	
-	animPlayer.play("DashAnim")
+	animPlayer.queue("DashAnim")
 	velocity = dir * dashSpeed * dampeningFactorMoving
 	
 	dashTimer.wait_time = dashDuration
@@ -228,8 +233,6 @@ func _dash(dir : Vector2):
 	await dashTimer.timeout
 	afterDashDamp = true
 	dashTimer.wait_time = dashMoveCooldown - dashDuration
-	print("Dash move cooldown " + str(dashMoveCooldown) + "; Dash duration: " + str(dashDuration))
-	print("Second timer time: " + str(dashTimer.wait_time))
 	dashTimer.start()
 	
 	await dashTimer.timeout
@@ -280,18 +283,20 @@ func _process_movement():
 	
 	var speedSquared = self.velocity.length_squared()
 	
-	if !playingPunch:
+	if !playingPunch && !playingHairloss:
 		if playingWalk && speedSquared < MIN_SPEED_SQUARED:
 			playingWalk = false
 			animPlayer.stop()
+			animPlayer.play("RESET")
 			_stop_punch()
-			animPlayer.play("IdleAnim")
+			animPlayer.queue("IdleAnim")
 		elif !playingWalk && speedSquared >= MIN_SPEED_SQUARED:
 			print("Playing anim")
 			playingWalk = true
 			animPlayer.stop()
+			animPlayer.play("RESET")
 			_stop_punch()
-			animPlayer.play("WalkingAnim")
+			animPlayer.queue("WalkingAnim")
 		
 	if velocity.x >= 0:
 		scale = Vector2(1,-1)
@@ -312,6 +317,7 @@ func _stop_punch():
 func _punch():
 	canPunch = false
 	animPlayer.stop()
+	animPlayer.play("RESET")
 	playingWalk = false
 	playingPunch = true
 	
@@ -331,7 +337,7 @@ func _punch():
 	
 	# Sets hitbox disablement time
 	#punchAnim.track_set_key_time(2,1,animLen)
-	animPlayer.play("PunchAnim")
+	animPlayer.queue("PunchAnim")
 	
 	# Starts the cooldown timer
 	punchTimer.wait_time = punchCooldown
@@ -350,7 +356,8 @@ func take_damage(damage : int, hitterPosition : Vector2):
 	if currentSanity <= 0:
 		baldness += 1
 		if baldness == 4:
-			# TODO: Die
+			on_death.emit(self)
+			queue_free()
 			pass
 		else:
 			hairlossKnockback.force_shapecast_update()
@@ -364,13 +371,20 @@ func take_damage(damage : int, hitterPosition : Vector2):
 			
 			on_balding.emit(baldness)
 			animPlayer.stop()
-			animPlayer.play("HairLossAnim")
-
-				
+			animPlayer.play("RESET")
+			animPlayer.queue("HairLossAnim")
+			maxSanity -= sanityLoss
+			currentSanity = maxSanity
+			playingHairloss = true
+			
+			await animPlayer.animation_changed
+			await animPlayer.animation_finished
+			
+			playingHairloss = false
 	else:
 		on_damage_taken.emit(damage)
 		take_knockback(hitterPosition)
-		animPlayer.play("DamageAnimation")
+		damageAnimPlayer.play("DamageAnim")
 		gain_invulnerability()
 		# TODO: Add knockback for enemy entities
 
@@ -379,3 +393,6 @@ func _switch_hair():
 		$HairSprite.texture = hairTextures[baldness]
 	else:
 		$HairSprite.texture = null
+		
+func get_money(deadEnemy : Hittable):
+	money += deadEnemy.price

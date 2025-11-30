@@ -19,6 +19,9 @@ var damage = 10
 @export
 var weaponHitbox : Area2D
 
+@export
+var price = 0
+
 var isInvulnerable = false
 
 var isDying = false
@@ -52,8 +55,6 @@ func gain_invulnerability():
 	isInvulnerable = true
 	await get_tree().create_timer(invulnerabilityDuration).timeout
 	isInvulnerable = false
-
-
 
 ## Invoked by the dying entity
 signal on_death(dyingEntity : Hittable)

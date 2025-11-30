@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://bte3wxufl3bcx"]
+[gd_scene load_steps=31 format=3 uid="uid://bte3wxufl3bcx"]
 
 [ext_resource type="Script" uid="uid://c36mp8nstsfe6" path="res://scripts/PlayerController.gd" id="1_3li8b"]
 [ext_resource type="Texture2D" uid="uid://clr8t4qgvdppx" path="res://sprites/player/animations/walking/player_idle.png" id="2_mdl7e"]
@@ -43,7 +43,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "handle_modes": PackedInt32Array(0, 0),
 "points": PackedFloat32Array(0, -0.25, 0, 0.3, 1, 1, -0.3, 0, 0, 0),
-"times": PackedFloat32Array(0, 0.5)
+"times": PackedFloat32Array(0, 0.45)
 }
 tracks/1/type = "bezier"
 tracks/1/imported = false
@@ -54,7 +54,7 @@ tracks/1/loop_wrap = true
 tracks/1/keys = {
 "handle_modes": PackedInt32Array(0, 0),
 "points": PackedFloat32Array(0, 0, 0, 0.3, 1, 1, -0.3, 0, 0, 0),
-"times": PackedFloat32Array(0, 0.5)
+"times": PackedFloat32Array(0, 0.45)
 }
 tracks/2/type = "bezier"
 tracks/2/imported = false
@@ -65,7 +65,7 @@ tracks/2/loop_wrap = true
 tracks/2/keys = {
 "handle_modes": PackedInt32Array(0, 0),
 "points": PackedFloat32Array(0.5, 0, 0, 0.3, 0.5, 1, -0.3, 0, 0, 0),
-"times": PackedFloat32Array(0, 0.5)
+"times": PackedFloat32Array(0, 0.45)
 }
 
 [sub_resource type="Animation" id="Animation_qu4a1"]
@@ -164,10 +164,10 @@ tracks/5/path = NodePath("HairLosingParent/HairStrand1:modulate:a")
 tracks/5/interp = 2
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.95),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.05, 0.95),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [1.0, 0.0]
+"values": [0.0, 1.0, 0.0]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
@@ -176,10 +176,10 @@ tracks/6/path = NodePath("HairLosingParent/HairStrand2:modulate:a")
 tracks/6/interp = 2
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0, 0.95),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.05, 0.95),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [1.0, 0.0]
+"values": [0.0, 1.0, 0.0]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
@@ -188,10 +188,10 @@ tracks/7/path = NodePath("HairLosingParent/HairStrand3:modulate:a")
 tracks/7/interp = 2
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(0, 0.95),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.05, 0.95),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [1.0, 0.0]
+"values": [0.0, 1.0, 0.0]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
@@ -349,55 +349,58 @@ tracks/1/keys = {
 "update": 1,
 "values": [false]
 }
-tracks/2/type = "bezier"
+tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerSprite:modulate:g")
+tracks/2/path = NodePath("HairSprite:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/3/type = "bezier"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("PlayerSprite:modulate:b")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/4/type = "bezier"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("PlayerSprite:modulate:a")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("HairSprite:position")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(-7, -87)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HairLosingParent/HairStrand1:position:x")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("HairLosingParent/HairStrand2:position:x")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("HairLosingParent/HairStrand3:position:y")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.0]
+}
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("HairLosingParent/HairStrand1:position:x")
+tracks/6/path = NodePath("HairLosingParent/HairStrand4:position:y")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -409,7 +412,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("HairLosingParent/HairStrand2:position:x")
+tracks/7/path = NodePath("HairLosingParent/HairStrand1:modulate:a")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -421,19 +424,19 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("HairLosingParent/HairStrand3:position:y")
+tracks/8/path = NodePath("PlayerSprite:texture")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0.0]
+"values": [ExtResource("2_mdl7e")]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("HairLosingParent/HairStrand4:position:y")
+tracks/9/path = NodePath("HairLosingParent/HairStrand2:modulate:a")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -445,31 +448,31 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("HairLosingParent/HairStrand1:modulate:a")
+tracks/10/path = NodePath("HairLosingParent/HairStrand3:modulate:a")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [1.0]
+"values": [0.0]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("PlayerSprite:texture")
+tracks/11/path = NodePath("HairLosingParent/HairStrand4:modulate:a")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_mdl7e")]
+"values": [0.0]
 }
 
 [sub_resource type="Animation" id="Animation_dqkch"]
 resource_name = "WalkingAnim"
-length = 0.666
+length = 0.001
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -483,6 +486,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [ExtResource("2_mdl7e"), ExtResource("3_qu4a1"), ExtResource("2_mdl7e")]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HairSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-7, -87), Vector2(-7, -87)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tuyoq"]
 _data = {
@@ -495,7 +510,65 @@ _data = {
 &"WalkingAnim": SubResource("Animation_dqkch")
 }
 
-[node name="PlayerBody" type="CharacterBody2D" node_paths=PackedStringArray("animPlayer", "sprite", "dashTimer", "dashVFX", "punchSprite", "fistHitbox", "punchTimer", "weaponHitbox")]
+[sub_resource type="Animation" id="Animation_lkdrv"]
+resource_name = "DamageAnim"
+length = 0.6
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:modulate:g")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.3, 1, 1, -0.3, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.45)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerSprite:modulate:b")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.3, 1, 1, -0.3, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.45)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerSprite:modulate:a")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0.5, 0, 0, 0.3, 0.5, 1, -0.3, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.45)
+}
+
+[sub_resource type="Animation" id="Animation_p7iby"]
+resource_name = "RESET"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p7iby"]
+_data = {
+&"DamageAnim": SubResource("Animation_lkdrv"),
+&"RESET": SubResource("Animation_p7iby")
+}
+
+[node name="PlayerBody" type="CharacterBody2D" node_paths=PackedStringArray("animPlayer", "sprite", "dashTimer", "dashVFX", "damageAnimPlayer", "punchSprite", "fistHitbox", "punchTimer", "weaponHitbox")]
 collision_mask = 32768
 motion_mode = 1
 wall_min_slide_angle = 3.1415927
@@ -506,6 +579,7 @@ hairTextures = Array[Texture]([ExtResource("4_lkdrv"), ExtResource("4_6eyey"), E
 sprite = NodePath("PlayerSprite")
 dashTimer = NodePath("DashTimer")
 dashVFX = NodePath("DashSprite")
+damageAnimPlayer = NodePath("DamageAnimPlayer")
 punchSprite = NodePath("FistHitbox/PunchSprite")
 fistHitbox = NodePath("FistHitbox")
 punchTimer = NodePath("PunchTimer")
@@ -543,15 +617,19 @@ collide_with_bodies = false
 position = Vector2(1, -3)
 
 [node name="HairStrand1" type="Sprite2D" parent="HairLosingParent"]
+modulate = Color(1, 1, 1, 0)
 texture = ExtResource("5_6eyey")
 
 [node name="HairStrand2" type="Sprite2D" parent="HairLosingParent"]
+modulate = Color(1, 1, 1, 0)
 texture = ExtResource("5_6eyey")
 
 [node name="HairStrand3" type="Sprite2D" parent="HairLosingParent"]
+modulate = Color(1, 1, 1, 0)
 texture = ExtResource("5_6eyey")
 
 [node name="HairStrand4" type="Sprite2D" parent="HairLosingParent"]
+modulate = Color(1, 1, 1, 0)
 texture = ExtResource("5_6eyey")
 
 [node name="FistHitbox" type="Area2D" parent="."]
@@ -601,3 +679,8 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="DamageAnimPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_p7iby")
+}

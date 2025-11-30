@@ -21,6 +21,8 @@ var is_attacking := false
 var health : int = 30
 
 func _ready() -> void:
+	super()
+	on_death.connect(Player.get_money)
 	sprite_2d.texture = textures.pick_random()
 	vfx_sprite.modulate.a = 0.0
 
@@ -118,4 +120,3 @@ func die():
 	await animation_player.animation_finished
 	
 	queue_free()
-	

@@ -317,11 +317,14 @@ _data = {
 &"death": SubResource("Animation_7fs52")
 }
 
-[node name="SlotMachineEnemy" type="CharacterBody2D"]
+[node name="SlotMachineEnemy" type="CharacterBody2D" node_paths=PackedStringArray("weaponHitbox")]
 collision_mask = 32768
 motion_mode = 1
 platform_floor_layers = 4294901760
 script = ExtResource("1_4qv2l")
+damage = 50
+weaponHitbox = NodePath("MotherFlipper/HandleHitbox")
+price = 10
 
 [node name="MotherFlipper" type="Node2D" parent="."]
 
