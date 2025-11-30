@@ -3,7 +3,7 @@ extends Control
 @onready var money_label: Label = %MoneyLabel
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var hider: Control = $Hider
-@onready var progress_bar: ProgressBar = $Hider/MarginContainer/MarginContainer/ProgressBar
+@onready var sanity_label: Label = $Hider/MarginContainer/HBoxContainer2/SanityLabel
 
 var current_value: int = 0
 var tween: Tween
@@ -18,7 +18,7 @@ func update_money(target_value: int) -> void:
 	current_value = target_value
 
 func update_sanity(target_value: float) -> void:
-	progress_bar.value = 1.0
+	sanity_label.text = "Sanity: " + str(target_value)
 
 func _update_money_text(value: float) -> void:
 	money_label.text = str(int(value))
