@@ -398,3 +398,4 @@ func _switch_hair():
 		
 func get_money(deadEnemy : Hittable):
 	money += deadEnemy.price
+	GUI.update_money(money)
