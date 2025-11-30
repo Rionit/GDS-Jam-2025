@@ -22,6 +22,10 @@ var current_level := 0
 
 func transition_to_scene(path: PackedScene) -> void:
 	await GUI.fade_in()            
+	if path == MAIN_MENU or path == TURKISH_GUY:
+		Player.hide()
+	else:
+		Player.show()
 	get_tree().change_scene_to_packed(path)
 	await GUI.fade_out()
 
@@ -52,7 +56,7 @@ func activate_perk_machine():
 	PerkMachine.show()
 	PerkMachine.roll_button_cost.text = "COSTS 0 "
 	
-	await get_tree().create_timer(2.0).timeout
+	await get_tree().create_timer(1.0).timeout
 	PerkMachine.is_hidden = false
 	
 func deactivate_perk_machine():

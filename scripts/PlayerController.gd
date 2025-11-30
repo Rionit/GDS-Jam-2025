@@ -159,6 +159,8 @@ func _ready() -> void:
 	defaultPunchAnimLen = animPlayer.get_animation("PunchAnim").length
 
 func _physics_process(delta: float) -> void:
+	if PerkMachine.visible:
+		return
 	if !isDying:
 		_register_keys()
 		if canMove:
