@@ -221,6 +221,7 @@ func _tween_dash_vfx(dir : Vector2):
 
 ## Dashes to the predefined direction
 func _dash(dir : Vector2):
+	AudioManager.play_sfx(load("res://sound/player/dash.mp3"), -10.0)
 	canMove = false
 	canDash = false
 	
@@ -329,6 +330,7 @@ func _stop_punch():
 	punchSprite.visible = false
 
 func _punch():
+	AudioManager.play_sfx(load("res://sound/player/swing_hand.wav"))
 	canPunch = false
 	animPlayer.stop()
 	animPlayer.play("RESET")
@@ -366,6 +368,7 @@ func _punch():
 	
 # TODO: Take damage
 func take_damage(damage : int, hitterPosition : Vector2):
+	AudioManager.play_sfx(load("res://sound/player/get_hit.wav"))
 	currentSanity -= damage
 	if currentSanity <= 0:
 		baldness += 1
@@ -386,6 +389,8 @@ func take_damage(damage : int, hitterPosition : Vector2):
 			on_balding.emit(baldness)
 			animPlayer.stop()
 			animPlayer.play("RESET")
+			AudioManager.play_sfx(load("res://sound/player/hair_ripping.wav"))
+			AudioManager.play_sfx(load("res://sound/player/hair_pulling_scream.wav"))
 			animPlayer.queue("HairLossAnim")
 			maxSanity -= sanityLoss
 			currentSanity = maxSanity
@@ -409,6 +414,7 @@ func _switch_hair():
 		$HairSprite.texture = null
 		
 func get_money(deadEnemy : Hittable):
+	AudioManager.play_sfx(load("res://sound/player/coins_picked.wav"))
 	money += deadEnemy.price
 	GUI.update_money(money)
 
