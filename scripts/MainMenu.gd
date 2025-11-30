@@ -16,6 +16,7 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("up"):
+		
 		menu_idx -= 1
 		if menu_idx < 0:
 			menu_idx = 3
@@ -29,6 +30,7 @@ func _input(event: InputEvent) -> void:
 		print(menu_idx)
 	
 	if event.is_action_pressed("attack"):
+		AudioManager.play_sfx(load("res://sound/UI_sounds/click.wav"))
 		match menu_idx:
 			1:
 				pass
@@ -44,6 +46,7 @@ func _input(event: InputEvent) -> void:
 	
 
 func animate():
+	AudioManager.play_sfx(load("res://sound/UI_sounds/hovering.wav"), -2.0)
 	highlight.modulate.a = 0.0
 	highlight.global_position = positions[menu_idx].global_position
 	var tween = create_tween()
