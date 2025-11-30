@@ -57,6 +57,9 @@ func _ready() -> void:
 	hide()
 	
 func _unhandled_input(event: InputEvent) -> void:
+	if !SceneManager.perk_machine_active:
+		return
+	
 	if event.is_action_pressed("attack"):
 		#AudioManager.play_music(load("res://sound/levels/music_bg.wav"))
 		#AudioManager.fade_in_music()

@@ -21,6 +21,7 @@ PerkMachine="*res://scenes/PerkMachine.tscn"
 Player="*res://scenes/Player.tscn"
 GUI="*res://scenes/GUI.tscn"
 AudioManager="*res://scenes/AudioManager.tscn"
+SceneManager="*res://scenes/SceneManager.tscn"
 
 [display]
 
