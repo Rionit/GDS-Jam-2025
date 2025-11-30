@@ -22,11 +22,11 @@ var ease_duration := 0.4
 var final_perk : Perk
 var value_multiplier = 1
 
+signal on_spinned()
+
 func _ready() -> void:
 	icon_height = icon_1.size.y + offset
-
 	icons = [icon_1, icon_2, icon_3]
-
 	icon_1.position.y = -icon_height
 	icon_2.position.y = 0
 	icon_3.position.y = icon_height
@@ -72,6 +72,7 @@ func _align_and_stop():
 
 	spinning = false
 
+	on_spinned.emit()
 	var tween = create_tween()
 	
 	tween.set_trans(Tween.TRANS_SPRING).set_ease(Tween.EASE_OUT)

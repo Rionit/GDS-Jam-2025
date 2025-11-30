@@ -44,11 +44,17 @@ var base_buff_chance = 35
 var baldness_chance_increase = 15
 
 var perks : Array[Perk] = []
-
 var currentPrice = 0
+
+var spinning_columns = 0
+
 
 ## How long until first perk stops spinning
 @export_range(3, 120, 3) var spin_length: int = 12
+
+@export var roll_again_button : Button
+@export var play_button : Button
+@export var roll_button_cost : Label
 
 @onready var icon_spinner_1: IconSpinner = %IconSpinner1
 @onready var icon_spinner_2: IconSpinner = %IconSpinner2
@@ -69,6 +75,14 @@ func _unhandled_input(event: InputEvent) -> void:
 		#Player.money += 100
 		#GUI.update_money(Player.money)
 
+func stop_spinning_callback():
+	spinning_columns -= 1
+	if spinning_columns == 0:
+		play_button.show()
+		if Player.has_money(currentPrice):
+			roll_again_button.show()
+			roll_button_cost.text = "COSTS " + str(currentPrice) + " "
+
 func return_perk(type : Perk.PerkEnum) -> Array[Perk]:
 	var to_return = []
 	for perk in perks:
@@ -78,6 +92,8 @@ func return_perk(type : Perk.PerkEnum) -> Array[Perk]:
 	return to_return
 
 func spin_machine():
+	play_button.hide()
+	roll_again_button.hide()
 	if currentNumRolls == 0:
 		currentPrice += 100
 	else:
@@ -104,6 +120,9 @@ func spin_machine():
 	icon_spinner_3.cycles = spin_length + 12
 	icon_spinner_3.spin()
 	icon_spinner_3.value_multiplier = current_perk_modifier
+	
+	spinning_columns = 3
+	
 
 func get_final_perk() -> Perk:
 	var random = randi() % 100 + 1

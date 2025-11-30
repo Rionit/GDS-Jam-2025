@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cppoi0867qwub"]
+[gd_scene load_steps=10 format=3 uid="uid://cppoi0867qwub"]
 
 [ext_resource type="Script" uid="uid://buqpdtq2nnlcb" path="res://scripts/IconSpinner.gd" id="1_1cs1c"]
 [ext_resource type="Script" uid="uid://dgilkci7w60j" path="res://scripts/PerkMachine.gd" id="1_gpvhc"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" uid="uid://dpwutymrsj4p7" path="res://scripts/HandleController.gd" id="5_b6ogu"]
 [ext_resource type="Texture2D" uid="uid://dld3qn86qaia" path="res://sprites/Slot_machine/Slot_machine.png" id="5_l7i83"]
 [ext_resource type="Texture2D" uid="uid://cvgl2r36o4ouv" path="res://sprites/Slot_machine/head/head1.png" id="7_b6ogu"]
+[ext_resource type="Texture2D" uid="uid://b5abnjri3a0nx" path="res://sprites/icons_ui/dollar.png" id="8_3y3w2"]
+[ext_resource type="Script" uid="uid://dq026oovgyr6t" path="res://scripts/Icon.gd" id="9_gtdnv"]
 
 [node name="PerkMachine" type="Control"]
 z_index = 200
@@ -279,6 +281,87 @@ theme_override_constants/margin_left = 100
 unique_name_in_owner = true
 layout_mode = 2
 texture = ExtResource("7_b6ogu")
+
+[node name="RollAgainButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1272.0
+offset_top = 35.0
+offset_right = 1572.0
+offset_bottom = 185.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RollAgainButton"]
+layout_mode = 0
+offset_right = 300.0
+offset_bottom = 154.0
+alignment = 1
+
+[node name="Label" type="Label" parent="RollAgainButton/VBoxContainer"]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "ROLL AGAIN"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="RollAgainButton/VBoxContainer"]
+custom_minimum_size = Vector2(200, 75)
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="RollAgainButton/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "COSTS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Icon" type="TextureRect" parent="RollAgainButton/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("8_3y3w2")
+expand_mode = 3
+script = ExtResource("9_gtdnv")
+metadata/_custom_type_script = "uid://dq026oovgyr6t"
+
+[node name="Controls" type="Label" parent="RollAgainButton"]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 160.0
+offset_right = 200.0
+offset_bottom = 195.0
+theme_override_font_sizes/font_size = 25
+text = "(SPACE)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1595.0
+offset_top = 32.0
+offset_right = 1895.0
+offset_bottom = 132.0
+
+[node name="Controls2" type="Label" parent="PlayButton"]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 112.5
+offset_right = 200.0
+offset_bottom = 147.5
+theme_override_font_sizes/font_size = 25
+text = "(SHIFT)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="PlayButton"]
+layout_mode = 0
+offset_top = 22.5
+offset_right = 300.0
+offset_bottom = 77.5
+theme_override_font_sizes/font_size = 40
+text = "PLAY"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
 
 [connection signal="mouse_entered" from="MarginContainer/Background/Control" to="MarginContainer/Background/Control" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="MarginContainer/Background/Control" to="MarginContainer/Background/Control" method="_on_mouse_exited"]
