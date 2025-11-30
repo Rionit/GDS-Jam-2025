@@ -2,7 +2,8 @@ extends Hittable
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
-var cooldown := 1.0
+@export
+var cooldown := 3.0
 var is_cooling_down := false
 
 @export
@@ -24,7 +25,7 @@ func _process(delta: float) -> void:
 	move_and_slide()
 
 func throw():
-	#$Hitbox.collision_mask 
+	$Hitbox.collision_mask = 2
 	animation_player.play("rotate")
 	var dir_to_player = (Player.global_position - global_position).normalized()
 	velocity = dir_to_player * 600.0
@@ -46,9 +47,9 @@ func take_damage(damage : int, hitterPosition : Vector2):
 func die():
 	isDying = true
 	on_death.emit(self)
-	animation_player.stop()
-	animation_player.play("die")
-	await animation_player.animation_finished
+	$Hitbox.collision_mask = 0
+	damage_anim_player.play("DieAnimation")
+	await damage_anim_player.animation_finished
 	
 	queue_free()
 	
