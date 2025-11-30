@@ -163,6 +163,18 @@ func _physics_process(delta: float) -> void:
 		_register_keys()
 		if canMove:
 			_process_movement()
+		else:
+			for key in pressedMoveKeys:
+				if key == KEY.LEFT || key == KEY.RIGHT:
+					if key == KEY.LEFT:
+						scale.y = 1
+						rotation = 0
+					else:
+						scale.y = -1
+						rotation = PI
+					break
+				else:
+					continue
 		if afterDashDamp:
 			velocity *= dampeningFactorMoving
 		move_and_slide()
