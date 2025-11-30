@@ -70,6 +70,7 @@ func check_catch(potentialPlayer : Area2D):
 		catch_player()
 
 func catch_player():
+	AudioManager.play_sfx(load("res://sound/enemies/crane/stop.wav"))
 	if Player.canMove:
 		Player.canMove = false
 		limitedMove = true
@@ -96,6 +97,7 @@ func catch_player():
 	addedDamp = false
 
 func grab():
+	AudioManager.play_sfx(load("res://sound/enemies/crane/grab.wav"), -10.0)
 	isUp = false
 	timeNearPlayer = 0
 	$ShadowSprite.visible = false
@@ -104,20 +106,23 @@ func grab():
 	grabTimer.start()
 	
 func release():
+	AudioManager.play_sfx(load("res://sound/enemies/crane/down.wav"), -20.0)
 	grabAnimPlayer.play_backwards("ReleaseReversed")
 	await grabAnimPlayer.animation_finished
 	isUp = true
 	$ShadowSprite.visible = true
 
 func take_damage(damage : int, hitterPosition : Vector2):
+	AudioManager.play_sfx(load("res://sound/enemies/crane/get_hit.wav"), -20.0)
 	health -= damage
 	if health <= 0:
-		die()
+		die() 
 	else:
 		damageAnimPlayer.play("DamageAnim")
 		gain_invulnerability()
 	
 func die():
+	AudioManager.play_sfx(load("res://sound/enemies/crane/death.wav"), -15.0)
 	if limitedMove:
 		Player.canMove = true
 	if limitedDash:
