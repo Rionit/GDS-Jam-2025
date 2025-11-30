@@ -36,7 +36,11 @@ func _ready():
 	if damage > 0:
 		weaponHitbox.area_entered.connect(check_hit)
 	
-	
+func instantiate_money():
+	var money = MONEY.instantiate()
+	money.position = position + (Vector2.ONE * randi_range(-50.0, 50.0))
+	get_tree().current_scene.add_child(money)
+
 func check_hit(potentialTarget : Area2D):
 	var parent = potentialTarget.get_parent()
 	if parent is Hittable && \

@@ -127,10 +127,8 @@ func die():
 	isDying = true
 	print("DYING!")
 	
-	var money = MONEY.instantiate()
-	money.position = position + (Vector2.ONE * randi_range(-50.0, 50.0))
-	get_tree().current_scene.add_child(money)
-	
+	instantiate_money()
+
 	attack_timer.timeout.disconnect(attack)
 	attack_timer.stop()
 	

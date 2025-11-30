@@ -52,5 +52,7 @@ func die():
 	damage_anim_player.play("DieAnimation")
 	await damage_anim_player.animation_finished
 	
+	instantiate_money()
+	
 	queue_free()
 	
