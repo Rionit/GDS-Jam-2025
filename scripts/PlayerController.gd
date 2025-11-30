@@ -7,6 +7,9 @@ class_name PlayerController
 @export
 var animPlayer : AnimationPlayer
 
+@export
+var hairTextures : Array[Texture]
+
 ### MOVEMENT
 @export_group("MOVEMENT")
 
@@ -151,12 +154,13 @@ func _ready() -> void:
 	pressedMoveKeys = []
 	on_balding.connect(PerkMachine.on_balding)
 	defaultPunchAnimLen = animPlayer.get_animation("PunchAnim").length
-	fistHitbox.area_entered.connect(_check_hit)
+	fistHitbox.area_entered.connect(check_hit)
 
-func _check_hit(potentialTarget : Area2D):
+func check_hit(potentialTarget : Area2D):
 	var parent = potentialTarget.get_parent()
 	if potentialTarget.get_parent() is Hittable && \
-	!(parent as Hittable).isInvulnerable:
+	!(parent as Hittable).isInvulnerable && \
+	(!parent as Hittable).isDying:
 		(parent as Hittable).take_damage(playerDamage, global_position)
 
 func _physics_process(delta: float) -> void:
@@ -356,25 +360,33 @@ func take_damage(damage : int, hitterPosition : Vector2):
 	currentSanity -= damage
 	if currentSanity <= 0:
 		baldness += 1
-		if baldness == 3:
+		if baldness == 4:
 			# TODO: Die
 			pass
 		else:
-			on_balding.emit(baldness)
-			animPlayer.stop()
-			animPlayer.play("HairLossAnim")
 			hairlossKnockback.force_shapecast_update()
 			for i in range(hairlossKnockback.get_collision_count()):
 				var collision : Area2D = hairlossKnockback.get_collider(i)
 				var collisionParent = collision.get_parent()
 				if collisionParent is Hittable:
 					(collisionParent as Hittable).take_knockback(global_position)
+			
+			get_tree().create_timer(0.2).timeout.connect(_switch_hair)
+			
+			on_balding.emit(baldness)
+			animPlayer.stop()
+			animPlayer.play("HairLossAnim")
+
+				
 	else:
 		on_damage_taken.emit(damage)
-		
-			
-		
+		take_knockback(hitterPosition)
+		animPlayer.play("DamageAnimation")
+		gain_invulnerability()
 		# TODO: Add knockback for enemy entities
 
-
-	
+func _switch_hair():
+	if baldness < 3:
+		$HairSprite.texture = hairTextures[baldness]
+	else:
+		$HairSprite.texture = null
