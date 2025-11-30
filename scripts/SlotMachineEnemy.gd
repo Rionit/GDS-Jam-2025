@@ -103,7 +103,7 @@ func pursue(target_pos: Vector2, target_vel: Vector2) -> Vector2:
 	return seek(predicted_pos)
 
 func attack():
-	# TODO: AUDIO
+	AudioManager.play_sfx(load("res://sound/enemies/slot_machines/lever_swing.wav"), -2.0)
 	animation_player.speed_scale = max(1 / max_cooldown, 1.0)
 	animation_player.play("attack")
 	await animation_player.animation_finished
@@ -111,7 +111,7 @@ func attack():
 	is_attacking = false
 
 func take_damage(damage : int, hitterPosition : Vector2):
-	# TODO: AUDIO
+	AudioManager.play_sfx(load("res://sound/enemies/slot_machines/get_hit.wav"), -5.0)
 	health -= damage
 	if health <= 0:
 		on_death.emit((self as Hittable))
@@ -122,7 +122,7 @@ func take_damage(damage : int, hitterPosition : Vector2):
 		gain_invulnerability()
 	
 func die():
-	# TODO: AUDIO
+	AudioManager.play_sfx(load("res://sound/enemies/slot_machines/death.wav"), -7.0)
 	
 	isDying = true
 	print("DYING!")
