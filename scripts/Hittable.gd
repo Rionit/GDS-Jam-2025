@@ -40,6 +40,7 @@ func instantiate_money():
 	var money = MONEY.instantiate()
 	money.position = position + (Vector2.ONE * randi_range(-50.0, 50.0))
 	get_tree().current_scene.add_child(money)
+	money.size = Vector2.ONE
 
 func check_hit(potentialTarget : Area2D):
 	var parent = potentialTarget.get_parent()
