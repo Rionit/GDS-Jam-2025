@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 class_name Hittable
 
+const MONEY = preload("uid://twbsjtl2vg06")
+
 ## The force of the hit knockback vector
 @export
 var hitForce = 10

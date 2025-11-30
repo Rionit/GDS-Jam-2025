@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://twbsjtl2vg06"]
+
+[ext_resource type="Script" uid="uid://dtt1a66d10eya" path="res://scripts/Money.gd" id="1_arnqv"]
+[ext_resource type="Texture2D" uid="uid://b5abnjri3a0nx" path="res://sprites/icons_ui/dollar.png" id="1_j5t3b"]
+
+[node name="Money" type="Sprite2D"]
+texture = ExtResource("1_j5t3b")
+script = ExtResource("1_arnqv")
