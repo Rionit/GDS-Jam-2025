@@ -19,6 +19,9 @@ var text_position : Vector2
 var ease_progress := 0.0
 var ease_duration := 0.4
 
+var final_perk : Perk
+var value_multiplier = 1
+
 func _ready() -> void:
 	icon_height = icon_1.size.y + offset
 
@@ -61,9 +64,9 @@ func _move_and_wrap(icon: Icon, delta: float, ease_factor: float) -> void:
 
 func _align_and_stop():
 	AudioManager.play_sfx(load("res://sound/perk_machine/text_short.wav"))
-	var final_perk = PerkMachine.get_final_perk()
+	
 	icon_2.change_icon(final_perk)
-	rich_text_label.text = final_perk.format_text()
+	rich_text_label.text = final_perk.format_text(value_multiplier)
 	rich_text_label.modulate.a = 0.0
 	text_position = rich_text_label.position
 

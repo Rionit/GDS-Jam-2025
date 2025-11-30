@@ -10,4 +10,5 @@ perk_name = "Clubs"
 is_buff = false
 value = 10.0
 description = "The enemy movement speed is increased"
+type = 7
 metadata/_custom_type_script = "uid://bncjx83pyjxhm"

@@ -10,4 +10,5 @@ perk_name = "Banana"
 is_buff = false
 value = -10.0
 description = "The players moving speed is decreased"
+type = 9
 metadata/_custom_type_script = "uid://bncjx83pyjxhm"

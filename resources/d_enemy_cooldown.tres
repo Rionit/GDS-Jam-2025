@@ -10,4 +10,5 @@ perk_name = "Diamonds"
 is_buff = false
 value = 10.0
 description = "The enemy attack cooldown is decreased"
+type = 5
 metadata/_custom_type_script = "uid://bncjx83pyjxhm"

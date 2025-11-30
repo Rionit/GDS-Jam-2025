@@ -9,4 +9,5 @@ texture = ExtResource("2_dwyd0")
 perk_name = "Cherries"
 value = 10.0
 description = "The players moving speed is increased"
+type = 4
 metadata/_custom_type_script = "uid://bncjx83pyjxhm"

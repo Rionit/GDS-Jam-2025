@@ -9,4 +9,5 @@ texture = ExtResource("2_fcbgm")
 perk_name = "Lucky Clover"
 value = 10.0
 description = "The enemy attack cooldown is increased"
+type = 1
 metadata/_custom_type_script = "uid://bncjx83pyjxhm"
