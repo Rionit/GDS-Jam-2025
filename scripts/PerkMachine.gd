@@ -65,6 +65,10 @@ func _ready() -> void:
 	hide()
 	play_button.pressed.connect(SceneManager.deactivate_perk_machine)
 	roll_again_button.pressed.connect(spin_machine)
+	
+	icon_spinner_1.on_spinned.connect(stop_spinning_callback)
+	icon_spinner_2.on_spinned.connect(stop_spinning_callback)
+	icon_spinner_3.on_spinned.connect(stop_spinning_callback)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if is_hidden:
