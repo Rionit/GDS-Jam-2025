@@ -33,14 +33,12 @@ func _input(event: InputEvent) -> void:
 		AudioManager.play_sfx(load("res://sound/UI_sounds/click.wav"))
 		match menu_idx:
 			1:
-				pass
-				# TODO: play game
+				SceneManager.next_level()
 			2:
 				pass
 				# TODO: settings
 			3:
-				pass
-				# TODO: exit game
+				get_tree().quit()
 			_:
 				pass
 	

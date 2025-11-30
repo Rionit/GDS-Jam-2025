@@ -1,6 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://bxvxx4ayrkyom"]
+[gd_scene load_steps=8 format=3 uid="uid://bxvxx4ayrkyom"]
 
 [ext_resource type="Texture2D" uid="uid://5kj6yabmpoqi" path="res://sprites/levels/lvl_cards.png" id="1_5tu34"]
+[ext_resource type="Script" uid="uid://budegyrrir2ei" path="res://scripts/Level.gd" id="1_xne5l"]
+[ext_resource type="PackedScene" uid="uid://b17pvawgu8eef" path="res://scenes/CardEnemy.tscn" id="2_jivkg"]
+[ext_resource type="PackedScene" uid="uid://bv6tetdqw3d5g" path="res://scenes/CraneEnemy.tscn" id="3_mugxm"]
+[ext_resource type="PackedScene" uid="uid://c7bwmsj7rtu8t" path="res://scenes/SlotMachineEnemy.tscn" id="4_7x3vu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xne5l"]
 size = Vector2(200, 1463)
@@ -9,6 +13,17 @@ size = Vector2(200, 1463)
 size = Vector2(1937, 182)
 
 [node name="PokerRoom" type="Node2D"]
+script = ExtResource("1_xne5l")
+enemy_defs = [{
+"count": 3,
+"scene": ExtResource("2_jivkg")
+}, {
+"count": 0,
+"scene": ExtResource("3_mugxm")
+}, {
+"count": 4,
+"scene": ExtResource("4_7x3vu")
+}]
 
 [node name="Map" type="Sprite2D" parent="."]
 position = Vector2(960, 540)
