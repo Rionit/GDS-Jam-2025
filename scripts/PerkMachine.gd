@@ -115,7 +115,7 @@ func spin_machine():
 	play_button.hide()
 	roll_again_button.hide()
 	if currentNumRolls == 0:
-		currentPrice += 100
+		currentPrice += 50
 	else:
 		Player.lose_money(currentPrice)
 		currentPrice *= 2

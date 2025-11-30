@@ -112,9 +112,9 @@ signal on_damage_taken(damage : int)
 
 ## Player's maximum sanity
 @export
-var maxSanity = 300
+var maxSanity = 200
 
-const MAX_SANITY_DEFAULT = 300
+const MAX_SANITY_DEFAULT = 200
 
 ## Player's sanity loss
 @export
