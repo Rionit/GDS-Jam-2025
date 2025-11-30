@@ -376,6 +376,8 @@ func apply_choice(choice : TurkItem.Choice):
 		on_balding.emit(baldness)
 		maxSanity = MAX_SANITY_DEFAULT
 		currentSanity = maxSanity
+		
+	GUI.update_sanity(currentSanity)
 
 func _punch():
 	AudioManager.play_sfx(load("res://sound/player/swing_hand.wav"))
@@ -430,7 +432,7 @@ func take_damage(damage : int, hitterPosition : Vector2):
 			await animPlayer.animation_finished
 			
 			SceneManager.transition_to_scene(SceneManager.MAIN_MENU)
-			pass
+			return
 		else:
 			hairlossKnockback.force_shapecast_update()
 			for i in range(hairlossKnockback.get_collision_count()):
@@ -450,6 +452,7 @@ func take_damage(damage : int, hitterPosition : Vector2):
 			maxSanity -= sanityLoss
 			currentSanity = maxSanity
 			playingHairloss = true
+			GUI.update_sanity(currentSanity)
 			
 			await animPlayer.animation_changed
 			await animPlayer.animation_finished
@@ -460,6 +463,7 @@ func take_damage(damage : int, hitterPosition : Vector2):
 		take_knockback(hitterPosition)
 		damageAnimPlayer.play("DamageAnim")
 		gain_invulnerability()
+		GUI.update_sanity(currentSanity)
 		# TODO: Add knockback for enemy entities
 
 func _switch_hair():
