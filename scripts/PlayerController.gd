@@ -191,6 +191,8 @@ func set_perks():
 	punchCooldown = PUNCH_COOLDOWN_BASE * (100 / cd_val)
 
 func _physics_process(delta: float) -> void:
+	if PerkMachine.visible:
+		return
 	if !isDying:
 		_register_keys()
 		if canMove:
