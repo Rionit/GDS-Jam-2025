@@ -30,7 +30,8 @@ func next_level():
 	
 	transition_to_scene(levels[current_level])
 	current_level += 1
-	activate_perk_machine()
+	if levels[current_level] != TURKISH_ROOM:
+		activate_perk_machine()
 	
 
 func _input(event: InputEvent) -> void:
@@ -42,6 +43,8 @@ func _input(event: InputEvent) -> void:
 
 func activate_perk_machine():
 	PerkMachine.show()
+	PerkMachine.roll_button_cost.text = "COSTS 0 "
+	
 	await get_tree().create_timer(2.0).timeout
 	PerkMachine.is_hidden = false
 	

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://buqpdtq2nnlcb" path="res://scripts/IconSpinner.gd" id="1_1cs1c"]
 [ext_resource type="Script" uid="uid://dgilkci7w60j" path="res://scripts/PerkMachine.gd" id="1_gpvhc"]
-[ext_resource type="PackedScene" uid="uid://bowvk5pwsvc8i" path="res://scenes/Icon.tscn" id="3_b6ogu"]
+[ext_resource type="PackedScene" path="res://scenes/Icon.tscn" id="3_b6ogu"]
 [ext_resource type="Texture2D" uid="uid://cib7xfwegksj4" path="res://sprites/Slot_machine/handle_animation/handle1.png" id="5_5smd5"]
 [ext_resource type="Script" uid="uid://dpwutymrsj4p7" path="res://scripts/HandleController.gd" id="5_b6ogu"]
 [ext_resource type="Texture2D" uid="uid://dld3qn86qaia" path="res://sprites/Slot_machine/Slot_machine.png" id="5_l7i83"]
@@ -315,11 +315,11 @@ alignment = 1
 [node name="Label" type="Label" parent="RollAgainButton/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "COSTS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Icon" type="TextureRect" parent="RollAgainButton/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(45, 75)
 layout_mode = 2
 texture = ExtResource("8_3y3w2")
 expand_mode = 3
