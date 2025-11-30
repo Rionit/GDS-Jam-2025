@@ -62,6 +62,7 @@ var spinning_columns = 0
 @onready var head: TextureRect = %Head
 
 func _ready() -> void:
+	
 	hide()
 	play_button.pressed.connect(SceneManager.deactivate_perk_machine)
 	roll_again_button.pressed.connect(spin_machine)

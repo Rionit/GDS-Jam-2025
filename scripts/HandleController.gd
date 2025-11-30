@@ -22,8 +22,9 @@ func _ready() -> void:
 	handle_pulled.connect(PerkMachine.spin_machine)
 
 func _input(event: InputEvent) -> void:
-	#if event.is_action_pressed("attack") and mouse_over:
-		#animate_handle()
+	if PerkMachine.is_hidden:
+		return
+	
 	if event.is_action_pressed("attack"):
 		animate_handle()
 
