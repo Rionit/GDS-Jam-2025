@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="GDS-Jam-2025"
-run/main_scene="uid://cppoi0867qwub"
+run/main_scene="uid://b5gqinx15qlw0"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
