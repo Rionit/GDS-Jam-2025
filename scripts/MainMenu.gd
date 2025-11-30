@@ -11,6 +11,8 @@ extends Control
 var menu_idx := 0
 
 func _ready() -> void:
+	AudioManager.play_music(load("res://sound/levels/music_bg.wav"))
+	AudioManager.fade_in_music()
 	animate()
 
 func _input(event: InputEvent) -> void:
