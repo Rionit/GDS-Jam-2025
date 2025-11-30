@@ -1,13 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://dydhxfa76s740"]
+[gd_scene load_steps=7 format=3 uid="uid://dydhxfa76s740"]
 
 [ext_resource type="Script" uid="uid://djd5c66bolsqp" path="res://scripts/TurkishRoom.gd" id="1_7xmo2"]
 [ext_resource type="Texture2D" uid="uid://3ouh5iunpanh" path="res://sprites/levels/lvl_turkish.png" id="1_v0y1i"]
+[ext_resource type="Texture2D" uid="uid://bembfxy307hy6" path="res://sprites/turkish_guy/turkish_idle.png" id="3_jsvlk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mou3t"]
 size = Vector2(200, 1463)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j5ccd"]
 size = Vector2(1937, 280)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jsvlk"]
+size = Vector2(200, 244)
 
 [node name="TurkishRoom" type="Node2D"]
 script = ExtResource("1_7xmo2")
@@ -34,3 +38,15 @@ shape = SubResource("RectangleShape2D_j5ccd")
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Walls"]
 position = Vector2(959, 1051)
 shape = SubResource("RectangleShape2D_j5ccd")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(1392, 273)
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+texture = ExtResource("3_jsvlk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 81)
+shape = SubResource("RectangleShape2D_jsvlk")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
