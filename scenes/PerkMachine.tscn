@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cppoi0867qwub"]
+[gd_scene load_steps=9 format=3 uid="uid://cppoi0867qwub"]
 
 [ext_resource type="Script" uid="uid://buqpdtq2nnlcb" path="res://scripts/IconSpinner.gd" id="1_1cs1c"]
 [ext_resource type="Script" uid="uid://dgilkci7w60j" path="res://scripts/PerkMachine.gd" id="1_gpvhc"]
@@ -8,7 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://dld3qn86qaia" path="res://sprites/Slot_machine/Slot_machine.png" id="5_l7i83"]
 [ext_resource type="Texture2D" uid="uid://cvgl2r36o4ouv" path="res://sprites/Slot_machine/head/head1.png" id="7_b6ogu"]
 [ext_resource type="Texture2D" uid="uid://b5abnjri3a0nx" path="res://sprites/icons_ui/dollar.png" id="8_3y3w2"]
-[ext_resource type="Script" uid="uid://dq026oovgyr6t" path="res://scripts/Icon.gd" id="9_gtdnv"]
 
 [node name="PerkMachine" type="Control" node_paths=PackedStringArray("roll_again_button", "play_button", "roll_button_cost")]
 z_index = 200
@@ -323,8 +322,6 @@ custom_minimum_size = Vector2(45, 75)
 layout_mode = 2
 texture = ExtResource("8_3y3w2")
 expand_mode = 3
-script = ExtResource("9_gtdnv")
-metadata/_custom_type_script = "uid://dq026oovgyr6t"
 
 [node name="Controls" type="Label" parent="RollAgainButton"]
 layout_mode = 0
