@@ -1,7 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://cidfuwwskrkhb"]
+[gd_scene load_steps=2 format=3 uid="uid://cw7w2p8bq2k4i"]
 
 [ext_resource type="Texture2D" uid="uid://ccnbvuh8eqrbh" path="res://end.png" id="1_mwn6m"]
 
 [node name="Node2D" type="Sprite2D"]
+z_index = 3000
 texture = ExtResource("1_mwn6m")
 offset = Vector2(960, 540)
