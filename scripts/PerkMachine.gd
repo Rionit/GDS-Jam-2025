@@ -84,13 +84,13 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	
 	if spinning_columns == 0:
-		if event.is_action_pressed("attack"):
+		if  event.is_action_pressed("attack"):
 			#AudioManager.play_music(load("res://sound/levels/music_bg.wav"))
 			#AudioManager.fade_in_music()
 			spin_machine()
 			#Player.money += 100
 			#GUI.update_money(Player.money)
-		elif event.is_action_pressed("dash"):
+		elif currentNumRolls > 0 &&  event.is_action_pressed("dash"):
 			SceneManager.deactivate_perk_machine()
 			
 
@@ -103,7 +103,7 @@ func stop_spinning_callback():
 			roll_button_cost.text = "COSTS " + str(currentPrice) + " "
 
 func return_perk(type : Perk.PerkEnum) -> Array[Perk]:
-	var to_return = []
+	var to_return : Array[Perk] = []
 	for perk in perks:
 		if perk.type == type:
 			to_return.append(perk)
