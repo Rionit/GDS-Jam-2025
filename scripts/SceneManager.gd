@@ -34,9 +34,9 @@ func next_level():
 	if current_level >= levels.size():
 		current_level = 0
 	
-	Player.position = Vector2(180, 620)
-	
 	await transition_to_scene(levels[current_level])
+	
+	Player.position = Vector2(180, 620)
 	if levels[current_level] != TURKISH_ROOM and levels[current_level] != TURKISH_GUY:
 		activate_perk_machine()
 	else:
