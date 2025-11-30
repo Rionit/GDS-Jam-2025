@@ -114,6 +114,8 @@ signal on_damage_taken(damage : int)
 @export
 var maxSanity = 300
 
+const MAX_SANITY_DEFAULT = 300
+
 ## Player's sanity loss
 @export
 var sanityLoss = 30
@@ -362,6 +364,18 @@ func _stop_punch():
 	animPlayer.speed_scale = 1
 	fistHitbox.collision_layer = 0
 	punchSprite.visible = false
+
+func apply_choice(choice : TurkItem.Choice):
+	if choice == TurkItem.Choice.SCISSORS:
+		baldness = 3
+		on_balding.emit(baldness)
+		maxSanity = MAX_SANITY_DEFAULT - baldness * sanityLoss
+		currentSanity = maxSanity
+	elif choice == TurkItem.Choice.HAIR:
+		baldness = 0
+		on_balding.emit(baldness)
+		maxSanity = MAX_SANITY_DEFAULT
+		currentSanity = maxSanity
 
 func _punch():
 	AudioManager.play_sfx(load("res://sound/player/swing_hand.wav"))

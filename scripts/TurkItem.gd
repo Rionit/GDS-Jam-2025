@@ -12,6 +12,7 @@ enum Choice { SCISSORS, EXIT, HAIR }
 var mouse_in := false
 
 func _ready() -> void:
+	selected_choice.connect(Player.apply_choice)
 	mouse_entered.connect(on_mouse_entered)
 	mouse_exited.connect(on_mouse_exited)
 	highlight.modulate.a = 0

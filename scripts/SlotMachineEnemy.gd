@@ -25,7 +25,6 @@ var is_attacking := false
 var health : int = 30
 const HEALTH_BASE = 30
 
-
 var is_orb_clockwise := false
 
 func set_perks():
