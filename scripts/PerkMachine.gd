@@ -63,17 +63,23 @@ var spinning_columns = 0
 
 func _ready() -> void:
 	hide()
+	play_button.pressed.connect(SceneManager.deactivate_perk_machine)
+	roll_again_button.pressed.connect(spin_machine)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if is_hidden:
 		return
-
-	if event.is_action_pressed("attack"):
-		#AudioManager.play_music(load("res://sound/levels/music_bg.wav"))
-		#AudioManager.fade_in_music()
-		spin_machine()
-		#Player.money += 100
-		#GUI.update_money(Player.money)
+	
+	if spinning_columns == 0:
+		if event.is_action_pressed("attack"):
+			#AudioManager.play_music(load("res://sound/levels/music_bg.wav"))
+			#AudioManager.fade_in_music()
+			spin_machine()
+			#Player.money += 100
+			#GUI.update_money(Player.money)
+		elif event.is_action_pressed("dash"):
+			SceneManager.deactivate_perk_machine()
+			
 
 func stop_spinning_callback():
 	spinning_columns -= 1
@@ -121,8 +127,7 @@ func spin_machine():
 	icon_spinner_3.spin()
 	icon_spinner_3.value_multiplier = current_perk_modifier
 	
-	spinning_columns = 3
-	
+	spinning_columns = 3	
 
 func get_final_perk() -> Perk:
 	var random = randi() % 100 + 1

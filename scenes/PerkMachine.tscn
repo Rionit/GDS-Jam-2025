@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://b5abnjri3a0nx" path="res://sprites/icons_ui/dollar.png" id="8_3y3w2"]
 [ext_resource type="Script" uid="uid://dq026oovgyr6t" path="res://scripts/Icon.gd" id="9_gtdnv"]
 
-[node name="PerkMachine" type="Control"]
+[node name="PerkMachine" type="Control" node_paths=PackedStringArray("roll_again_button", "play_button", "roll_button_cost")]
 z_index = 200
 layout_mode = 3
 anchors_preset = 15
@@ -21,6 +21,9 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_gpvhc")
+roll_again_button = NodePath("RollAgainButton")
+play_button = NodePath("PlayButton")
+roll_button_cost = NodePath("RollAgainButton/VBoxContainer/HBoxContainer/Label")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
