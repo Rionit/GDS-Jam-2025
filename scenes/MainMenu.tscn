@@ -1,0 +1,99 @@
+[gd_scene load_steps=9 format=3 uid="uid://b5gqinx15qlw0"]
+
+[ext_resource type="Script" uid="uid://bl8aamwbv8wem" path="res://scripts/MainMenu.gd" id="1_mipys"]
+[ext_resource type="Texture2D" uid="uid://bk4y1tr5ykc3l" path="res://menu/menu_ui/menu_bg.png" id="1_yqorp"]
+[ext_resource type="Texture2D" uid="uid://nxka5ld12lp1" path="res://menu/menu_ui/text/quit_gambling.png" id="2_ow34m"]
+[ext_resource type="Texture2D" uid="uid://cnmhahipq2pab" path="res://menu/menu_ui/text/start_game.png" id="3_826wr"]
+[ext_resource type="Texture2D" uid="uid://oab5p0wj83mn" path="res://menu/menu_ui/text/haircut.png" id="3_l72w3"]
+[ext_resource type="Texture2D" uid="uid://o88blay16rwy" path="res://menu/menu_ui/text/continue_gambling.png" id="4_826wr"]
+[ext_resource type="Texture2D" uid="uid://d3ns0q1fk2csu" path="res://menu/menu_ui/menu_choice_bg.png" id="5_l72w3"]
+[ext_resource type="Texture2D" uid="uid://dsge0b7qbpte0" path="res://menu/menu_ui/text/quit_game.png" id="6_ucygd"]
+
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("positions")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mipys")
+positions = [NodePath("BG/HighlightPositions/VPICI"), NodePath("BG/HighlightPositions/Marker2D"), NodePath("BG/HighlightPositions/Marker2D2"), NodePath("BG/HighlightPositions/Marker2D3")]
+
+[node name="BG" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_yqorp")
+
+[node name="QuitGambling" type="TextureRect" parent="BG"]
+z_index = 1
+layout_mode = 0
+offset_left = 1047.0
+offset_top = 182.0
+offset_right = 1683.0
+offset_bottom = 365.0
+texture = ExtResource("2_ow34m")
+stretch_mode = 2
+
+[node name="alt" type="TextureRect" parent="BG/QuitGambling"]
+layout_mode = 0
+offset_left = 129.0
+offset_top = 97.0
+offset_right = 489.0
+offset_bottom = 220.0
+rotation = -0.03439945
+texture = ExtResource("3_826wr")
+
+[node name="Settings" type="TextureRect" parent="BG"]
+z_index = 1
+layout_mode = 0
+offset_left = 1176.0
+offset_top = 365.0
+offset_right = 1507.0
+offset_bottom = 486.0
+texture = ExtResource("3_l72w3")
+stretch_mode = 2
+
+[node name="ContinueGambling" type="TextureRect" parent="BG"]
+z_index = 1
+layout_mode = 0
+offset_left = 963.0
+offset_top = 506.0
+offset_right = 1701.0
+offset_bottom = 689.0
+texture = ExtResource("4_826wr")
+stretch_mode = 2
+
+[node name="alt2" type="TextureRect" parent="BG/ContinueGambling"]
+layout_mode = 0
+offset_left = 143.0
+offset_top = 94.0
+offset_right = 503.0
+offset_bottom = 217.0
+texture = ExtResource("6_ucygd")
+
+[node name="Highlight" type="TextureRect" parent="BG"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 963.0
+offset_top = 126.0
+offset_right = 1834.0
+offset_bottom = 401.0
+texture = ExtResource("5_l72w3")
+
+[node name="HighlightPositions" type="Node2D" parent="BG"]
+
+[node name="Marker2D" type="Marker2D" parent="BG/HighlightPositions"]
+position = Vector2(960, 162)
+
+[node name="Marker2D2" type="Marker2D" parent="BG/HighlightPositions"]
+position = Vector2(937, 299)
+
+[node name="Marker2D3" type="Marker2D" parent="BG/HighlightPositions"]
+position = Vector2(906, 483)
+
+[node name="VPICI" type="Marker2D" parent="BG/HighlightPositions"]
+position = Vector2(965, -658)
