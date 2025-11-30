@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dw7ch4spj7yfe"
-path="res://.godot/imported/hair3.png-996e530b5c17f0bdd3bb11a61f351ec6.ctex"
+uid="uid://caryn054y5d4m"
+path="res://.godot/imported/health1.png-106ec9623f487946bb6bd2496154da8a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/player/hair_regression/hair3.png"
-dest_files=["res://.godot/imported/hair3.png-996e530b5c17f0bdd3bb11a61f351ec6.ctex"]
+source_file="res://sprites/player/animations/health_lose/health1.png"
+dest_files=["res://.godot/imported/health1.png-106ec9623f487946bb6bd2496154da8a.ctex"]
 
 [params]
 

@@ -1,0 +1,34 @@
+[gd_scene load_steps=4 format=3 uid="uid://bxvxx4ayrkyom"]
+
+[ext_resource type="Texture2D" uid="uid://5kj6yabmpoqi" path="res://sprites/levels/lvl_cards.png" id="1_5tu34"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xne5l"]
+size = Vector2(200, 1463)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5cub1"]
+size = Vector2(1937, 182)
+
+[node name="PokerRoom" type="Node2D"]
+
+[node name="Map" type="Sprite2D" parent="."]
+position = Vector2(960, 540)
+texture = ExtResource("1_5tu34")
+
+[node name="Walls" type="StaticBody2D" parent="."]
+collision_layer = 32768
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls"]
+position = Vector2(-49, 505)
+shape = SubResource("RectangleShape2D_xne5l")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls"]
+position = Vector2(1972, 505)
+shape = SubResource("RectangleShape2D_xne5l")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Walls"]
+position = Vector2(958.5, 31)
+shape = SubResource("RectangleShape2D_5cub1")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Walls"]
+position = Vector2(958.5, 1102)
+shape = SubResource("RectangleShape2D_5cub1")

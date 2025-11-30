@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dw7ch4spj7yfe"
-path="res://.godot/imported/hair3.png-996e530b5c17f0bdd3bb11a61f351ec6.ctex"
+uid="uid://nxka5ld12lp1"
+path="res://.godot/imported/quit_gambling.png-6f2d627b513e8e60d1bcf248ae93f8c8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/player/hair_regression/hair3.png"
-dest_files=["res://.godot/imported/hair3.png-996e530b5c17f0bdd3bb11a61f351ec6.ctex"]
+source_file="res://menu/menu_ui/text/quit_gambling.png"
+dest_files=["res://.godot/imported/quit_gambling.png-6f2d627b513e8e60d1bcf248ae93f8c8.ctex"]
 
 [params]
 
