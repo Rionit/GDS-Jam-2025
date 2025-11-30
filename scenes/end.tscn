@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cidfuwwskrkhb"]
+
+[ext_resource type="Texture2D" uid="uid://ccnbvuh8eqrbh" path="res://end.png" id="1_mwn6m"]
+
+[node name="Node2D" type="Sprite2D"]
+texture = ExtResource("1_mwn6m")
+offset = Vector2(960, 540)
