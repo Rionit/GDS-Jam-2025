@@ -20,6 +20,8 @@ var is_attacking := false
 
 var health : int = 30
 
+var is_orb_clockwise := false
+
 func _ready() -> void:
 	super()
 	on_death.connect(Player.get_money)
@@ -36,14 +38,30 @@ func _process(delta: float) -> void:
 
 			# stop when close
 			if dist_to_player <= stop_distance:
+				# start attack
 				if !is_attacking:
 					is_attacking = true
 					if attack_timer.time_left == 0:
 						attack_timer.wait_time = max_cooldown
 						attack_timer.timeout.connect(attack)
 						attack_timer.start()
-				var vectorFromPlayer = (global_position - Player.global_position).normalized()
-				steering = vectorFromPlayer * velocity.length()
+
+				# orbit around player
+				var offset = global_position - Player.global_position
+
+				var tangent = Vector2(-offset.y, offset.x).normalized()
+				
+				# randomly switch orb direction
+				if randf() < 0.01:
+					is_orb_clockwise = !is_orb_clockwise
+				
+				if is_orb_clockwise:
+					tangent *= -1
+				
+				var orbit_speed = max_speed * 0.7 
+				var desired_vel = tangent * orbit_speed
+
+				steering = (desired_vel - velocity).normalized() * max_accel
 
 			#velocity += steering * delta
 		#
@@ -85,6 +103,7 @@ func pursue(target_pos: Vector2, target_vel: Vector2) -> Vector2:
 	return seek(predicted_pos)
 
 func attack():
+	# TODO: AUDIO
 	animation_player.speed_scale = max(1 / max_cooldown, 1.0)
 	animation_player.play("attack")
 	await animation_player.animation_finished
@@ -92,6 +111,7 @@ func attack():
 	is_attacking = false
 
 func take_damage(damage : int, hitterPosition : Vector2):
+	# TODO: AUDIO
 	health -= damage
 	if health <= 0:
 		on_death.emit((self as Hittable))
@@ -102,6 +122,8 @@ func take_damage(damage : int, hitterPosition : Vector2):
 		gain_invulnerability()
 	
 func die():
+	# TODO: AUDIO
+	
 	isDying = true
 	print("DYING!")
 	
