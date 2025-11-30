@@ -10,7 +10,7 @@ var hitForce = 10
 
 ## The amount of time for which the entity is invulnerable, in seconds
 @export
-var invulnerabilityDuration = 1
+var invulnerabilityDuration = 1.0
 
 @export
 var damage = 10
@@ -33,7 +33,8 @@ func take_damage(damage : int, hitterPosition : Vector2):
 	pass
 	
 func _ready():
-	weaponHitbox.area_entered.connect(check_hit)
+	if damage > 0:
+		weaponHitbox.area_entered.connect(check_hit)
 	
 	
 func check_hit(potentialTarget : Area2D):

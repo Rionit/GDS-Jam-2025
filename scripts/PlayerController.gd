@@ -300,10 +300,10 @@ func _process_movement():
 			_stop_punch()
 			animPlayer.queue("WalkingAnim")
 		
-	if velocity.x >= 0:
+	if velocity.x > 0:
 		scale = Vector2(1,-1)
 		rotation_degrees = 180
-	else:
+	elif velocity.x < 0:
 		scale = Vector2(1,1)
 		rotation = 0
 
