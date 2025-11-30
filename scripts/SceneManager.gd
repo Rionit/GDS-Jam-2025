@@ -2,6 +2,7 @@ extends Node2D
 
 const SLOT_MACHINE_ROOM = preload("uid://bw2tnuih4o3ux")
 
+
 func transition_to_scene(path: PackedScene) -> void:
 	await GUI.fade_in()            
 	get_tree().change_scene_to_packed(path)
