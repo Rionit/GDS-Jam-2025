@@ -108,7 +108,7 @@ signal on_damage_taken(damage : int)
 
 ## Player's maximum sanity
 @export
-var maxSanity = 100
+var maxSanity = 300
 
 ## Player's sanity loss
 @export

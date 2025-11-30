@@ -29,10 +29,10 @@ func next_level():
 		current_level = 0
 	
 	transition_to_scene(levels[current_level])
-	current_level += 1
 	if levels[current_level] != TURKISH_ROOM:
 		activate_perk_machine()
 	
+	current_level += 1
 
 func _input(event: InputEvent) -> void:
 	#if event.is_action_pressed("attack"):
