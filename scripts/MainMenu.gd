@@ -10,6 +10,8 @@ extends Control
 
 var menu_idx := 0
 
+func _ready() -> void:
+	animate()
 
 func _input(event: InputEvent) -> void:
 	
@@ -17,11 +19,13 @@ func _input(event: InputEvent) -> void:
 		menu_idx -= 1
 		if menu_idx < 0:
 			menu_idx = 3
+		animate()
 		print(menu_idx)
 	if event.is_action_pressed("down"):
 		menu_idx += 1
 		if menu_idx > 3:
 			menu_idx = 0
+		animate()
 		print(menu_idx)
 	
 	if event.is_action_pressed("attack"):
@@ -38,4 +42,10 @@ func _input(event: InputEvent) -> void:
 			_:
 				pass
 	
+
+func animate():
+	highlight.modulate.a = 0.0
 	highlight.global_position = positions[menu_idx].global_position
+	var tween = create_tween()
+	tween.tween_property(highlight, "modulate:a", 1.0, 0.2)
+	
