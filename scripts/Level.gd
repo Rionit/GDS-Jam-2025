@@ -21,6 +21,8 @@ var leftover_enemies: int = 0
 
 
 func start_level():
+	Player.reset_perks()
+	Player.set_perks()
 	_prepare_spawn_list()
 	leftover_enemies = spawn_list.size()
 

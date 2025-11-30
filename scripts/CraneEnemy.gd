@@ -1,11 +1,13 @@
 extends Hittable
 
 @export var speed = 500
+const SPEED_BASE = 500
 
 @export_range(0.9, 0.999)
 var damping = 0.99
 
 @export var health = 30
+const HEALTH_BASE = 30
 
 ## How long does the crane have to be close to the player for the crane to drop
 @export
@@ -35,8 +37,33 @@ var addedDamp = false
 
 var timeNearPlayer = 0
 
+func set_perks():
+	var hp_mod = 100
+	var sp_mod = 100
+	var modif = PerkMachine.current_perk_modifier
+	
+	var b_hp = PerkMachine.return_perk(Perk.PerkEnum.B_ENEMY_HEALTH)
+	var d_hp = PerkMachine.return_perk(Perk.PerkEnum.D_ENEMY_HEALTH)
+	
+	var b_sp = PerkMachine.return_perk(Perk.PerkEnum.B_ENEMY_MOVEMENT)
+	var d_sp = PerkMachine.return_perk(Perk.PerkEnum.D_ENEMY_MOVEMENT)
+	
+	for bhp in b_hp:
+		hp_mod -= bhp * modif
+	for dhp in d_hp:
+		hp_mod += dhp * modif
+	for bsp in b_sp:
+		sp_mod -= bsp * modif
+	for dsp in d_sp:
+		sp_mod += dsp * modif
+		
+	speed = SPEED_BASE * (sp_mod/100)
+	health = HEALTH_BASE * (hp_mod/100)
+	
+
 func _ready():
 	super()
+	set_perks()
 	on_death.connect(Player.get_money)
 	grabTimer.timeout.connect(release)
 	weaponHitbox.area_entered.connect(check_catch)

@@ -4,16 +4,56 @@ extends Hittable
 
 @export
 var cooldown := 3.0
+
+const COOLDOWN_BASE = 3.0
+
 var is_cooling_down := false
 
 @export
 var health = 30
+const HEALTH_BASE = 30
+
+var velocity_modifier = 1.0
 
 @export
 var damage_anim_player : AnimationPlayer
 
+func set_perks():
+	var hp_mod = 100
+	var sp_mod = 100
+	var cd_mod = 100
+	var modif = PerkMachine.current_perk_modifier
+	
+	var bcd = PerkMachine.return_perk(Perk.PerkEnum.B_ENEMY_COOLDOWN)
+	var dcd = PerkMachine.return_perk(Perk.PerkEnum.D_ENEMY_COOLDOWN)
+	
+	var b_hp = PerkMachine.return_perk(Perk.PerkEnum.B_ENEMY_HEALTH)
+	var d_hp = PerkMachine.return_perk(Perk.PerkEnum.D_ENEMY_HEALTH)
+	
+	var b_sp = PerkMachine.return_perk(Perk.PerkEnum.B_ENEMY_MOVEMENT)
+	var d_sp = PerkMachine.return_perk(Perk.PerkEnum.D_ENEMY_MOVEMENT)
+	
+	for bhp in b_hp:
+		hp_mod -= bhp * modif
+	for dhp in d_hp:
+		hp_mod += dhp * modif
+	for bsp in b_sp:
+		sp_mod -= bsp * modif
+	for dsp in d_sp:
+		sp_mod += dsp * modif
+		
+	for cd in bcd:
+		cd_mod += cd * modif
+	for cd in dcd:
+		cd_mod -= cd * modif
+	
+	cooldown = COOLDOWN_BASE * (cd_mod/100)
+	velocity_modifier = (sp_mod/100)
+	health = HEALTH_BASE * (hp_mod/100)
+
 func _ready():
 	super()
+	set_perks()
 	on_death.connect(Player.get_money)
 	$PhysicsHitbox.body_entered.connect(_on_hitbox_body_entered)
 	

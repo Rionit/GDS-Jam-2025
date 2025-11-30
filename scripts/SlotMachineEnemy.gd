@@ -13,14 +13,53 @@ const textures: Array[Texture] = [SLOTMACHINE_BLUE, SLOTMACHINE_GREEN, SLOTMACHI
 @onready var attack_timer: Timer = $AttackTimer
 
 var max_speed := 300
+const MAX_SPEED_BASE = 300
+
 var max_accel := 800
 var stop_distance := 200.0
 var max_cooldown : float = 0.5
+const COOLDOWN_BASE = 0.5
+
 var is_attacking := false
 
 var health : int = 30
+const HEALTH_BASE = 30
+
 
 var is_orb_clockwise := false
+
+func set_perks():
+	var hp_mod = 100
+	var sp_mod = 100
+	var cd_mod = 100
+	var modif = PerkMachine.current_perk_modifier
+	
+	var bcd = PerkMachine.return_perk(Perk.PerkEnum.B_ENEMY_COOLDOWN)
+	var dcd = PerkMachine.return_perk(Perk.PerkEnum.D_ENEMY_COOLDOWN)
+	
+	var b_hp = PerkMachine.return_perk(Perk.PerkEnum.B_ENEMY_HEALTH)
+	var d_hp = PerkMachine.return_perk(Perk.PerkEnum.D_ENEMY_HEALTH)
+	
+	var b_sp = PerkMachine.return_perk(Perk.PerkEnum.B_ENEMY_MOVEMENT)
+	var d_sp = PerkMachine.return_perk(Perk.PerkEnum.D_ENEMY_MOVEMENT)
+	
+	for bhp in b_hp:
+		hp_mod -= bhp * modif
+	for dhp in d_hp:
+		hp_mod += dhp * modif
+	for bsp in b_sp:
+		sp_mod -= bsp * modif
+	for dsp in d_sp:
+		sp_mod += dsp * modif
+		
+	for cd in bcd:
+		cd_mod += cd * modif
+	for cd in dcd:
+		cd_mod -= cd * modif
+	
+	max_cooldown = COOLDOWN_BASE * (cd_mod/100)
+	max_speed = MAX_SPEED_BASE * (sp_mod/100)
+	health = HEALTH_BASE * (hp_mod/100)
 
 func _ready() -> void:
 	super()
