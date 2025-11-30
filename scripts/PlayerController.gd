@@ -144,7 +144,8 @@ func _ready() -> void:
 
 func _check_hit(potentialTarget : Area2D):
 	var parent = potentialTarget.get_parent()
-	if potentialTarget.get_parent() is Hittable:
+	if potentialTarget.get_parent() is Hittable && \
+	!(parent as Hittable).isInvulnerable:
 		(parent as Hittable).take_damage(playerDamage, global_position)
 
 func _physics_process(delta: float) -> void:

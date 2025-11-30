@@ -10,8 +10,16 @@ var hitForce = 10
 @export
 var invulnerabilityDuration = 1
 
+var isInvulnerable = false
+
 func take_damage(damage : int, hitterPosition : Vector2):
 	pass
+
+func gain_invulnerability():
+	isInvulnerable = true
+	await get_tree().create_timer(invulnerabilityDuration).timeout
+	isInvulnerable = false
+	
 
 ## Invoked by the dying entity
 signal on_death(dyingEntity : Hittable)
