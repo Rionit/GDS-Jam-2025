@@ -152,18 +152,20 @@ var money = 0
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super()
+	position = Vector2(180, 620)
 	punchSprite.visible = false
 	pressedMoveKeys = []
 	on_balding.connect(PerkMachine.on_balding)
 	defaultPunchAnimLen = animPlayer.get_animation("PunchAnim").length
 
 func _physics_process(delta: float) -> void:
-	_register_keys()
-	if canMove:
-		_process_movement()
-	if afterDashDamp:
-		velocity *= dampeningFactorMoving
-	move_and_slide()
+	if !isDying:
+		_register_keys()
+		if canMove:
+			_process_movement()
+		if afterDashDamp:
+			velocity *= dampeningFactorMoving
+		move_and_slide()
 
 ## Registers pressed keys
 func _register_keys():

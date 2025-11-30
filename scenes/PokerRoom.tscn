@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://bxvxx4ayrkyom"]
+[gd_scene load_steps=5 format=3 uid="uid://bxvxx4ayrkyom"]
 
 [ext_resource type="Texture2D" uid="uid://5kj6yabmpoqi" path="res://sprites/levels/lvl_cards.png" id="1_5tu34"]
+[ext_resource type="PackedScene" uid="uid://b17pvawgu8eef" path="res://scenes/CardEnemy.tscn" id="2_xne5l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xne5l"]
 size = Vector2(200, 1463)
@@ -32,3 +33,5 @@ shape = SubResource("RectangleShape2D_5cub1")
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Walls"]
 position = Vector2(958.5, 1102)
 shape = SubResource("RectangleShape2D_5cub1")
+
+[node name="CardEnemy" parent="." instance=ExtResource("2_xne5l")]

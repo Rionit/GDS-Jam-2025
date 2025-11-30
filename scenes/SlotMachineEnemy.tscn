@@ -318,6 +318,7 @@ _data = {
 }
 
 [node name="SlotMachineEnemy" type="CharacterBody2D" node_paths=PackedStringArray("weaponHitbox")]
+z_index = 50
 collision_mask = 32768
 motion_mode = 1
 platform_floor_layers = 4294901760

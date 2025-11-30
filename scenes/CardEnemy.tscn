@@ -1,13 +1,76 @@
-[gd_scene load_steps=8 format=3 uid="uid://b17pvawgu8eef"]
+[gd_scene load_steps=13 format=3 uid="uid://b17pvawgu8eef"]
 
 [ext_resource type="Script" uid="uid://chmyf4cfl6y87" path="res://scripts/CardEnemy.gd" id="1_8tt02"]
 [ext_resource type="Texture2D" uid="uid://vp5a5tg86pnk" path="res://sprites/icons/card_spades_icon.png" id="2_cbteg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cbteg"]
-size = Vector2(36, 74)
+size = Vector2(66, 106)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5pltj"]
 size = Vector2(66, 106)
+
+[sub_resource type="Animation" id="Animation_taci8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_oqxk4"]
+resource_name = "die"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Rotation/Sprite2D:modulate:g")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.3, 1, 1, -0.25, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.55)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Rotation/Sprite2D:modulate:b")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.3, 1, 1, -0.25, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.55)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Rotation/Sprite2D:modulate:a")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0.5, 0, 0, 0.3, -0.5, 0, -0.25, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.55)
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Rotation/Sprite2D:modulate:r")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.55),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1.0, 1.0]
+}
 
 [sub_resource type="Animation" id="Animation_cbteg"]
 resource_name = "rotate"
@@ -25,33 +88,128 @@ tracks/0/keys = {
 "values": [0.0, 6.265732]
 }
 
-[sub_resource type="Animation" id="Animation_taci8"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5pltj"]
 _data = {
 &"RESET": SubResource("Animation_taci8"),
+&"die": SubResource("Animation_oqxk4"),
 &"rotate": SubResource("Animation_cbteg")
 }
 
-[node name="CardEnemy" type="CharacterBody2D"]
+[sub_resource type="Animation" id="Animation_5pltj"]
+resource_name = "DamageAnimation"
+length = 0.6
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Rotation/Sprite2D:modulate:g")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.3, 1, 1, -0.25, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.55)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Rotation/Sprite2D:modulate:b")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0.3, 1, 1, -0.25, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.55)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Rotation/Sprite2D:modulate:a")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0.5, 0, 0, 0.3, 0.5, 1, -0.25, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.55)
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Rotation/Sprite2D:modulate:r")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.55),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1.0, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_x5g7x"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Rotation/Sprite2D:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Rotation/Sprite2D:modulate:b")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Rotation/Sprite2D:modulate:g")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Rotation/Sprite2D:modulate:r")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_oqxk4"]
+_data = {
+&"DamageAnimation": SubResource("Animation_5pltj"),
+&"RESET": SubResource("Animation_x5g7x")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_taci8"]
+size = Vector2(72, 110)
+
+[node name="CardEnemy" type="CharacterBody2D" node_paths=PackedStringArray("damage_anim_player", "weaponHitbox")]
+z_index = 51
 collision_layer = 5
 collision_mask = 32768
 motion_mode = 1
 platform_wall_layers = 1
 script = ExtResource("1_8tt02")
+damage_anim_player = NodePath("DamageAnimPlayer")
+weaponHitbox = NodePath("Hitbox")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_cbteg")
@@ -64,7 +222,8 @@ scale = Vector2(0.3, 0.3)
 texture = ExtResource("2_cbteg")
 
 [node name="Hitbox" type="Area2D" parent="."]
-collision_mask = 32770
+collision_layer = 0
+collision_mask = 2
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("RectangleShape2D_5pltj")
@@ -74,4 +233,13 @@ libraries = {
 &"": SubResource("AnimationLibrary_5pltj")
 }
 
-[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[node name="DamageAnimPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_oqxk4")
+}
+
+[node name="PhysicsHitbox" type="Area2D" parent="."]
+collision_mask = 32768
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PhysicsHitbox"]
+shape = SubResource("RectangleShape2D_taci8")

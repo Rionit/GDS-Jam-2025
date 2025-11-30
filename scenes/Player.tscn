@@ -569,6 +569,7 @@ _data = {
 }
 
 [node name="PlayerBody" type="CharacterBody2D" node_paths=PackedStringArray("animPlayer", "sprite", "dashTimer", "dashVFX", "damageAnimPlayer", "punchSprite", "fistHitbox", "punchTimer", "weaponHitbox")]
+z_index = 100
 collision_mask = 32768
 motion_mode = 1
 wall_min_slide_angle = 3.1415927
