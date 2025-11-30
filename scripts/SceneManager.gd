@@ -1,7 +1,22 @@
 extends Node2D
 
+const CRANE_ROOM = preload("uid://crx4aobrhhwq7")
+const POKER_ROOM = preload("uid://bxvxx4ayrkyom")
+const ROULETTE_ROOM = preload("uid://dvig0owve3xky")
 const SLOT_MACHINE_ROOM = preload("uid://bw2tnuih4o3ux")
+const TURKISH_ROOM = preload("uid://dydhxfa76s740")
+const MAIN_MENU = preload("uid://b5gqinx15qlw0")
 
+var levels : Array[PackedScene] = [
+	SLOT_MACHINE_ROOM,
+	POKER_ROOM,
+	CRANE_ROOM,
+	#ROULETTE_ROOM,
+	TURKISH_ROOM,
+	MAIN_MENU
+]
+
+var current_level := 0
 
 func transition_to_scene(path: PackedScene) -> void:
 	await GUI.fade_in()            
@@ -9,13 +24,13 @@ func transition_to_scene(path: PackedScene) -> void:
 	await GUI.fade_out()
 
 func next_level():
-	pass
 	# TODO: linear list of levels
-	# get_level() 
-	#transition_to_scene(level)
+	if current_level >= levels.size():
+		current_level = 0
+	
+	transition_to_scene(levels[current_level])
+	current_level += 1
 	activate_perk_machine()
-	# wait
-	# deactivate_perk_machine(), or do it from perkmachine
 	
 
 func _input(event: InputEvent) -> void:
