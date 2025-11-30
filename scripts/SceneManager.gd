@@ -42,6 +42,7 @@ func _input(event: InputEvent) -> void:
 
 func activate_perk_machine():
 	PerkMachine.show()
+	await get_tree().create_timer(2.0).timeout
 	PerkMachine.is_hidden = false
 	
 func deactivate_perk_machine():
@@ -51,4 +52,5 @@ func deactivate_perk_machine():
 	
 	PerkMachine.hide()
 	PerkMachine.is_hidden = true
-		
+	
+	get_tree().current_scene.start_level()

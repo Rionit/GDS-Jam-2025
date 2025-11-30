@@ -1,4 +1,6 @@
 extends Node2D
+class_name Level
+
 
 # Enemy definitions — each with a scene and a count
 @export
@@ -19,7 +21,7 @@ var spawn_list: Array = []
 var leftover_enemies: int = 0
 
 
-func _ready():
+func start_level():
 	_prepare_spawn_list()
 	leftover_enemies = spawn_list.size()
 
@@ -27,7 +29,6 @@ func _ready():
 		var delay = randf_range(min_spawn_interval, max_spawn_interval)
 		await get_tree().create_timer(delay).timeout
 		spawn_enemy(scene)
-
 
 func _prepare_spawn_list():
 	spawn_list.clear()
