@@ -71,6 +71,14 @@ func _ready() -> void:
 	icon_spinner_2.on_spinned.connect(stop_spinning_callback)
 	icon_spinner_3.on_spinned.connect(stop_spinning_callback)
 
+func fade_in_buttons():
+	var tween = get_tree().create_tween().set_ease(Tween.EASE_OUT)
+	tween.parallel().tween_property(play_button, "position:y", 32.0, 1.5)
+	tween.parallel().tween_proprerty(play_button, "modulate:a", 1.0, 1.5)
+	tween.parallel().tween_property(roll_again_button, "position:y", 35.0, 1.5)
+	tween.parallel().tween_proprerty(roll_again_button, "modulate:a", 1.0, 1.5)
+	
+
 func _unhandled_input(event: InputEvent) -> void:
 	if is_hidden:
 		return
