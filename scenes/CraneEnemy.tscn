@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bv6tetdqw3d5g"]
+[gd_scene load_steps=6 format=3 uid="uid://bv6tetdqw3d5g"]
 
 [ext_resource type="Script" uid="uid://djam0iuncswdf" path="res://scripts/CraneEnemy.gd" id="1_pwusg"]
+[ext_resource type="Texture2D" uid="uid://bdq6xts3oknfm" path="res://sprites/Enemies/claw/claw1.png" id="2_3iieu"]
 [ext_resource type="Texture2D" uid="uid://do5j8cs2582jy" path="res://sprites/icons/diamond_icon.png" id="2_pwusg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ewppr"]
@@ -9,14 +10,6 @@
 
 [node name="CraneEnemy" type="CharacterBody2D"]
 script = ExtResource("1_pwusg")
-speed = null
-damping = null
-timeNearPlayerCooldown = null
-closeDistance = null
-hitForce = null
-invulnerabilityDuration = null
-damage = null
-price = null
 metadata/_custom_type_script = "uid://d4bkufc53swo1"
 
 [node name="CraneShape" type="CollisionShape2D" parent="."]
@@ -28,6 +21,9 @@ shape = SubResource("RectangleShape2D_ewppr")
 shape = SubResource("RectangleShape2D_pwusg")
 
 [node name="CraneSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_3iieu")
+vframes = 2
+frame = 1
 
 [node name="ShadowSprite" type="Sprite2D" parent="."]
 modulate = Color(0, 0, 0, 0.33333334)

@@ -33,6 +33,7 @@ func _process(delta):
 	velocity *= damping
 	
 func grab():
+	pass
 	
 	
 func take_damage(damage : int, hitterPosition : Vector2):
