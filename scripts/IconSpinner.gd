@@ -60,6 +60,7 @@ func _move_and_wrap(icon: Icon, delta: float, ease_factor: float) -> void:
 		wraps_done += 1
 
 func _align_and_stop():
+	AudioManager.play_sfx(load("res://sound/perk_machine/text_short.wav"))
 	var final_perk = PerkMachine.get_final_perk()
 	icon_2.change_icon(final_perk)
 	rich_text_label.text = final_perk.format_text()
@@ -69,6 +70,7 @@ func _align_and_stop():
 	spinning = false
 
 	var tween = create_tween()
+	
 	tween.set_trans(Tween.TRANS_SPRING).set_ease(Tween.EASE_OUT)
 	tween.parallel().tween_property(icon_1, "position:y", -icon_height, 0.5)
 	tween.parallel().tween_property(icon_2, "position:y", 0, 0.5)
