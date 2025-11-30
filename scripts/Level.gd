@@ -12,7 +12,6 @@ var enemy_defs = [
 
 
 @export var min_spawn_interval: float = 0.5
-
 @export var max_spawn_interval: float = 3.0
 
 # [Card, Card, Card, Crane, Crane, SlotMachine]

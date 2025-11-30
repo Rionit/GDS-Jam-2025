@@ -25,9 +25,13 @@ var dampeningFactorStationary = 0.90
 @export_range(50, 1000)
 var moveSpeed = 50
 
+const MOVE_SPEED_BASE = 50
+
 ## Player's dash speed, in units per second
 @export_range(50,1000)
 var dashSpeed = 1000
+
+const DASH_SPEED_BASE = 1000
 
 ## Duration of the dash taking effect
 @export_range(0,1)
@@ -112,7 +116,7 @@ var maxSanity = 300
 
 ## Player's sanity loss
 @export
-var sanityLoss = 10
+var sanityLoss = 30
 
 @onready
 var currentSanity = maxSanity
@@ -132,11 +136,12 @@ var fistHitbox : Area2D
 
 ## Cooldown between 
 @export_range(0.1, 5)
-var punchCooldown = 1.0
+var punchCooldown = 0.6
+const PUNCH_COOLDOWN_BASE = 0.6
 
 ## Duration of the punch animation
 @export_range(0.1, 2)
-var punchDuration = 0.6
+var punchDuration = 0.4
 
 @export
 var punchTimer : Timer
@@ -157,6 +162,33 @@ func _ready() -> void:
 	pressedMoveKeys = []
 	on_balding.connect(PerkMachine.on_balding)
 	defaultPunchAnimLen = animPlayer.get_animation("PunchAnim").length
+
+func reset_perks():
+	moveSpeed = MOVE_SPEED_BASE
+	punchCooldown = PUNCH_COOLDOWN_BASE
+	
+func set_perks():
+	var cd_val = 100
+	var move_val = 100
+	
+	var b_cooldown = PerkMachine.return_perk(Perk.PerkEnum.B_PLAYER_COOLDOWN)
+	var d_cooldown = PerkMachine.return_perk(Perk.PerkEnum.D_PLAYER_COOLDOWN)
+	
+	var b_movement = PerkMachine.return_perk(Perk.PerkEnum.B_PLAYER_MOVEMENT)
+	var d_movement = PerkMachine.return_perk(Perk.PerkEnum.D_PLAYER_MOVEMENT)
+	
+	for b_cd_val in b_cooldown:
+		cd_val += b_cd_val * PerkMachine.current_perk_modifier
+	for d_cd_val in d_cooldown:
+		cd_val -= d_cd_val * PerkMachine.current_perk_modifier
+	
+	for b_mov_val in b_movement:
+		move_val += b_mov_val * PerkMachine.current_perk_modifier
+	for d_mov_val in d_movement:
+		move_val -= d_mov_val * PerkMachine.current_perk_modifier
+		
+	moveSpeed = MOVE_SPEED_BASE * (move_val / 100)
+	punchCooldown = PUNCH_COOLDOWN_BASE * (100 / cd_val)
 
 func _physics_process(delta: float) -> void:
 	if PerkMachine.visible:
@@ -375,8 +407,15 @@ func take_damage(damage : int, hitterPosition : Vector2):
 	if currentSanity <= 0:
 		baldness += 1
 		if baldness == 4:
+			isDying = true
 			on_death.emit(self)
-			queue_free()
+			animPlayer.stop()
+			animPlayer.play("RESET")
+			animPlayer.queue("HairLossAnim")
+			await animPlayer.animation_changed
+			await animPlayer.animation_finished
+			
+			SceneManager.transition_to_scene(SceneManager.MAIN_MENU)
 			pass
 		else:
 			hairlossKnockback.force_shapecast_update()
