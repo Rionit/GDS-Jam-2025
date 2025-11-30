@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 PerkMachine="*res://scenes/PerkMachine.tscn"
 Player="*res://scenes/Player.tscn"
 GUI="*res://scenes/GUI.tscn"
+AudioManager="*res://scenes/AudioManager.tscn"
 
 [display]
 

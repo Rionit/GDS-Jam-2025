@@ -23,9 +23,11 @@ func _input(event: InputEvent) -> void:
 		tween.tween_property(self, "scale", Vector2.ONE, 0.2)
 		await tween.finished
 		selected_choice.emit(choice)
+		AudioManager.play_sfx(load("res://sound/UI_sounds/click.wav"))
 		print("selected " + str(choice))
 
 func on_mouse_entered():
+	AudioManager.play_sfx(load("res://sound/UI_sounds/hovering.wav"))
 	mouse_in = true
 	var tween = create_tween()
 	tween.set_trans(Tween.TRANS_CUBIC)

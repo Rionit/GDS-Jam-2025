@@ -56,6 +56,9 @@ func _ready() -> void:
 	
 func _unhandled_input(event: InputEvent) -> void:
 	#if event.is_action_pressed("attack"):
+		#AudioManager.play_music(load("res://sound/levels/music_bg.wav"))
+		#AudioManager.fade_in_music()
+		
 		#Player.money += 100
 		#GUI.update_money(Player.money)
 	
