@@ -93,7 +93,13 @@ var canMove = true
 var afterDashDamp = false
 
 @export_group("COMBAT")
+## Invoked when the player balds, but doesn't die.
+##
+## Current baldness level is passed as a parameter
 signal on_balding(baldness : int)
+
+## Invoked when player receives damage
+signal on_damage_taken(damage : int)
 
 ## Player's maximum sanity
 @export
@@ -135,6 +141,9 @@ var canPunch = true
 var defaultPunchAnimLen
 
 var playingPunch = false
+
+
+var money = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -346,14 +355,26 @@ func _punch():
 func take_damage(damage : int, hitterPosition : Vector2):
 	currentSanity -= damage
 	if currentSanity <= 0:
-		animPlayer.stop()
-		animPlayer.play("HairLossAnim")
-		hairlossKnockback.force_shapecast_update()
-		for i in range(hairlossKnockback.get_collision_count()):
-			var collision : Area2D = hairlossKnockback.get_collider(i)
-			var collisionParent = collision.get_parent()
+		baldness += 1
+		if baldness == 3:
+			# TODO: Die
+			pass
+		else:
+			on_balding.emit(baldness)
+			animPlayer.stop()
+			animPlayer.play("HairLossAnim")
+			hairlossKnockback.force_shapecast_update()
+			for i in range(hairlossKnockback.get_collision_count()):
+				var collision : Area2D = hairlossKnockback.get_collider(i)
+				var collisionParent = collision.get_parent()
+				if collisionParent is Hittable:
+					(collisionParent as Hittable).take_knockback(global_position)
+	else:
+		on_damage_taken.emit(damage)
+		
 			
 		
 		# TODO: Add knockback for enemy entities
-	
+
+
 	

@@ -1,15 +1,17 @@
-[gd_scene load_steps=25 format=3 uid="uid://bte3wxufl3bcx"]
+[gd_scene load_steps=27 format=3 uid="uid://bte3wxufl3bcx"]
 
 [ext_resource type="Script" uid="uid://c36mp8nstsfe6" path="res://scripts/PlayerController.gd" id="1_3li8b"]
 [ext_resource type="Texture2D" uid="uid://clr8t4qgvdppx" path="res://sprites/player/animations/walking/player_idle.png" id="2_mdl7e"]
 [ext_resource type="Texture2D" uid="uid://bfnnsbty00e4" path="res://sprites/player/animations/dash/dash_VFX.png" id="3_70d11"]
 [ext_resource type="Texture2D" uid="uid://6lyhpyqot7wu" path="res://sprites/player/animations/walking/player_walk.png" id="3_qu4a1"]
-[ext_resource type="Texture2D" uid="uid://8qknvdw4j4hn" path="res://sprites/player/hair_regression/hair1.png" id="4_bruh7"]
 [ext_resource type="Texture2D" uid="uid://cf8tg0on1lbsb" path="res://sprites/player/animations/fight/fists/fist_VFX.png" id="4_khinc"]
+[ext_resource type="Texture2D" uid="uid://8qknvdw4j4hn" path="res://sprites/player/hair_regression/hair1.png" id="4_lkdrv"]
 [ext_resource type="Texture2D" uid="uid://dkny24ay5en4n" path="res://sprites/player/animations/dash/player_dash.png" id="4_mdl7e"]
 [ext_resource type="Texture2D" uid="uid://dw7ch4spj7yfe" path="res://sprites/player/hair_regression/hair3.png" id="5_6eyey"]
 [ext_resource type="Texture2D" uid="uid://dbgurxir4l6pb" path="res://sprites/player/animations/walking/player_idle1.png" id="5_qu4a1"]
 [ext_resource type="Texture2D" uid="uid://cnll57kdrc302" path="res://sprites/player/animations/fight/player_fist.png" id="8_bruh7"]
+[ext_resource type="Texture2D" uid="uid://cbq720yu76ue0" path="res://sprites/player/animations/health_lose/health2.png" id="8_lkdrv"]
+[ext_resource type="Texture2D" uid="uid://dpgmccbckcfnm" path="res://sprites/player/animations/health_lose/health3.png" id="9_p7iby"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3li8b"]
 radius = 24.063549
@@ -202,6 +204,30 @@ tracks/8/keys = {
 "update": 0,
 "values": [1.0, 0.0]
 }
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("PlayerSprite:texture")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.95),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("8_lkdrv"), ExtResource("9_p7iby"), ExtResource("2_mdl7e")]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("HairSprite:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 0.95),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(-10, -88), Vector2(-6, -86)]
+}
 
 [sub_resource type="Animation" id="Animation_70d11"]
 resource_name = "IdleAnim"
@@ -330,7 +356,7 @@ tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
 tracks/3/type = "bezier"
@@ -341,7 +367,7 @@ tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
 tracks/4/type = "bezier"
@@ -352,7 +378,7 @@ tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
 tracks/5/type = "value"
@@ -427,6 +453,18 @@ tracks/10/keys = {
 "update": 1,
 "values": [1.0]
 }
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("PlayerSprite:texture")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_mdl7e")]
+}
 
 [sub_resource type="Animation" id="Animation_dqkch"]
 resource_name = "WalkingAnim"
@@ -468,7 +506,6 @@ dashTimer = NodePath("DashTimer")
 dashVFX = NodePath("DashSprite")
 punchSprite = NodePath("FistHitbox/PunchSprite")
 fistHitbox = NodePath("FistHitbox")
-punchCooldown = 0.2
 punchTimer = NodePath("PunchTimer")
 
 [node name="PhysicalHitbox" type="CollisionShape2D" parent="."]
@@ -483,14 +520,14 @@ scale = Vector2(0.8, 0.8)
 texture = ExtResource("3_70d11")
 
 [node name="PlayerSprite" type="Sprite2D" parent="."]
-modulate = Color(1, 0, 0, 0)
 texture = ExtResource("2_mdl7e")
 
 [node name="HairSprite" type="Sprite2D" parent="."]
 position = Vector2(-7, -87)
-texture = ExtResource("4_bruh7")
+texture = ExtResource("4_lkdrv")
 
 [node name="HairlossKnockback" type="ShapeCast2D" parent="."]
+visible = false
 scale = Vector2(30, 30)
 enabled = false
 shape = SubResource("CircleShape2D_6eyey")
@@ -501,21 +538,17 @@ collide_with_bodies = false
 
 [node name="HairLosingParent" type="Node2D" parent="."]
 position = Vector2(1, -3)
-rotation = 4.708089
 
 [node name="HairStrand1" type="Sprite2D" parent="HairLosingParent"]
 texture = ExtResource("5_6eyey")
 
 [node name="HairStrand2" type="Sprite2D" parent="HairLosingParent"]
-modulate = Color(1, 1, 1, 0.00091255456)
 texture = ExtResource("5_6eyey")
 
 [node name="HairStrand3" type="Sprite2D" parent="HairLosingParent"]
-modulate = Color(1, 1, 1, 0.00091255456)
 texture = ExtResource("5_6eyey")
 
 [node name="HairStrand4" type="Sprite2D" parent="HairLosingParent"]
-modulate = Color(1, 1, 1, 0.00091255456)
 texture = ExtResource("5_6eyey")
 
 [node name="FistHitbox" type="Area2D" parent="."]
