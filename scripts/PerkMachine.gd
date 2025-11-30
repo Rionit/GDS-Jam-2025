@@ -40,6 +40,8 @@ var all_perks: Array[Perk] = [
 	D_PLAYER_MOVEMENT
 ]
 
+const SOUND_BG = preload("uid://bxyy0ae8omrax")
+
 var is_hidden : bool = true
 var current_baldness := 0
 
@@ -55,10 +57,10 @@ func _ready() -> void:
 	hide()
 	
 func _unhandled_input(event: InputEvent) -> void:
-	#if event.is_action_pressed("attack"):
+	if event.is_action_pressed("attack"):
 		#AudioManager.play_music(load("res://sound/levels/music_bg.wav"))
 		#AudioManager.fade_in_music()
-		
+		spin_machine()
 		#Player.money += 100
 		#GUI.update_money(Player.money)
 	
@@ -70,6 +72,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		is_hidden = !is_hidden
 
 func spin_machine():
+	AudioManager.play_sfx(load("res://sound/perk_machine/coins_spin.wav"))
 	icon_spinner_1.cycles = spin_length
 	icon_spinner_1.spin()
 	icon_spinner_2.cycles = spin_length + 6
