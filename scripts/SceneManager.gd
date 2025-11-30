@@ -16,6 +16,7 @@ var levels : Array[PackedScene] = [
 	#ROULETTE_ROOM,
 	TURKISH_ROOM,
 	TURKISH_GUY,
+	CRANE_ROOM,
 	END
 ]
 
@@ -38,7 +39,7 @@ func next_level():
 	await transition_to_scene(levels[current_level])
 	Player.position = Vector2(180, 620)
 	
-	if levels[current_level] != TURKISH_ROOM and levels[current_level] != TURKISH_GUY:
+	if levels[current_level] != TURKISH_ROOM and levels[current_level] != TURKISH_GUY and levels[current_level] != END:
 		activate_perk_machine()
 	else:
 		GUI.hider.hide()
