@@ -115,9 +115,6 @@ var sanityLoss = 10
 @onready
 var currentSanity = maxSanity
 
-@export
-var playerDamage = 10
-
 var baldness = 0
 
 ## Punch VFX sprite
@@ -145,23 +142,15 @@ var defaultPunchAnimLen
 
 var playingPunch = false
 
-
 var money = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	super()
 	punchSprite.visible = false
 	pressedMoveKeys = []
 	on_balding.connect(PerkMachine.on_balding)
 	defaultPunchAnimLen = animPlayer.get_animation("PunchAnim").length
-	fistHitbox.area_entered.connect(check_hit)
-
-func check_hit(potentialTarget : Area2D):
-	var parent = potentialTarget.get_parent()
-	if potentialTarget.get_parent() is Hittable && \
-	!(parent as Hittable).isInvulnerable && \
-	(!parent as Hittable).isDying:
-		(parent as Hittable).take_damage(playerDamage, global_position)
 
 func _physics_process(delta: float) -> void:
 	_register_keys()

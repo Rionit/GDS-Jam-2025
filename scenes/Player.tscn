@@ -495,7 +495,7 @@ _data = {
 &"WalkingAnim": SubResource("Animation_dqkch")
 }
 
-[node name="PlayerBody" type="CharacterBody2D" node_paths=PackedStringArray("animPlayer", "sprite", "dashTimer", "dashVFX", "punchSprite", "fistHitbox", "punchTimer")]
+[node name="PlayerBody" type="CharacterBody2D" node_paths=PackedStringArray("animPlayer", "sprite", "dashTimer", "dashVFX", "punchSprite", "fistHitbox", "punchTimer", "weaponHitbox")]
 collision_mask = 32768
 motion_mode = 1
 wall_min_slide_angle = 3.1415927
@@ -509,6 +509,7 @@ dashVFX = NodePath("DashSprite")
 punchSprite = NodePath("FistHitbox/PunchSprite")
 fistHitbox = NodePath("FistHitbox")
 punchTimer = NodePath("PunchTimer")
+weaponHitbox = NodePath("FistHitbox")
 
 [node name="PhysicalHitbox" type="CollisionShape2D" parent="."]
 position = Vector2(4, 80)
