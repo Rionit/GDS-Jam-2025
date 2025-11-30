@@ -116,8 +116,10 @@ func spin_machine():
 	if currentNumRolls == 0:
 		currentPrice += 100
 	else:
+		Player.lose_money(currentPrice)
 		currentPrice *= 2
 		current_perk_modifier *= 2
+		
 
 	currentNumRolls += 1
 	perks = []
