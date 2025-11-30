@@ -180,14 +180,14 @@ func set_perks():
 	var d_movement = PerkMachine.return_perk(Perk.PerkEnum.D_PLAYER_MOVEMENT)
 	
 	for b_cd_val in b_cooldown:
-		cd_val += b_cd_val * PerkMachine.current_perk_modifier
+		cd_val += b_cd_val.value * PerkMachine.current_perk_modifier
 	for d_cd_val in d_cooldown:
-		cd_val -= d_cd_val * PerkMachine.current_perk_modifier
+		cd_val -= d_cd_val.value * PerkMachine.current_perk_modifier
 	
 	for b_mov_val in b_movement:
-		move_val += b_mov_val * PerkMachine.current_perk_modifier
+		move_val += b_mov_val.value * PerkMachine.current_perk_modifier
 	for d_mov_val in d_movement:
-		move_val -= d_mov_val * PerkMachine.current_perk_modifier
+		move_val -= d_mov_val.value * PerkMachine.current_perk_modifier
 		
 	moveSpeed = MOVE_SPEED_BASE * (move_val / 100)
 	punchCooldown = PUNCH_COOLDOWN_BASE * (100 / cd_val)

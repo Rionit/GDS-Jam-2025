@@ -43,18 +43,18 @@ func set_perks():
 	var d_sp = PerkMachine.return_perk(Perk.PerkEnum.D_ENEMY_MOVEMENT)
 	
 	for bhp in b_hp:
-		hp_mod -= bhp * modif
+		hp_mod -= bhp.value * modif
 	for dhp in d_hp:
-		hp_mod += dhp * modif
+		hp_mod += dhp.value * modif
 	for bsp in b_sp:
-		sp_mod -= bsp * modif
+		sp_mod -= bsp.value * modif
 	for dsp in d_sp:
-		sp_mod += dsp * modif
+		sp_mod += dsp.value * modif
 		
 	for cd in bcd:
-		cd_mod += cd * modif
+		cd_mod += cd.value * modif
 	for cd in dcd:
-		cd_mod -= cd * modif
+		cd_mod -= cd.value * modif
 	
 	max_cooldown = COOLDOWN_BASE * (cd_mod/100)
 	max_speed = MAX_SPEED_BASE * (sp_mod/100)
