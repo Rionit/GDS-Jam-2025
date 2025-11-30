@@ -1,0 +1,34 @@
+[gd_scene load_steps=4 format=3 uid="uid://crx4aobrhhwq7"]
+
+[ext_resource type="Texture2D" uid="uid://drnysyan1ope3" path="res://sprites/levels/lvl_ruka.png" id="1_uvu2y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mou3t"]
+size = Vector2(200, 1463)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j5ccd"]
+size = Vector2(1937, 280)
+
+[node name="CraneRoom" type="Node2D"]
+
+[node name="Map" type="Sprite2D" parent="."]
+position = Vector2(960, 540)
+texture = ExtResource("1_uvu2y")
+
+[node name="Walls" type="StaticBody2D" parent="."]
+collision_layer = 32768
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls"]
+position = Vector2(-49, 505)
+shape = SubResource("RectangleShape2D_mou3t")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls"]
+position = Vector2(1972, 505)
+shape = SubResource("RectangleShape2D_mou3t")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Walls"]
+position = Vector2(959, -17)
+shape = SubResource("RectangleShape2D_j5ccd")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Walls"]
+position = Vector2(959, 1148)
+shape = SubResource("RectangleShape2D_j5ccd")

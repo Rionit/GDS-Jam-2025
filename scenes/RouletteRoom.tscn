@@ -1,8 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://dvig0owve3xky"]
+[gd_scene load_steps=6 format=3 uid="uid://dvig0owve3xky"]
 
 [ext_resource type="Script" uid="uid://5ref7twkeier" path="res://scripts/Roulette.gd" id="1_26aty"]
 [ext_resource type="Texture2D" uid="uid://dfh631xdegv45" path="res://sprites/levels/lvl_ruleta.png" id="1_q5qch"]
 [ext_resource type="Texture2D" uid="uid://c7ive2fj6w8d7" path="res://icon.svg" id="2_acphh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_26aty"]
+size = Vector2(200, 1463)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gtyvh"]
+size = Vector2(1937, 182)
 
 [node name="Roulette" type="Node2D"]
 script = ExtResource("1_26aty")
@@ -77,3 +83,22 @@ position = Vector2(1240, 65)
 
 [node name="Marker2D20" type="Marker2D" parent="Markers"]
 position = Vector2(958, 65)
+
+[node name="Walls" type="StaticBody2D" parent="."]
+collision_layer = 32768
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls"]
+position = Vector2(-49, 505)
+shape = SubResource("RectangleShape2D_26aty")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls"]
+position = Vector2(1972, 505)
+shape = SubResource("RectangleShape2D_26aty")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Walls"]
+position = Vector2(958.5, 31)
+shape = SubResource("RectangleShape2D_gtyvh")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Walls"]
+position = Vector2(958.5, 1102)
+shape = SubResource("RectangleShape2D_gtyvh")
