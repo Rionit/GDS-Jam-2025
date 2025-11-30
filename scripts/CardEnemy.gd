@@ -42,6 +42,7 @@ func take_damage(damage : int, hitterPosition : Vector2):
 	if health <= 0:
 		die()
 	else:
+		gain_invulnerability()
 		damage_anim_player.play("DamageAnimation")
 		
 func die():
