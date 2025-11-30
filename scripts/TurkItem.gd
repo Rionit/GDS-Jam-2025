@@ -26,6 +26,7 @@ func _input(event: InputEvent) -> void:
 		selected_choice.emit(choice)
 		AudioManager.play_sfx(load("res://sound/UI_sounds/click.wav"))
 		print("selected " + str(choice))
+		SceneManager.next_level()
 
 func on_mouse_entered():
 	AudioManager.play_sfx(load("res://sound/UI_sounds/hovering.wav"))
