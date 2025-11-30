@@ -50,6 +50,8 @@ var defaultDashSpriteX = dashVFX.position.x
 @export
 var dashVFXAnimDistance = 20
 
+@onready var hairlossKnockback: ShapeCast2D = $HairlossKnockback
+
 ## Minimum squared velocity size for the player to animate walking
 const MIN_SPEED_SQUARED = 4000
 
@@ -341,3 +343,12 @@ func _punch():
 	canPunch = true
 	
 # TODO: Take damage
+func take_damage(damage : int, hitterPosition : Vector2):
+	currentSanity -= damage
+	if currentSanity <= 0:
+		animPlayer.stop()
+		animPlayer.play("HairLossAnim")
+		
+		# TODO: Add knockback for enemy entities
+	
+	

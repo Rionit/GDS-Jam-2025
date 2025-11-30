@@ -10,6 +10,7 @@ const textures: Array[Texture] = [SLOTMACHINE_BLUE, SLOTMACHINE_GREEN, SLOTMACHI
 @onready var sprite_2d: Sprite2D = $MotherFlipper/MachineSprite
 @onready var mother_flipper: Node2D = $MotherFlipper
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var attack_timer: Timer = $AttackTimer
 
 var max_speed := 300
 var max_accel := 800
@@ -19,39 +20,41 @@ var is_attacking := false
 
 var health : int = 30
 
-var isKnockedBack = false
-
 func _ready() -> void:
 	sprite_2d.texture = textures.pick_random()
 	vfx_sprite.modulate.a = 0.0
 
 func _process(delta: float) -> void:
-	if !isKnockedBack:
-		var dist_to_player = global_position.distance_to(Player.global_position)
+	if !isDying:
+		if !isKnockedBack:
+			var dist_to_player = global_position.distance_to(Player.global_position)
 
-		# Move toward player using arrive
-		var steering := arrive(Player.global_position)
+			# Move toward player using arrive
+			var steering := arrive(Player.global_position)
 
-		# stop when close
-		if dist_to_player <= stop_distance:
-			if !is_attacking:
-				is_attacking = true
-				get_tree().create_timer(max_cooldown).timeout.connect(attack)
-			var vectorFromPlayer = (global_position - Player.global_position).normalized()
-			steering = vectorFromPlayer * velocity.length()
+			# stop when close
+			if dist_to_player <= stop_distance:
+				if !is_attacking:
+					is_attacking = true
+					if attack_timer.time_left == 0:
+						attack_timer.wait_time = max_cooldown
+						attack_timer.timeout.connect(attack)
+						attack_timer.start()
+				var vectorFromPlayer = (global_position - Player.global_position).normalized()
+				steering = vectorFromPlayer * velocity.length()
 
-		#velocity += steering * delta
-	#
-		#if velocity.length() > max_speed:
-			#velocity = velocity.normalized() * max_speed
+			#velocity += steering * delta
+		#
+			#if velocity.length() > max_speed:
+				#velocity = velocity.normalized() * max_speed
 
-		self.velocity += steering * delta
+			self.velocity += steering * delta
 
-		var isLeft = 1 if velocity.x >= 0 else -1
-		mother_flipper.scale.x = isLeft
-	else:
-		velocity *= 0.93
-	move_and_slide()
+			var isLeft = 1 if velocity.x >= 0 else -1
+			mother_flipper.scale.x = isLeft
+		else:
+			velocity *= 0.93
+		move_and_slide()
 
 ## Arrive at a static target
 func arrive(target_pos: Vector2) -> Vector2:
@@ -83,27 +86,32 @@ func attack():
 	animation_player.speed_scale = max(1 / max_cooldown, 1.0)
 	animation_player.play("attack")
 	await animation_player.animation_finished
+	attack_timer.timeout.disconnect(attack)
 	is_attacking = false
 
 func take_damage(damage : int, hitterPosition : Vector2):
-	take_knockback(hitterPosition)
-	animation_player.play("damage")
-	
 	health -= damage
-	print("Taking damage!")
 	if health <= 0:
 		on_death.emit((self as Hittable))
-		queue_free()
+		die()
 	else:
+		take_knockback(hitterPosition)
+		animation_player.play("damage")
 		gain_invulnerability()
 	
-func take_knockback(hitterPosition : Vector2):
-	isKnockedBack = true
-	var knockbackVector = (global_position - hitterPosition).normalized()
-	print("Pre-knockback velocity: " + str(velocity))
-	print("- knockback vector: " + str(knockbackVector * hitForce * 20)) 
-	velocity = knockbackVector * hitForce * 80
-	print("Post-knockback velocity: " + str(velocity))
+func die():
+	isDying = true
+	print("DYING!")
 	
-	await get_tree().create_timer(0.6).timeout
-	isKnockedBack = false
+	attack_timer.timeout.disconnect(attack)
+	attack_timer.stop()
+	
+	$BodyHitbox.collision_layer = 0
+	if animation_player.is_playing():
+		animation_player.stop()
+	animation_player.play("death")
+	velocity = Vector2.ZERO
+	await animation_player.animation_finished
+	
+	queue_free()
+	
