@@ -7,6 +7,7 @@ const SLOT_MACHINE_ROOM = preload("uid://bw2tnuih4o3ux")
 const TURKISH_ROOM = preload("uid://dydhxfa76s740")
 const MAIN_MENU = preload("uid://b5gqinx15qlw0")
 const TURKISH_GUY = preload("uid://phejuxsn6sro")
+const END = preload("res://scenes/end.tscn")
 
 var levels : Array[PackedScene] = [
 	SLOT_MACHINE_ROOM,
@@ -15,7 +16,7 @@ var levels : Array[PackedScene] = [
 	#ROULETTE_ROOM,
 	TURKISH_ROOM,
 	TURKISH_GUY,
-	MAIN_MENU
+	END
 ]
 
 var current_level := 0
