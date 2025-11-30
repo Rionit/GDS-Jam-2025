@@ -1,8 +1,5 @@
 extends Control
 
-signal manually_spinned
-
-
 const HEAD_1 = preload("uid://cvgl2r36o4ouv")
 const HEAD_2 = preload("uid://d4iktmothva75")
 const HEAD_3 = preload("uid://b7fh3upa4leob")
@@ -58,10 +55,6 @@ func _ready() -> void:
 	hide()
 	
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_accept"):
-		manually_spinned.emit()
-		spin_machine()
-	
 	if event.is_action_pressed("debug"):
 		if is_hidden:
 			show()

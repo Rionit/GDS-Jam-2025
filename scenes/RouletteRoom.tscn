@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://dvig0owve3xky"]
 
-[ext_resource type="Script" uid="uid://5ref7twkeier" path="res://scripts/Roulette.gd" id="1_26aty"]
-[ext_resource type="Texture2D" uid="uid://dfh631xdegv45" path="res://sprites/levels/lvl_ruleta.png" id="1_q5qch"]
-[ext_resource type="Texture2D" uid="uid://c7ive2fj6w8d7" path="res://icon.svg" id="2_acphh"]
+[ext_resource type="Script" uid="uid://5ref7twkeier" path="res://scripts/Roulette.gd" id="1_ylbm3"]
+[ext_resource type="Texture2D" uid="uid://dfh631xdegv45" path="res://sprites/levels/lvl_ruleta.png" id="2_u15y7"]
+[ext_resource type="Texture2D" uid="uid://c7ive2fj6w8d7" path="res://icon.svg" id="3_hrl7o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_26aty"]
 size = Vector2(200, 1463)
@@ -11,16 +11,16 @@ size = Vector2(200, 1463)
 size = Vector2(1937, 182)
 
 [node name="Roulette" type="Node2D"]
-script = ExtResource("1_26aty")
+script = ExtResource("1_ylbm3")
 
 [node name="Map" type="Sprite2D" parent="."]
 position = Vector2(960, 540)
-texture = ExtResource("1_q5qch")
+texture = ExtResource("2_u15y7")
 
 [node name="Ball" type="Sprite2D" parent="."]
 position = Vector2(957.99994, 57.999996)
 scale = Vector2(0.35, 0.35)
-texture = ExtResource("2_acphh")
+texture = ExtResource("3_hrl7o")
 
 [node name="Markers" type="Node2D" parent="."]
 

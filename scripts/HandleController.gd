@@ -20,41 +20,13 @@ var step_distance := 100.0
 
 func _ready() -> void:
 	handle_pulled.connect(PerkMachine.spin_machine)
-	PerkMachine.manually_spinned.connect(animate_handle)
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("attack") and mouse_over:
-		mouse_down = true
-		mouse_start_position = get_global_mouse_position()
+	#if event.is_action_pressed("attack") and mouse_over:
+		#animate_handle()
+	if event.is_action_pressed("attack"):
+		animate_handle()
 
-	if event.is_action_released("attack"):
-		mouse_down = false
-		for i in range(current_handle):
-			handle.texture = handles[current_handle - i - 1]
-			await get_tree().create_timer(0.2).timeout
-
-func _process(delta: float) -> void:
-	if mouse_down:
-		var current_pos := get_global_mouse_position()
-		var drag_amount := current_pos.y - mouse_start_position.y
-		
-		if drag_amount <= 0:
-			handle.texture = HANDLE_1
-			current_handle = 0
-		elif drag_amount < step_distance:
-			handle.texture = HANDLE_1
-			current_handle = 0
-		elif drag_amount < step_distance * 2:
-			handle.texture = HANDLE_2
-			current_handle = 1
-		elif drag_amount < step_distance * 3:
-			handle.texture = HANDLE_3
-			current_handle = 2
-		else:
-			handle.texture = HANDLE_4
-			current_handle = 3
-			handle_pulled.emit()
-		
 func _on_mouse_entered() -> void:
 	mouse_over = true
 
