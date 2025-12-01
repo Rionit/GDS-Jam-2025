@@ -3,14 +3,19 @@ extends Node2D
 @onready var sfx: AudioStreamPlayer = $SFX
 @onready var music: AudioStreamPlayer = $Music
 
+const AUDIO_SOURCE_SFX = preload("uid://hbvxtjxps7np")
+
 func _ready() -> void:
 	pass
 
 func play_sfx(stream: AudioStream, volume: float = 1.0) -> void:
-	sfx.stream = stream
-	sfx.volume_db = volume
+	var src = AUDIO_SOURCE_SFX.instantiate()
+	add_child(src)
+	src.stream = stream
+	src.volume_db = volume
+	src.finished.connect(func(): src.queue_free())
 	print("playing sound " + stream.resource_path)
-	sfx.play()
+	src.play()
 
 func play_music(stream: AudioStream, volume: float = -80.0) -> void:
 	music.stream = stream
@@ -21,11 +26,11 @@ func play_music(stream: AudioStream, volume: float = -80.0) -> void:
 func stop_music() -> void:
 	music.stop()
 
-func fade_in_music(duration: float = 1.0):
-	fade_music(0.0, Tween.EASE_IN, duration)
+func fade_in_music(duration: float = 1.0, target_db: float = 0.0):
+	fade_music(target_db, Tween.EASE_IN, duration)
 	
-func fade_out_music(duration: float = 1.0):
-	fade_music(-80.0, Tween.EASE_OUT, duration)
+func fade_out_music(duration: float = 1.0, target_db: float = -80.0):
+	fade_music(target_db, Tween.EASE_OUT, duration)
 
 func fade_music(target_db: float, fade_ease: Tween.EaseType = Tween.EASE_IN_OUT, duration: float = 1.0) -> void:
 	var tween := get_tree().create_tween()

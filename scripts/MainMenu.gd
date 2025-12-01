@@ -12,7 +12,7 @@ var menu_idx := 0
 
 func _ready() -> void:
 	AudioManager.play_music(load("res://sound/levels/music_bg.wav"))
-	AudioManager.fade_in_music()
+	AudioManager.fade_in_music(1.0, -10.0)
 	animate()
 
 func _input(event: InputEvent) -> void:
@@ -46,7 +46,7 @@ func _input(event: InputEvent) -> void:
 	
 
 func animate():
-	AudioManager.play_sfx(load("res://sound/UI_sounds/hovering.wav"), -2.0)
+	AudioManager.play_sfx(load("res://sound/UI_sounds/hovering.wav"), 2.0)
 	highlight.modulate.a = 0.0
 	highlight.global_position = positions[menu_idx].global_position
 	var tween = create_tween()

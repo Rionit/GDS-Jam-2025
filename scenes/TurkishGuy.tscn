@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://phejuxsn6sro"]
+[gd_scene load_steps=17 format=3 uid="uid://phejuxsn6sro"]
 
 [ext_resource type="Script" uid="uid://c7wxgagneqa6o" path="res://scripts/TurkishGuy.gd" id="1_fjaw1"]
 [ext_resource type="Texture2D" uid="uid://chms0qbe17toy" path="res://sprites/turkish_guy/ui_popup/turkish_popup.png" id="1_octnw"]
 [ext_resource type="Texture2D" uid="uid://dj1pfoefhdbxl" path="res://sprites/turkish_guy/ui_popup/choice/scissors.png" id="2_ab764"]
 [ext_resource type="Texture2D" uid="uid://44fjuytsh5n4" path="res://sprites/turkish_guy/ui_popup/text/bg_text.png" id="2_gaw4v"]
+[ext_resource type="Texture2D" uid="uid://3ouh5iunpanh" path="res://sprites/levels/lvl_turkish.png" id="2_semef"]
 [ext_resource type="Texture2D" uid="uid://b26txg4kq8qa1" path="res://sprites/turkish_guy/ui_popup/choice/choice_bg.png" id="3_fjaw1"]
 [ext_resource type="Texture2D" uid="uid://bk28fqyqnb5vj" path="res://sprites/turkish_guy/ui_popup/text/saying.png" id="3_wgo4y"]
 [ext_resource type="Texture2D" uid="uid://8mwda6srfhba" path="res://sprites/turkish_guy/ui_popup/text/fortune.png" id="4_agx18"]
@@ -246,6 +247,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_fjaw1")
+
+[node name="LevelBG" type="TextureRect" parent="."]
+modulate = Color(0.21950102, 0.21950102, 0.21950102, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_semef")
 
 [node name="TextBG" type="TextureRect" parent="."]
 z_index = 2

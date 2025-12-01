@@ -376,7 +376,8 @@ func apply_choice(choice : TurkItem.Choice):
 		on_balding.emit(baldness)
 		maxSanity = MAX_SANITY_DEFAULT
 		currentSanity = maxSanity
-		
+	
+	_switch_hair()
 	GUI.update_sanity(currentSanity)
 
 func _punch():

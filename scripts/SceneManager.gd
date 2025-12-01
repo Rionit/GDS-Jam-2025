@@ -24,11 +24,14 @@ var current_level := 0
 
 func transition_to_scene(path: PackedScene) -> void:
 	await GUI.fade_in()            
+	get_tree().change_scene_to_packed(path)
 	if path == MAIN_MENU or path == TURKISH_GUY:
 		Player.hide()
 	else:
 		Player.show()
-	get_tree().change_scene_to_packed(path)
+	
+	if path == MAIN_MENU:
+		current_level = 0
 	await GUI.fade_out()
 
 func next_level():
