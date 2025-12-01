@@ -10,3 +10,4 @@ max_polyphony = 32
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 volume_db = -80.0
+bus = &"Music"
